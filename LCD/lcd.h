@@ -3,7 +3,7 @@
  *
  * Author: Santiago Pina Ros
  *
- * Size of the code: 1884 bytes
+ * Size of the code: 1926 bytes
  *
  * Useful links:
  * http://www2.cs.uidaho.edu/~rinker/cs452/char-comm.pdf
@@ -37,7 +37,7 @@ uint8_t	lcd_inbyte(uint8_t rs);
 /*
  * Wait for the busy flag to clear.
  */
-void	lcd_wait_ready();
+void	lcd_wait_ready(void);
 
 /*
  * Initialize the LCD controller hardware.
@@ -61,5 +61,11 @@ void	lcd_powerdown(void);
 
 /* Read the current data byte from the LCD. */
 #define lcd_indata()	lcd_inbyte(1)
+
+/* Move the cursor to the first row */
+#define lcd_first_row(void) lcd_outcmd(0x80 | 0x00)
+
+/* Move the cursor to the second row */
+#define lcd_second_row(void) lcd_outcmd(0x80 | 0x40)
 
 #endif // __LCD_H_INCLUDED__ 

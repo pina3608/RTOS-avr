@@ -3,7 +3,7 @@
  *
  * Author: Santiago Pina Ros
  *
- * Size of the code: 1884 bytes
+ * Size of the code: 1926 bytes
  *
  * Useful links:
  * http://www2.cs.uidaho.edu/~rinker/cs452/char-comm.pdf
@@ -26,10 +26,15 @@
  */
 int lcd_putchar(char c, FILE *unused){
 
-	lcd_wait_ready();
-    lcd_outdata(c);
-
-  return 0;
+    if(c == '\n'){
+        lcd_wait_ready();
+        lcd_second_row(); // If we want to print more than one row we need to change this.
+    }
+    else{
+        lcd_wait_ready();
+        lcd_outdata(c);
+    }
+    return 0;
 }
 
 FILE lcd_str = FDEV_SETUP_STREAM(lcd_putchar, NULL, _FDEV_SETUP_WRITE);
@@ -39,7 +44,8 @@ int main(void){
   lcd_init();
   stdout =  &lcd_str;
 
-  printf("Hello World");
+  printf("Hello\nWorld!");
+  lcd_powerdown();
 
   return 0;
 }

@@ -3,7 +3,7 @@
  *
  * Author: Santiago Pina Ros
  *
- * Size of the code: 1884 bytes
+ * Size of the code: 1926 bytes
  *
  * Useful links:
  * http://www2.cs.uidaho.edu/~rinker/cs452/char-comm.pdf
@@ -45,11 +45,12 @@
 /* init LCD macros */
 
 #define INIT_START 0x30
-#define INIT_FSET 0x38
+#define INIT_FSET 0x30
 #define INIT_DOFF 0x08
 #define INIT_DCLEAR 0x01
 #define INIT_ENTRYM 0x06
-#define INIT_DENABLE 0x0C //0x0E
+#define INIT_DENABLE 0x0C 
+#define INIT_MULTILINE 0x38
 
 /*
  * Send one pulse to the E signal (enable). If readback is set to true,
@@ -72,6 +73,7 @@ static uint8_t lcd_pulse_e(bool readback){
 
   return x;
 }
+
 
 /*
  * Send one byte to the LCD controller.
@@ -112,7 +114,7 @@ uint8_t lcd_inbyte(uint8_t rs){
 /*
  * Wait until the busy flag is cleared.
  */
-void lcd_wait_ready(){
+void lcd_wait_ready(void){
 
   while (lcd_incmd() & LCD_BUSYFLAG) ;
 
@@ -125,7 +127,7 @@ void lcd_init(void){
   SET(DDR, LCD_RS);
   SET(DDR, LCD_RW);
   SET(DDR, LCD_E);
-  ASSIGN(DDR, LCD_D0, 0x0F);
+  ASSIGN(DDR, LCD_D0, 0xFF);
 
   _delay_ms(15); // Wait time specified in documentation
   lcd_outcmd(INIT_START);
@@ -157,6 +159,9 @@ void lcd_init(void){
    */
   
   lcd_outcmd(INIT_DENABLE);
+  lcd_wait_ready();
+  
+  lcd_outcmd(INIT_MULTILINE);
   lcd_wait_ready();
 }
 
