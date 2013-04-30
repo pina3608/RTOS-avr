@@ -1,0 +1,530 @@
+Archive member included because of file (symbol)
+
+/usr/local/CrossPack-AVR-20121207/lib/gcc/avr/4.6.2/avr5/libgcc.a(_exit.o)
+                              /usr/local/CrossPack-AVR-20121207/lib/gcc/avr/4.6.2/../../../../avr/lib/avr5/crtm32.o (exit)
+/usr/local/CrossPack-AVR-20121207/lib/gcc/avr/4.6.2/avr5/libgcc.a(_copy_data.o)
+                              uiktest.o (__do_copy_data)
+/usr/local/CrossPack-AVR-20121207/lib/gcc/avr/4.6.2/avr5/libgcc.a(_clear_bss.o)
+                              uiktest.o (__do_clear_bss)
+/usr/local/CrossPack-AVR-20121207/lib/gcc/avr/4.6.2/../../../../avr/lib/avr5/libc.a(calloc.o)
+                              UIKAPI.o (calloc)
+/usr/local/CrossPack-AVR-20121207/lib/gcc/avr/4.6.2/../../../../avr/lib/avr5/libc.a(malloc.o)
+                              UIKAPI.o (malloc)
+/usr/local/CrossPack-AVR-20121207/lib/gcc/avr/4.6.2/../../../../avr/lib/avr5/libc.a(memset.o)
+                              /usr/local/CrossPack-AVR-20121207/lib/gcc/avr/4.6.2/../../../../avr/lib/avr5/libc.a(calloc.o) (memset)
+
+Allocating common symbols
+Common symbol       size              file
+
+tcb                 0x2               UIKAPI.o
+assocEvents         0x10              UIKAPI.o
+currentTCB          0x2               UIKAPI.o
+currentTask         0x1               UIKAPI.o
+__brkval            0x2               /usr/local/CrossPack-AVR-20121207/lib/gcc/avr/4.6.2/../../../../avr/lib/avr5/libc.a(malloc.o)
+__flp               0x2               /usr/local/CrossPack-AVR-20121207/lib/gcc/avr/4.6.2/../../../../avr/lib/avr5/libc.a(malloc.o)
+
+Memory Configuration
+
+Name             Origin             Length             Attributes
+text             0x00000000         0x00020000         xr
+data             0x00800060         0x0000ffa0         rw !x
+eeprom           0x00810000         0x00010000         rw !x
+fuse             0x00820000         0x00000400         rw !x
+lock             0x00830000         0x00000400         rw !x
+signature        0x00840000         0x00000400         rw !x
+*default*        0x00000000         0xffffffff
+
+Linker script and memory map
+
+LOAD /usr/local/CrossPack-AVR-20121207/lib/gcc/avr/4.6.2/../../../../avr/lib/avr5/crtm32.o
+LOAD uiktest.o
+LOAD UIKAPI.o
+LOAD list.o
+LOAD queue.o
+LOAD /usr/local/CrossPack-AVR-20121207/lib/gcc/avr/4.6.2/avr5/libgcc.a
+LOAD /usr/local/CrossPack-AVR-20121207/lib/gcc/avr/4.6.2/../../../../avr/lib/avr5/libc.a
+LOAD /usr/local/CrossPack-AVR-20121207/lib/gcc/avr/4.6.2/avr5/libgcc.a
+
+.hash
+ *(.hash)
+
+.dynsym
+ *(.dynsym)
+
+.dynstr
+ *(.dynstr)
+
+.gnu.version
+ *(.gnu.version)
+
+.gnu.version_d
+ *(.gnu.version_d)
+
+.gnu.version_r
+ *(.gnu.version_r)
+
+.rel.init
+ *(.rel.init)
+
+.rela.init
+ *(.rela.init)
+
+.rel.text
+ *(.rel.text)
+ *(.rel.text.*)
+ *(.rel.gnu.linkonce.t*)
+
+.rela.text
+ *(.rela.text)
+ *(.rela.text.*)
+ *(.rela.gnu.linkonce.t*)
+
+.rel.fini
+ *(.rel.fini)
+
+.rela.fini
+ *(.rela.fini)
+
+.rel.rodata
+ *(.rel.rodata)
+ *(.rel.rodata.*)
+ *(.rel.gnu.linkonce.r*)
+
+.rela.rodata
+ *(.rela.rodata)
+ *(.rela.rodata.*)
+ *(.rela.gnu.linkonce.r*)
+
+.rel.data
+ *(.rel.data)
+ *(.rel.data.*)
+ *(.rel.gnu.linkonce.d*)
+
+.rela.data
+ *(.rela.data)
+ *(.rela.data.*)
+ *(.rela.gnu.linkonce.d*)
+
+.rel.ctors
+ *(.rel.ctors)
+
+.rela.ctors
+ *(.rela.ctors)
+
+.rel.dtors
+ *(.rel.dtors)
+
+.rela.dtors
+ *(.rela.dtors)
+
+.rel.got
+ *(.rel.got)
+
+.rela.got
+ *(.rela.got)
+
+.rel.bss
+ *(.rel.bss)
+
+.rela.bss
+ *(.rela.bss)
+
+.rel.plt
+ *(.rel.plt)
+
+.rela.plt
+ *(.rela.plt)
+
+.text           0x00000000      0xed4
+ *(.vectors)
+ .vectors       0x00000000       0x54 /usr/local/CrossPack-AVR-20121207/lib/gcc/avr/4.6.2/../../../../avr/lib/avr5/crtm32.o
+                0x00000000                __vectors
+                0x00000000                __vector_default
+ *(.vectors)
+ *(.progmem.gcc*)
+ *(.progmem*)
+                0x00000054                . = ALIGN (0x2)
+                0x00000054                __trampolines_start = .
+ *(.trampolines)
+ .trampolines   0x00000054        0x0 linker stubs
+ *(.trampolines*)
+                0x00000054                __trampolines_end = .
+ *(.jumptables)
+ *(.jumptables*)
+ *(.lowtext)
+ *(.lowtext*)
+                0x00000054                __ctors_start = .
+ *(.ctors)
+                0x00000054                __ctors_end = .
+                0x00000054                __dtors_start = .
+ *(.dtors)
+                0x00000054                __dtors_end = .
+ SORT(*)(.ctors)
+ SORT(*)(.dtors)
+ *(.init0)
+ .init0         0x00000054        0x0 /usr/local/CrossPack-AVR-20121207/lib/gcc/avr/4.6.2/../../../../avr/lib/avr5/crtm32.o
+                0x00000054                __init
+ *(.init0)
+ *(.init1)
+ *(.init1)
+ *(.init2)
+ .init2         0x00000054        0xc /usr/local/CrossPack-AVR-20121207/lib/gcc/avr/4.6.2/../../../../avr/lib/avr5/crtm32.o
+ *(.init2)
+ *(.init3)
+ *(.init3)
+ *(.init4)
+ .init4         0x00000060       0x16 /usr/local/CrossPack-AVR-20121207/lib/gcc/avr/4.6.2/avr5/libgcc.a(_copy_data.o)
+                0x00000060                __do_copy_data
+ .init4         0x00000076       0x10 /usr/local/CrossPack-AVR-20121207/lib/gcc/avr/4.6.2/avr5/libgcc.a(_clear_bss.o)
+                0x00000076                __do_clear_bss
+ *(.init4)
+ *(.init5)
+ *(.init5)
+ *(.init6)
+ *(.init6)
+ *(.init7)
+ *(.init7)
+ *(.init8)
+ *(.init8)
+ *(.init9)
+ .init9         0x00000086        0x8 /usr/local/CrossPack-AVR-20121207/lib/gcc/avr/4.6.2/../../../../avr/lib/avr5/crtm32.o
+ *(.init9)
+ *(.text)
+ .text          0x0000008e        0x4 /usr/local/CrossPack-AVR-20121207/lib/gcc/avr/4.6.2/../../../../avr/lib/avr5/crtm32.o
+                0x0000008e                __vector_20
+                0x0000008e                __vector_12
+                0x0000008e                __bad_interrupt
+                0x0000008e                __vector_6
+                0x0000008e                __vector_3
+                0x0000008e                __vector_11
+                0x0000008e                __vector_13
+                0x0000008e                __vector_17
+                0x0000008e                __vector_19
+                0x0000008e                __vector_5
+                0x0000008e                __vector_4
+                0x0000008e                __vector_9
+                0x0000008e                __vector_2
+                0x0000008e                __vector_15
+                0x0000008e                __vector_8
+                0x0000008e                __vector_14
+                0x0000008e                __vector_10
+                0x0000008e                __vector_16
+                0x0000008e                __vector_18
+                0x0000008e                __vector_1
+ .text          0x00000092       0x1a uiktest.o
+                0x00000092                taskcount
+ .text          0x000000ac      0x8ae UIKAPI.o
+                0x000000ac                UIKIdle
+                0x000000ae                UIKTick
+                0x00000146                UIKDispatcher
+                0x000001c8                __vector_7
+                0x0000027e                UIKAddTask
+                0x000004c4                UIKInitialize
+                0x0000055a                UIKRun
+                0x00000582                UIKStart
+                0x000005fa                UIKSchedule
+                0x000006ac                UIKDelay
+                0x000006e8                UIKSemCreate
+                0x0000071e                UIKSemPend
+                0x0000076c                UIKSemPost
+                0x000007da                UIKSemValue
+                0x000007e0                UIKAssocEvent
+                0x00000856                UIKDisassocEvent
+                0x00000888                UIKRaiseEvent
+ .text          0x0000095a      0x11c list.o
+                0x0000095a                IsEmpty
+                0x00000970                IsLast
+                0x00000986                Find
+                0x000009a6                FindPrevious
+                0x000009be                Delete
+                0x000009e4                Insert
+                0x00000a0e                DeleteList
+                0x00000a3e                MakeEmpty
+                0x00000a5e                Header
+                0x00000a60                First
+                0x00000a68                Advance
+                0x00000a70                Retrieve
+ .text          0x00000a76      0x180 queue.o
+                0x00000a76                IsEmptyQueue
+                0x00000a8c                IsFull
+                0x00000aa8                CreateQueue
+                0x00000afa                MakeEmptyQueue
+                0x00000b0e                DisposeQueue
+                0x00000b2c                Enqueue
+                0x00000b68                Front
+                0x00000b92                Dequeue
+                0x00000bbc                FrontAndDequeue
+ .text          0x00000bf6        0x0 /usr/local/CrossPack-AVR-20121207/lib/gcc/avr/4.6.2/avr5/libgcc.a(_exit.o)
+ .text          0x00000bf6        0x0 /usr/local/CrossPack-AVR-20121207/lib/gcc/avr/4.6.2/avr5/libgcc.a(_copy_data.o)
+ .text          0x00000bf6        0x0 /usr/local/CrossPack-AVR-20121207/lib/gcc/avr/4.6.2/avr5/libgcc.a(_clear_bss.o)
+ .text          0x00000bf6        0x0 /usr/local/CrossPack-AVR-20121207/lib/gcc/avr/4.6.2/../../../../avr/lib/avr5/libc.a(calloc.o)
+ .text          0x00000bf6        0x0 /usr/local/CrossPack-AVR-20121207/lib/gcc/avr/4.6.2/../../../../avr/lib/avr5/libc.a(malloc.o)
+ .text          0x00000bf6        0x0 /usr/local/CrossPack-AVR-20121207/lib/gcc/avr/4.6.2/../../../../avr/lib/avr5/libc.a(memset.o)
+                0x00000bf6                . = ALIGN (0x2)
+ *(.text.*)
+ .text.startup  0x00000bf6       0x32 uiktest.o
+                0x00000bf6                main
+ .text.libgcc   0x00000c28        0x0 /usr/local/CrossPack-AVR-20121207/lib/gcc/avr/4.6.2/avr5/libgcc.a(_exit.o)
+ .text.libgcc   0x00000c28        0x0 /usr/local/CrossPack-AVR-20121207/lib/gcc/avr/4.6.2/avr5/libgcc.a(_copy_data.o)
+ .text.libgcc   0x00000c28        0x0 /usr/local/CrossPack-AVR-20121207/lib/gcc/avr/4.6.2/avr5/libgcc.a(_clear_bss.o)
+ .text.avr-libc
+                0x00000c28       0x3c /usr/local/CrossPack-AVR-20121207/lib/gcc/avr/4.6.2/../../../../avr/lib/avr5/libc.a(calloc.o)
+                0x00000c28                calloc
+ .text.avr-libc
+                0x00000c64      0x25e /usr/local/CrossPack-AVR-20121207/lib/gcc/avr/4.6.2/../../../../avr/lib/avr5/libc.a(malloc.o)
+                0x00000c64                malloc
+                0x00000d90                free
+ .text.avr-libc
+                0x00000ec2        0xe /usr/local/CrossPack-AVR-20121207/lib/gcc/avr/4.6.2/../../../../avr/lib/avr5/libc.a(memset.o)
+                0x00000ec2                memset
+                0x00000ed0                . = ALIGN (0x2)
+ *(.fini9)
+ .fini9         0x00000ed0        0x0 /usr/local/CrossPack-AVR-20121207/lib/gcc/avr/4.6.2/avr5/libgcc.a(_exit.o)
+                0x00000ed0                exit
+                0x00000ed0                _exit
+ *(.fini9)
+ *(.fini8)
+ *(.fini8)
+ *(.fini7)
+ *(.fini7)
+ *(.fini6)
+ *(.fini6)
+ *(.fini5)
+ *(.fini5)
+ *(.fini4)
+ *(.fini4)
+ *(.fini3)
+ *(.fini3)
+ *(.fini2)
+ *(.fini2)
+ *(.fini1)
+ *(.fini1)
+ *(.fini0)
+ .fini0         0x00000ed0        0x4 /usr/local/CrossPack-AVR-20121207/lib/gcc/avr/4.6.2/avr5/libgcc.a(_exit.o)
+ *(.fini0)
+                0x00000ed4                _etext = .
+
+.data           0x00800060        0x8 load address 0x00000ed4
+                0x00800060                PROVIDE (__data_start, .)
+ *(.data)
+ .data          0x00800060        0x0 /usr/local/CrossPack-AVR-20121207/lib/gcc/avr/4.6.2/../../../../avr/lib/avr5/crtm32.o
+ .data          0x00800060        0x2 uiktest.o
+                0x00800060                TICKLEN
+ .data          0x00800062        0x0 UIKAPI.o
+ .data          0x00800062        0x0 list.o
+ .data          0x00800062        0x0 queue.o
+ .data          0x00800062        0x0 /usr/local/CrossPack-AVR-20121207/lib/gcc/avr/4.6.2/avr5/libgcc.a(_exit.o)
+ .data          0x00800062        0x0 /usr/local/CrossPack-AVR-20121207/lib/gcc/avr/4.6.2/avr5/libgcc.a(_copy_data.o)
+ .data          0x00800062        0x0 /usr/local/CrossPack-AVR-20121207/lib/gcc/avr/4.6.2/avr5/libgcc.a(_clear_bss.o)
+ .data          0x00800062        0x0 /usr/local/CrossPack-AVR-20121207/lib/gcc/avr/4.6.2/../../../../avr/lib/avr5/libc.a(calloc.o)
+ .data          0x00800062        0x6 /usr/local/CrossPack-AVR-20121207/lib/gcc/avr/4.6.2/../../../../avr/lib/avr5/libc.a(malloc.o)
+                0x00800062                __malloc_heap_end
+                0x00800064                __malloc_heap_start
+                0x00800066                __malloc_margin
+ .data          0x00800068        0x0 /usr/local/CrossPack-AVR-20121207/lib/gcc/avr/4.6.2/../../../../avr/lib/avr5/libc.a(memset.o)
+ *(.data*)
+ *(.rodata)
+ *(.rodata*)
+ *(.gnu.linkonce.d*)
+                0x00800068                . = ALIGN (0x2)
+                0x00800068                _edata = .
+                0x00800068                PROVIDE (__data_end, .)
+
+.bss            0x00800068       0xcb
+                0x00800068                PROVIDE (__bss_start, .)
+ *(.bss)
+ .bss           0x00800068        0x0 /usr/local/CrossPack-AVR-20121207/lib/gcc/avr/4.6.2/../../../../avr/lib/avr5/crtm32.o
+ .bss           0x00800068       0x55 uiktest.o
+                0x00800068                taskcount_stack
+ .bss           0x008000bd       0x5d UIKAPI.o
+                0x008000bd                idleStack
+                0x00800112                taskNum
+                0x00800113                maxTaskNumber
+                0x00800114                UIKTickLen
+                0x00800116                UIKTickNum
+ .bss           0x0080011a        0x0 list.o
+ .bss           0x0080011a        0x0 queue.o
+ .bss           0x0080011a        0x0 /usr/local/CrossPack-AVR-20121207/lib/gcc/avr/4.6.2/avr5/libgcc.a(_exit.o)
+ .bss           0x0080011a        0x0 /usr/local/CrossPack-AVR-20121207/lib/gcc/avr/4.6.2/avr5/libgcc.a(_copy_data.o)
+ .bss           0x0080011a        0x0 /usr/local/CrossPack-AVR-20121207/lib/gcc/avr/4.6.2/avr5/libgcc.a(_clear_bss.o)
+ .bss           0x0080011a        0x0 /usr/local/CrossPack-AVR-20121207/lib/gcc/avr/4.6.2/../../../../avr/lib/avr5/libc.a(calloc.o)
+ .bss           0x0080011a        0x0 /usr/local/CrossPack-AVR-20121207/lib/gcc/avr/4.6.2/../../../../avr/lib/avr5/libc.a(malloc.o)
+ .bss           0x0080011a        0x0 /usr/local/CrossPack-AVR-20121207/lib/gcc/avr/4.6.2/../../../../avr/lib/avr5/libc.a(memset.o)
+ *(.bss*)
+ *(COMMON)
+ COMMON         0x0080011a       0x15 UIKAPI.o
+                0x0080011a                tcb
+                0x0080011c                assocEvents
+                0x0080012c                currentTCB
+                0x0080012e                currentTask
+ COMMON         0x0080012f        0x4 /usr/local/CrossPack-AVR-20121207/lib/gcc/avr/4.6.2/../../../../avr/lib/avr5/libc.a(malloc.o)
+                0x0080012f                __brkval
+                0x00800131                __flp
+                0x00800133                PROVIDE (__bss_end, .)
+                0x00000ed4                __data_load_start = LOADADDR (.data)
+                0x00000edc                __data_load_end = (__data_load_start + SIZEOF (.data))
+
+.noinit         0x00800133        0x0
+                0x00800133                PROVIDE (__noinit_start, .)
+ *(.noinit*)
+                0x00800133                PROVIDE (__noinit_end, .)
+                0x00800133                _end = .
+                0x00800133                PROVIDE (__heap_start, .)
+
+.eeprom         0x00810000        0x0
+ *(.eeprom*)
+                0x00810000                __eeprom_end = .
+
+.fuse
+ *(.fuse)
+ *(.lfuse)
+ *(.hfuse)
+ *(.efuse)
+
+.lock
+ *(.lock*)
+
+.signature
+ *(.signature*)
+
+.stab           0x00000000      0x738
+ *(.stab)
+ .stab          0x00000000      0x6cc /usr/local/CrossPack-AVR-20121207/lib/gcc/avr/4.6.2/../../../../avr/lib/avr5/crtm32.o
+ .stab          0x000006cc       0x6c /usr/local/CrossPack-AVR-20121207/lib/gcc/avr/4.6.2/../../../../avr/lib/avr5/libc.a(memset.o)
+                                 0x78 (size before relaxing)
+
+.stabstr        0x00000000       0xdc
+ *(.stabstr)
+ .stabstr       0x00000000       0xdc /usr/local/CrossPack-AVR-20121207/lib/gcc/avr/4.6.2/../../../../avr/lib/avr5/crtm32.o
+
+.stab.excl
+ *(.stab.excl)
+
+.stab.exclstr
+ *(.stab.exclstr)
+
+.stab.index
+ *(.stab.index)
+
+.stab.indexstr
+ *(.stab.indexstr)
+
+.comment
+ *(.comment)
+
+.debug
+ *(.debug)
+
+.line
+ *(.line)
+
+.debug_srcinfo
+ *(.debug_srcinfo)
+
+.debug_sfnames
+ *(.debug_sfnames)
+
+.debug_aranges  0x00000000      0x130
+ *(.debug_aranges)
+ .debug_aranges
+                0x00000000       0x28 uiktest.o
+ .debug_aranges
+                0x00000028       0x20 UIKAPI.o
+ .debug_aranges
+                0x00000048       0x20 list.o
+ .debug_aranges
+                0x00000068       0x20 queue.o
+ .debug_aranges
+                0x00000088       0x20 /usr/local/CrossPack-AVR-20121207/lib/gcc/avr/4.6.2/avr5/libgcc.a(_exit.o)
+ .debug_aranges
+                0x000000a8       0x20 /usr/local/CrossPack-AVR-20121207/lib/gcc/avr/4.6.2/avr5/libgcc.a(_copy_data.o)
+ .debug_aranges
+                0x000000c8       0x20 /usr/local/CrossPack-AVR-20121207/lib/gcc/avr/4.6.2/avr5/libgcc.a(_clear_bss.o)
+ .debug_aranges
+                0x000000e8       0x20 /usr/local/CrossPack-AVR-20121207/lib/gcc/avr/4.6.2/../../../../avr/lib/avr5/libc.a(calloc.o)
+ .debug_aranges
+                0x00000108       0x28 /usr/local/CrossPack-AVR-20121207/lib/gcc/avr/4.6.2/../../../../avr/lib/avr5/libc.a(malloc.o)
+
+.debug_pubnames
+ *(.debug_pubnames)
+
+.debug_info     0x00000000     0x1406
+ *(.debug_info)
+ .debug_info    0x00000000      0x114 uiktest.o
+ .debug_info    0x00000114      0x652 UIKAPI.o
+ .debug_info    0x00000766      0x3a6 list.o
+ .debug_info    0x00000b0c      0x38b queue.o
+ .debug_info    0x00000e97       0xc0 /usr/local/CrossPack-AVR-20121207/lib/gcc/avr/4.6.2/avr5/libgcc.a(_exit.o)
+ .debug_info    0x00000f57       0xc0 /usr/local/CrossPack-AVR-20121207/lib/gcc/avr/4.6.2/avr5/libgcc.a(_copy_data.o)
+ .debug_info    0x00001017       0xc0 /usr/local/CrossPack-AVR-20121207/lib/gcc/avr/4.6.2/avr5/libgcc.a(_clear_bss.o)
+ .debug_info    0x000010d7       0x95 /usr/local/CrossPack-AVR-20121207/lib/gcc/avr/4.6.2/../../../../avr/lib/avr5/libc.a(calloc.o)
+ .debug_info    0x0000116c      0x29a /usr/local/CrossPack-AVR-20121207/lib/gcc/avr/4.6.2/../../../../avr/lib/avr5/libc.a(malloc.o)
+ *(.gnu.linkonce.wi.*)
+
+.debug_abbrev   0x00000000      0x789
+ *(.debug_abbrev)
+ .debug_abbrev  0x00000000       0xb1 uiktest.o
+ .debug_abbrev  0x000000b1      0x236 UIKAPI.o
+ .debug_abbrev  0x000002e7      0x151 list.o
+ .debug_abbrev  0x00000438      0x1a7 queue.o
+ .debug_abbrev  0x000005df       0x14 /usr/local/CrossPack-AVR-20121207/lib/gcc/avr/4.6.2/avr5/libgcc.a(_exit.o)
+ .debug_abbrev  0x000005f3       0x14 /usr/local/CrossPack-AVR-20121207/lib/gcc/avr/4.6.2/avr5/libgcc.a(_copy_data.o)
+ .debug_abbrev  0x00000607       0x14 /usr/local/CrossPack-AVR-20121207/lib/gcc/avr/4.6.2/avr5/libgcc.a(_clear_bss.o)
+ .debug_abbrev  0x0000061b       0x77 /usr/local/CrossPack-AVR-20121207/lib/gcc/avr/4.6.2/../../../../avr/lib/avr5/libc.a(calloc.o)
+ .debug_abbrev  0x00000692       0xf7 /usr/local/CrossPack-AVR-20121207/lib/gcc/avr/4.6.2/../../../../avr/lib/avr5/libc.a(malloc.o)
+
+.debug_line     0x00000000      0x785
+ *(.debug_line)
+ .debug_line    0x00000000       0xb5 uiktest.o
+ .debug_line    0x000000b5      0x1c8 UIKAPI.o
+ .debug_line    0x0000027d       0xf4 list.o
+ .debug_line    0x00000371       0xf3 queue.o
+ .debug_line    0x00000464       0x5c /usr/local/CrossPack-AVR-20121207/lib/gcc/avr/4.6.2/avr5/libgcc.a(_exit.o)
+ .debug_line    0x000004c0       0x65 /usr/local/CrossPack-AVR-20121207/lib/gcc/avr/4.6.2/avr5/libgcc.a(_copy_data.o)
+ .debug_line    0x00000525       0x62 /usr/local/CrossPack-AVR-20121207/lib/gcc/avr/4.6.2/avr5/libgcc.a(_clear_bss.o)
+ .debug_line    0x00000587       0xab /usr/local/CrossPack-AVR-20121207/lib/gcc/avr/4.6.2/../../../../avr/lib/avr5/libc.a(calloc.o)
+ .debug_line    0x00000632      0x153 /usr/local/CrossPack-AVR-20121207/lib/gcc/avr/4.6.2/../../../../avr/lib/avr5/libc.a(malloc.o)
+
+.debug_frame    0x00000000      0x450
+ *(.debug_frame)
+ .debug_frame   0x00000000       0x34 uiktest.o
+ .debug_frame   0x00000034      0x1dc UIKAPI.o
+ .debug_frame   0x00000210       0xf0 list.o
+ .debug_frame   0x00000300       0xc4 queue.o
+ .debug_frame   0x000003c4       0x38 /usr/local/CrossPack-AVR-20121207/lib/gcc/avr/4.6.2/../../../../avr/lib/avr5/libc.a(calloc.o)
+ .debug_frame   0x000003fc       0x54 /usr/local/CrossPack-AVR-20121207/lib/gcc/avr/4.6.2/../../../../avr/lib/avr5/libc.a(malloc.o)
+
+.debug_str      0x00000000      0x507
+ *(.debug_str)
+ .debug_str     0x00000000       0x98 uiktest.o
+                                 0xcc (size before relaxing)
+ .debug_str     0x00000098      0x226 UIKAPI.o
+                                0x2e3 (size before relaxing)
+ .debug_str     0x000002be       0x82 list.o
+                                0x142 (size before relaxing)
+ .debug_str     0x00000340       0x87 queue.o
+                                0x153 (size before relaxing)
+ .debug_str     0x000003c7       0x92 /usr/local/CrossPack-AVR-20121207/lib/gcc/avr/4.6.2/../../../../avr/lib/avr5/libc.a(calloc.o)
+                                 0xb4 (size before relaxing)
+ .debug_str     0x00000459       0xae /usr/local/CrossPack-AVR-20121207/lib/gcc/avr/4.6.2/../../../../avr/lib/avr5/libc.a(malloc.o)
+                                0x192 (size before relaxing)
+
+.debug_loc      0x00000000     0x1331
+ *(.debug_loc)
+ .debug_loc     0x00000000       0x38 uiktest.o
+ .debug_loc     0x00000038      0x7df UIKAPI.o
+ .debug_loc     0x00000817      0x368 list.o
+ .debug_loc     0x00000b7f      0x2f0 queue.o
+ .debug_loc     0x00000e6f       0xa1 /usr/local/CrossPack-AVR-20121207/lib/gcc/avr/4.6.2/../../../../avr/lib/avr5/libc.a(calloc.o)
+ .debug_loc     0x00000f10      0x421 /usr/local/CrossPack-AVR-20121207/lib/gcc/avr/4.6.2/../../../../avr/lib/avr5/libc.a(malloc.o)
+
+.debug_macinfo
+ *(.debug_macinfo)
+OUTPUT(uiktest.elf elf32-avr)
+LOAD linker stubs
+
+.debug_ranges   0x00000000       0x58
+ .debug_ranges  0x00000000       0x18 uiktest.o
+ .debug_ranges  0x00000018       0x18 UIKAPI.o
+ .debug_ranges  0x00000030       0x10 /usr/local/CrossPack-AVR-20121207/lib/gcc/avr/4.6.2/../../../../avr/lib/avr5/libc.a(calloc.o)
+ .debug_ranges  0x00000040       0x18 /usr/local/CrossPack-AVR-20121207/lib/gcc/avr/4.6.2/../../../../avr/lib/avr5/libc.a(malloc.o)
