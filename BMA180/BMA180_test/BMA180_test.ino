@@ -1,3 +1,10 @@
+/*
+ * Final project
+ *
+ * Author: Santiago Pina Ros
+ *
+ */
+
 
 #include <SPI.h>
 #include "bma180.h"

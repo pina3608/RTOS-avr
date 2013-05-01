@@ -1,3 +1,11 @@
+/**
+ *
+ * Final RTOS
+ *
+ * Author: Santiago Pina
+ *
+ * */
+
 #include "UIKAPI.h"
 #include <avr/io.h>
 
@@ -97,4 +105,3 @@ int main(void) {
   return 0;
 }
 
-//derecha

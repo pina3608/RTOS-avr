@@ -1,3 +1,9 @@
+/*
+ * Final project
+ *
+ * Author: Santiago Pina Ros
+ *
+ */
 
 #include <avr/pgmspace.h>
 #include <SPI.h>

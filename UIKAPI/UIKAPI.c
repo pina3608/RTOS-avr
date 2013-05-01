@@ -1,4 +1,12 @@
 
+/**
+ *
+ * Final RTOS
+ *
+ * Author: Santiago Pina
+ *
+ * */
+
 
 #include "UIKAPI.h"
 
@@ -47,10 +55,7 @@
                  "st    x+, r0           \n\t"  \
         );
 
-/* 
- * Opposite to savecontext().  Interrupts will have been disabled during
- * the context save so we can write to the stack pointer. 
- */
+
 
 #define restoreContext()                                        \
   asm volatile (    "lds    r26, currentTCB               \n\t"    \
@@ -96,14 +101,13 @@
                 );
                 
                
-//TODO: delete void SIG_OUTPUT_COMPARE1A( void ) __attribute__ ( ( signal, naked ) ); 
 volatile uint32_t UIKTickNum = 0;
 volatile uint16_t UIKTickLen = 0;
-volatile TcbElement *tcb;//TODO: Change to array or create list
+volatile TcbElement *tcb;
 volatile uint8_t* currentTCB; // Pointer to the current task
 uint8_t currentTask;
 
-volatile uint8_t maxTaskNumber = 0;
+uint8_t maxTaskNumber = 0;
 volatile uint8_t taskNum= 0;
 
 
@@ -125,11 +129,9 @@ void UIKTick(){
   int i;
   UIKTickNum++;
   for(i = 0; i < taskNum; i++) {
-    //decrement delays where necessary
     if(tcb[i].delay > 0) {
 	  tcb[i].delay--;
 	  if(tcb[i].delay == 0) {
-	    //the state should have been waiting
 	    tcb[i].state = eReady;
 	  }	
     }
@@ -218,7 +220,6 @@ uint8_t UIKAddTask(void* task, uint8_t priority, uint8_t* stack, uint16_t stackS
   uint8_t* contextPtr = stack + stackSize - 1;
 
  
-  //TODO: delete tcb[taskNum].stack_lptr = contextPtr;
   tcb[taskNum].contextPtr = contextPtr - 1;
 
   // place a few known bytes on the bottom - useful for debugging 
@@ -238,7 +239,7 @@ uint8_t UIKAddTask(void* task, uint8_t priority, uint8_t* stack, uint16_t stackS
   //simulate stack after a call to savecontext
   *contextPtr = 0x00;  //r0
   contextPtr--;
-  *contextPtr = 0x00;  // necessary for retiTODO: tray 0x08
+  *contextPtr = 0x00;  // necessary for reti
   contextPtr--;
   *contextPtr = 0x00;  //r1 wants to always be 0
   contextPtr--;
@@ -330,7 +331,6 @@ void UIKStart() {
   asm volatile ("reti");
 }
 
-//TODO: delete ? void UIKSchedule() __attribute__ ( ( naked ) );
 void UIKSchedule() {
   saveContext();
   UIKDispatcher();

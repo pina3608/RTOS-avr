@@ -1,3 +1,11 @@
+/*
+ * Final project
+ *
+ * Author: Santiago Pina Ros
+ *
+ */
+
+
 
 #ifndef _BMA180_h
 #define _BMA180_h

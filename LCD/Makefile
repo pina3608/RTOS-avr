@@ -4,8 +4,8 @@
 # Template used: http://www.hookersandbooze.com/avr-gcc-makefile/
 #
 
-PRG            = uiktest
-OBJ            = uiktest.o UIKAPI.o queue.o
+PRG            = lcdtest
+OBJ            = lcdtest.o  lcd.o
 PROGRAMMER     = stk500v2
 PORT           = /dev/ttyS0
 MCU_TARGET     = atmega32

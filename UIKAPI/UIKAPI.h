@@ -1,10 +1,10 @@
 
-
 /**
+ *
+ * Final RTOS
  *
  * Author: Santiago Pina
  *
- * 
  * */
 
 /*
@@ -27,8 +27,7 @@
 #define IDLE_ID 0
 #define MAX_EVENTS 8
 
-/* Task states returned by eTaskGetState. */
-/* TODO: add semBlocked, delayBLocked, eventBlocked*/
+/* Task states */
 typedef enum
 {
 	eRunning = 0,
