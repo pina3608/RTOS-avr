@@ -1,5 +1,5 @@
 /*
- * Assignment #5
+ * Assignment #6
  *
  * Author: Santiago Pina Ros
  *
@@ -16,22 +16,26 @@
 
 void a(){
   DDRB = 0xff;
-  PORTB = 0xff;
-  _delay_ms(300);
-  while(PORTB != 0x00){
-        PORTB = (PORTB << 1);
-        _delay_ms(300);
+  while(true){
+          PORTB = 0xff;
+          _delay_ms(300);
+          while(PORTB != 0x00){
+                PORTB = (PORTB << 1);
+                _delay_ms(300);
+          }
   }
 }
 
 void b(){
   DDRB = 0xff;
-  PORTB = 0xff;
-  _delay_ms(300);
-  while(PORTB != 0x00){
-        PORTB = (PORTB >> 1);
-        _delay_ms(300);
-  }
+  while(true){
+          PORTB = 0xff;
+          _delay_ms(300);
+          while(PORTB != 0x00){
+                PORTB = (PORTB >> 1);
+                _delay_ms(300);
+          }
+   }
 }
 
 

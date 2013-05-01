@@ -1,6 +1,8 @@
 
 #include "list.h"
 
+#include <avr/io.h>//TODO deleteme
+
 /* Define Linked List Node */
 struct Node {
   ElementType Element;
@@ -107,10 +109,12 @@ void Insert( ElementType X, List L, Position P ) {
   Position TmpCell;
 
   TmpCell = malloc( sizeof( struct Node ) );
+  if(TmpCell == NULL) PORTB= 0x01;
 
   TmpCell->Element = X;
   TmpCell->Next = P->Next;
   P->Next = TmpCell;
+  
 
 }
 

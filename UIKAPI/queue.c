@@ -7,7 +7,7 @@ struct QueueRecord {
   int Front;
   int Rear;
   int Size;
-  ElementType *Array;
+  ElementQueueType *Array;
 };
 
 int IsEmptyQueue(Queue Q) {
@@ -27,7 +27,7 @@ Queue CreateQueue(int MaxElements) {
     return NULL;
   }
 
-  Q->Array = malloc( sizeof(ElementType) * MaxElements );
+  Q->Array = malloc( sizeof(ElementQueueType) * MaxElements );
   if (Q->Array == NULL) {
     free(Q);
     return NULL;
@@ -61,7 +61,7 @@ static int Succ(int Value, Queue Q) {
   return Value;
 }
 
-void Enqueue(ElementType X, Queue Q) {
+void Enqueue(ElementQueueType X, Queue Q) {
 
   if (IsFull(Q)) {
     return;
@@ -73,7 +73,7 @@ void Enqueue(ElementType X, Queue Q) {
 
 }
 
-ElementType Front(Queue Q) {
+ElementQueueType Front(Queue Q) {
 
   if (!IsEmptyQueue(Q)) {
     return Q->Array[Q->Front];
@@ -95,9 +95,9 @@ void Dequeue(Queue Q) {
 
 }
 
-ElementType FrontAndDequeue(Queue Q) {
+ElementQueueType FrontAndDequeue(Queue Q) {
 
-  ElementType X = 0;
+  ElementQueueType X = 0;
 
   if (IsEmptyQueue(Q)) {
     return X;

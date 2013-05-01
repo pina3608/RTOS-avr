@@ -16,22 +16,26 @@
 
 void a(){
   DDRB = 0xff;
-  PORTB = 0xff;
-  _delay_ms(300);
-  while(PORTB != 0x00){
-        PORTB = (PORTB << 1);
-        _delay_ms(300);
+  while(1){
+          PORTB = 0xff;
+          _delay_ms(300);
+          while(PORTB != 0x00){
+                PORTB = (PORTB << 1);
+                _delay_ms(300);
+          }
   }
 }
 
 void b(){
   DDRB = 0xff;
-  PORTB = 0xff;
-  _delay_ms(300);
-  while(PORTB != 0x00){
-        PORTB = (PORTB >> 1);
-        _delay_ms(300);
-  }
+  while(1){
+          PORTB = 0xff;
+          _delay_ms(300);
+          while(PORTB != 0x00){
+                PORTB = (PORTB >> 1);
+                _delay_ms(300);
+          }
+   }
 }
 
 

@@ -111,7 +111,7 @@ uint8_t idleStack[MIN_STACK_SIZE] __attribute__((weak));
 
 
 
-List assocEvents[MAX_EVENTS];
+volatile uint8_t *assocEvents[MAX_EVENTS];
 
 
 void UIKIdle(){
@@ -193,7 +193,7 @@ uint8_t UIKInitialize(uint16_t ticklen, uint8_t maxTasks){
   	return 0;
 
   for(i = 0; i < MAX_EVENTS; i++) {
-	assocEvents[i] = MakeEmpty(NULL);
+	assocEvents[i] = (uint8_t *) calloc(maxTasks, sizeof(uint8_t *));
   }
   
   return 1;
@@ -391,9 +391,8 @@ void UIKAssocEvent(uint8_t Event) {
   int i = 0;
   while(Event != 0){
   	if((Event & 0x01) != 0){
-  		List L = assocEvents[i];
-  		Position P = Header(L);
-  		Insert(currentTask, L, P);
+  	        assocEvents[i][currentTask] = 1;
+  		
   	}
   	Event = Event >> 1;
   	i++;
@@ -409,7 +408,7 @@ void UIKDisassocEvent(uint8_t Event) {
   int i = 0;
   while(Event != 0){
   	if((Event & 0x01) != 0){
-  		Delete(currentTask, assocEvents[i]);
+  	        assocEvents[i][currentTask] = 0;
   	}
   	Event = Event >> 1;
   	i++;
@@ -421,14 +420,12 @@ void UIKRaiseEvent(uint8_t Event){
 	
   cli();
   int i = 0;
+  int j = 0;
   while(Event != 0){
   	if((Event & 0x01) != 0){
-  		List L = assocEvents[i];
-  		Position P = Header(L);
-  		while(!IsLast(P,L)){
-  			P = Advance(P);
-  			if(tcb[Retrieve(P)].state == eEventBlocked)
-  			 tcb[Retrieve(P)].state= eReady;
+  		for(j = 0; j < maxTaskNumber; j++){
+  			if(assocEvents[i][j] == 1 && tcb[j].state == eEventBlocked)
+  			 tcb[j].state= eReady;
   		}
   	}
   	Event = Event >> 1;

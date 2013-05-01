@@ -21,7 +21,6 @@
 #include <avr/interrupt.h>
 #include <stdlib.h>
 #include "queue.h"
-#include "list.h"
 
 #define MIN_PRIORITY 255
 #define MIN_STACK_SIZE 85

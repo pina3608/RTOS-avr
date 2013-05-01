@@ -3,31 +3,15 @@ uiktest.elf:     file format elf32-avr
 
 Sections:
 Idx Name          Size      VMA       LMA       File off  Algn
-  0 .text         00000ed4  00000000  00000000  00000094  2**1
+  0 .text         00000ec6  00000000  00000000  00000094  2**1
                   CONTENTS, ALLOC, LOAD, READONLY, CODE
-  1 .data         00000008  00800060  00000ed4  00000f68  2**0
+  1 .data         00000008  00800060  00000ec6  00000f5a  2**0
                   CONTENTS, ALLOC, LOAD, DATA
-  2 .bss          000000cb  00800068  00800068  00000f70  2**0
+  2 .bss          000001cc  00800068  00800068  00000f62  2**0
                   ALLOC
-  3 .stab         00000738  00000000  00000000  00000f70  2**2
+  3 .stab         00003720  00000000  00000000  00000f64  2**2
                   CONTENTS, READONLY, DEBUGGING
-  4 .stabstr      000000dc  00000000  00000000  000016a8  2**0
-                  CONTENTS, READONLY, DEBUGGING
-  5 .debug_aranges 00000130  00000000  00000000  00001788  2**3
-                  CONTENTS, READONLY, DEBUGGING
-  6 .debug_info   00001406  00000000  00000000  000018b8  2**0
-                  CONTENTS, READONLY, DEBUGGING
-  7 .debug_abbrev 00000789  00000000  00000000  00002cbe  2**0
-                  CONTENTS, READONLY, DEBUGGING
-  8 .debug_line   00000785  00000000  00000000  00003447  2**0
-                  CONTENTS, READONLY, DEBUGGING
-  9 .debug_frame  00000450  00000000  00000000  00003bcc  2**2
-                  CONTENTS, READONLY, DEBUGGING
- 10 .debug_str    00000507  00000000  00000000  0000401c  2**0
-                  CONTENTS, READONLY, DEBUGGING
- 11 .debug_loc    00001331  00000000  00000000  00004523  2**0
-                  CONTENTS, READONLY, DEBUGGING
- 12 .debug_ranges 00000058  00000000  00000000  00005854  2**0
+  4 .stabstr      00001910  00000000  00000000  00004684  2**0
                   CONTENTS, READONLY, DEBUGGING
 
 Disassembly of section .text:
@@ -40,7 +24,7 @@ Disassembly of section .text:
   10:	0c 94 47 00 	jmp	0x8e	; 0x8e <__bad_interrupt>
   14:	0c 94 47 00 	jmp	0x8e	; 0x8e <__bad_interrupt>
   18:	0c 94 47 00 	jmp	0x8e	; 0x8e <__bad_interrupt>
-  1c:	0c 94 e4 00 	jmp	0x1c8	; 0x1c8 <__vector_7>
+  1c:	0c 94 91 01 	jmp	0x322	; 0x322 <__vector_7>
   20:	0c 94 47 00 	jmp	0x8e	; 0x8e <__bad_interrupt>
   24:	0c 94 47 00 	jmp	0x8e	; 0x8e <__bad_interrupt>
   28:	0c 94 47 00 	jmp	0x8e	; 0x8e <__bad_interrupt>
@@ -67,7 +51,7 @@ Disassembly of section .text:
   60:	10 e0       	ldi	r17, 0x00	; 0
   62:	a0 e6       	ldi	r26, 0x60	; 96
   64:	b0 e0       	ldi	r27, 0x00	; 0
-  66:	e4 ed       	ldi	r30, 0xD4	; 212
+  66:	e6 ec       	ldi	r30, 0xC6	; 198
   68:	fe e0       	ldi	r31, 0x0E	; 14
   6a:	02 c0       	rjmp	.+4      	; 0x70 <__do_copy_data+0x10>
   6c:	05 90       	lpm	r0, Z+
@@ -77,7 +61,7 @@ Disassembly of section .text:
   74:	d9 f7       	brne	.-10     	; 0x6c <__do_copy_data+0xc>
 
 00000076 <__do_clear_bss>:
-  76:	11 e0       	ldi	r17, 0x01	; 1
+  76:	12 e0       	ldi	r17, 0x02	; 2
   78:	a8 e6       	ldi	r26, 0x68	; 104
   7a:	b0 e0       	ldi	r27, 0x00	; 0
   7c:	01 c0       	rjmp	.+2      	; 0x80 <.do_clear_bss_start>
@@ -86,2096 +70,2229 @@ Disassembly of section .text:
   7e:	1d 92       	st	X+, r1
 
 00000080 <.do_clear_bss_start>:
-  80:	a3 33       	cpi	r26, 0x33	; 51
+  80:	a4 33       	cpi	r26, 0x34	; 52
   82:	b1 07       	cpc	r27, r17
   84:	e1 f7       	brne	.-8      	; 0x7e <.do_clear_bss_loop>
-  86:	0e 94 fb 05 	call	0xbf6	; 0xbf6 <main>
-  8a:	0c 94 68 07 	jmp	0xed0	; 0xed0 <_exit>
+  86:	0e 94 cd 00 	call	0x19a	; 0x19a <main>
+  8a:	0c 94 61 07 	jmp	0xec2	; 0xec2 <_exit>
 
 0000008e <__bad_interrupt>:
   8e:	0c 94 00 00 	jmp	0	; 0x0 <__vectors>
 
-00000092 <taskcount>:
+00000092 <d>:
+          PORTB = aux;
+   }
+}
+void d(){
+        while(1){
+                UIKRaiseEvent(1);
+  92:	81 e0       	ldi	r24, 0x01	; 1
+  94:	0e 94 55 04 	call	0x8aa	; 0x8aa <UIKRaiseEvent>
+                UIKDelay(1000);
+  98:	88 ee       	ldi	r24, 0xE8	; 232
+  9a:	93 e0       	ldi	r25, 0x03	; 3
+  9c:	0e 94 8e 03 	call	0x71c	; 0x71c <UIKDelay>
+  a0:	f8 cf       	rjmp	.-16     	; 0x92 <d>
 
-/*this task counts to 8 (highest priority) */
-void taskcount() {
-  uint8_t cnt;
-  while(1) {
-    for (cnt=0; cnt < 0x08; cnt++) {
-  92:	80 e0       	ldi	r24, 0x00	; 0
-//	  UIKSemPend(portbsem);
-      PORTB = (PORTB & 0xf0) | (0x0f - cnt);
-  94:	3f e0       	ldi	r19, 0x0F	; 15
-  96:	28 b3       	in	r18, 0x18	; 24
-  98:	93 2f       	mov	r25, r19
-  9a:	98 1b       	sub	r25, r24
-  9c:	20 7f       	andi	r18, 0xF0	; 240
-  9e:	92 2b       	or	r25, r18
-  a0:	98 bb       	out	0x18, r25	; 24
+000000a2 <c>:
+          UIKSemPost(sem);
+          UIKDelay(2000);
+   }
+}
 
-/*this task counts to 8 (highest priority) */
-void taskcount() {
-  uint8_t cnt;
-  while(1) {
-    for (cnt=0; cnt < 0x08; cnt++) {
-  a2:	8f 5f       	subi	r24, 0xFF	; 255
-  a4:	88 30       	cpi	r24, 0x08	; 8
-  a6:	b8 f3       	brcs	.-18     	; 0x96 <taskcount+0x4>
-  a8:	80 e0       	ldi	r24, 0x00	; 0
-  aa:	f5 cf       	rjmp	.-22     	; 0x96 <taskcount+0x4>
+void c(){
+  a2:	1f 93       	push	r17
+  a4:	cf 93       	push	r28
+  a6:	df 93       	push	r29
+    milliseconds can be achieved.
+ */
+void
+_delay_loop_2(uint16_t __count)
+{
+	__asm__ volatile (
+  a8:	c9 e1       	ldi	r28, 0x19	; 25
+  aa:	d0 e0       	ldi	r29, 0x00	; 0
+          UIKAssocEvent(1);
+          uint8_t aux = PORTB;
+          for(j = 0; j < 5; j++){
+                PORTB = 0x00;
+                _delay_ms(300);
+                PORTB = 0xff;
+  ac:	1f ef       	ldi	r17, 0xFF	; 255
+}
 
-000000ac <UIKIdle>:
+void c(){
+  int j;
+  while(1){
+          UIKAssocEvent(1);
+  ae:	81 e0       	ldi	r24, 0x01	; 1
+  b0:	0e 94 1c 04 	call	0x838	; 0x838 <UIKAssocEvent>
+          uint8_t aux = PORTB;
+  b4:	48 b3       	in	r20, 0x18	; 24
+  b6:	85 e0       	ldi	r24, 0x05	; 5
+  b8:	90 e0       	ldi	r25, 0x00	; 0
+          for(j = 0; j < 5; j++){
+                PORTB = 0x00;
+  ba:	18 ba       	out	0x18, r1	; 24
+  bc:	28 eb       	ldi	r18, 0xB8	; 184
+  be:	3b e0       	ldi	r19, 0x0B	; 11
+  c0:	fe 01       	movw	r30, r28
+  c2:	31 97       	sbiw	r30, 0x01	; 1
+  c4:	f1 f7       	brne	.-4      	; 0xc2 <c+0x20>
+  c6:	21 50       	subi	r18, 0x01	; 1
+  c8:	30 40       	sbci	r19, 0x00	; 0
+		__ticks = 1;
+	else if (__tmp > 65535)
+	{
+		//	__ticks = requested delay in 1/10 ms
+		__ticks = (uint16_t) (__ms * 10.0);
+		while(__ticks)
+  ca:	d1 f7       	brne	.-12     	; 0xc0 <c+0x1e>
+                _delay_ms(300);
+                PORTB = 0xff;
+  cc:	18 bb       	out	0x18, r17	; 24
+  ce:	28 eb       	ldi	r18, 0xB8	; 184
+  d0:	3b e0       	ldi	r19, 0x0B	; 11
+  d2:	fe 01       	movw	r30, r28
+  d4:	31 97       	sbiw	r30, 0x01	; 1
+  d6:	f1 f7       	brne	.-4      	; 0xd4 <c+0x32>
+  d8:	21 50       	subi	r18, 0x01	; 1
+  da:	30 40       	sbci	r19, 0x00	; 0
+  dc:	d1 f7       	brne	.-12     	; 0xd2 <c+0x30>
+  de:	01 97       	sbiw	r24, 0x01	; 1
+void c(){
+  int j;
+  while(1){
+          UIKAssocEvent(1);
+          uint8_t aux = PORTB;
+          for(j = 0; j < 5; j++){
+  e0:	61 f7       	brne	.-40     	; 0xba <c+0x18>
+                PORTB = 0x00;
+                _delay_ms(300);
+                PORTB = 0xff;
+                _delay_ms(300);
+          }
+          PORTB = aux;
+  e2:	48 bb       	out	0x18, r20	; 24
+   }
+  e4:	e4 cf       	rjmp	.-56     	; 0xae <c+0xc>
+
+000000e6 <b>:
+          UIKSemPost(sem);
+          UIKDelay(1000);
+  }
+}
+
+void b(){
+  e6:	1f 93       	push	r17
+  e8:	cf 93       	push	r28
+  ea:	df 93       	push	r29
+  while(1){
+          PORTB = 0xff;
+  ec:	1f ef       	ldi	r17, 0xFF	; 255
+  ee:	c9 e1       	ldi	r28, 0x19	; 25
+  f0:	d0 e0       	ldi	r29, 0x00	; 0
+  f2:	18 bb       	out	0x18, r17	; 24
+  f4:	88 eb       	ldi	r24, 0xB8	; 184
+  f6:	9b e0       	ldi	r25, 0x0B	; 11
+  f8:	fe 01       	movw	r30, r28
+  fa:	31 97       	sbiw	r30, 0x01	; 1
+  fc:	f1 f7       	brne	.-4      	; 0xfa <b+0x14>
+  fe:	01 97       	sbiw	r24, 0x01	; 1
+ 100:	d9 f7       	brne	.-10     	; 0xf8 <b+0x12>
+          _delay_ms(300);
+          UIKSemPend(sem);
+ 102:	80 91 19 02 	lds	r24, 0x0219
+ 106:	90 91 1a 02 	lds	r25, 0x021A
+ 10a:	0e 94 c9 03 	call	0x792	; 0x792 <UIKSemPend>
+          while(PORTB != 0x00){
+ 10e:	0a c0       	rjmp	.+20     	; 0x124 <b+0x3e>
+                PORTB = (PORTB >> 1);
+ 110:	88 b3       	in	r24, 0x18	; 24
+ 112:	86 95       	lsr	r24
+ 114:	88 bb       	out	0x18, r24	; 24
+ 116:	88 eb       	ldi	r24, 0xB8	; 184
+ 118:	9b e0       	ldi	r25, 0x0B	; 11
+ 11a:	fe 01       	movw	r30, r28
+ 11c:	31 97       	sbiw	r30, 0x01	; 1
+ 11e:	f1 f7       	brne	.-4      	; 0x11c <b+0x36>
+ 120:	01 97       	sbiw	r24, 0x01	; 1
+ 122:	d9 f7       	brne	.-10     	; 0x11a <b+0x34>
+void b(){
+  while(1){
+          PORTB = 0xff;
+          _delay_ms(300);
+          UIKSemPend(sem);
+          while(PORTB != 0x00){
+ 124:	88 b3       	in	r24, 0x18	; 24
+ 126:	88 23       	and	r24, r24
+ 128:	99 f7       	brne	.-26     	; 0x110 <b+0x2a>
+                PORTB = (PORTB >> 1);
+                _delay_ms(300);
+          }
+          UIKSemPost(sem);
+ 12a:	80 91 19 02 	lds	r24, 0x0219
+ 12e:	90 91 1a 02 	lds	r25, 0x021A
+ 132:	0e 94 eb 03 	call	0x7d6	; 0x7d6 <UIKSemPost>
+          UIKDelay(2000);
+ 136:	80 ed       	ldi	r24, 0xD0	; 208
+ 138:	97 e0       	ldi	r25, 0x07	; 7
+ 13a:	0e 94 8e 03 	call	0x71c	; 0x71c <UIKDelay>
+   }
+ 13e:	d9 cf       	rjmp	.-78     	; 0xf2 <b+0xc>
+
+00000140 <a>:
+#include <avr/interrupt.h>
+
+UIKSem* sem;
 
 
-List assocEvents[MAX_EVENTS];
+void a(){
+ 140:	1f 93       	push	r17
+ 142:	cf 93       	push	r28
+ 144:	df 93       	push	r29
+  while(1){
+          PORTB = 0xff;
+ 146:	1f ef       	ldi	r17, 0xFF	; 255
+ 148:	c9 e1       	ldi	r28, 0x19	; 25
+ 14a:	d0 e0       	ldi	r29, 0x00	; 0
+ 14c:	18 bb       	out	0x18, r17	; 24
+ 14e:	88 eb       	ldi	r24, 0xB8	; 184
+ 150:	9b e0       	ldi	r25, 0x0B	; 11
+ 152:	fe 01       	movw	r30, r28
+ 154:	31 97       	sbiw	r30, 0x01	; 1
+ 156:	f1 f7       	brne	.-4      	; 0x154 <a+0x14>
+ 158:	01 97       	sbiw	r24, 0x01	; 1
+ 15a:	d9 f7       	brne	.-10     	; 0x152 <a+0x12>
+          _delay_ms(300);
+          UIKSemPend(sem);
+ 15c:	80 91 19 02 	lds	r24, 0x0219
+ 160:	90 91 1a 02 	lds	r25, 0x021A
+ 164:	0e 94 c9 03 	call	0x792	; 0x792 <UIKSemPend>
+          while(PORTB != 0x00){
+ 168:	0a c0       	rjmp	.+20     	; 0x17e <a+0x3e>
+                PORTB = (PORTB << 1);
+ 16a:	88 b3       	in	r24, 0x18	; 24
+ 16c:	88 0f       	add	r24, r24
+ 16e:	88 bb       	out	0x18, r24	; 24
+ 170:	88 eb       	ldi	r24, 0xB8	; 184
+ 172:	9b e0       	ldi	r25, 0x0B	; 11
+ 174:	fe 01       	movw	r30, r28
+ 176:	31 97       	sbiw	r30, 0x01	; 1
+ 178:	f1 f7       	brne	.-4      	; 0x176 <a+0x36>
+ 17a:	01 97       	sbiw	r24, 0x01	; 1
+ 17c:	d9 f7       	brne	.-10     	; 0x174 <a+0x34>
+void a(){
+  while(1){
+          PORTB = 0xff;
+          _delay_ms(300);
+          UIKSemPend(sem);
+          while(PORTB != 0x00){
+ 17e:	88 b3       	in	r24, 0x18	; 24
+ 180:	88 23       	and	r24, r24
+ 182:	99 f7       	brne	.-26     	; 0x16a <a+0x2a>
+                PORTB = (PORTB << 1);
+                _delay_ms(300);
+          }
+          UIKSemPost(sem);
+ 184:	80 91 19 02 	lds	r24, 0x0219
+ 188:	90 91 1a 02 	lds	r25, 0x021A
+ 18c:	0e 94 eb 03 	call	0x7d6	; 0x7d6 <UIKSemPost>
+          UIKDelay(1000);
+ 190:	88 ee       	ldi	r24, 0xE8	; 232
+ 192:	93 e0       	ldi	r25, 0x03	; 3
+ 194:	0e 94 8e 03 	call	0x71c	; 0x71c <UIKDelay>
+  }
+ 198:	d9 cf       	rjmp	.-78     	; 0x14c <a+0xc>
+
+0000019a <main>:
+
+int main(void) {
+  int id;
+
+
+  DDRB = 0xff;
+ 19a:	8f ef       	ldi	r24, 0xFF	; 255
+ 19c:	87 bb       	out	0x17, r24	; 23
+  sem = UIKSemCreate(1);
+ 19e:	81 e0       	ldi	r24, 0x01	; 1
+ 1a0:	0e 94 a7 03 	call	0x74e	; 0x74e <UIKSemCreate>
+ 1a4:	90 93 1a 02 	sts	0x021A, r25
+ 1a8:	80 93 19 02 	sts	0x0219, r24
+  
+  UIKInitialize(TICKLEN, 5); 
+ 1ac:	80 e1       	ldi	r24, 0x10	; 16
+ 1ae:	97 e2       	ldi	r25, 0x27	; 39
+ 1b0:	65 e0       	ldi	r22, 0x05	; 5
+ 1b2:	0e 94 9d 02 	call	0x53a	; 0x53a <UIKInitialize>
+
+  id = UIKAddTask(&a, 30, a_stack, MIN_STACK_SIZE); 
+ 1b6:	80 ea       	ldi	r24, 0xA0	; 160
+ 1b8:	90 e0       	ldi	r25, 0x00	; 0
+ 1ba:	6e e1       	ldi	r22, 0x1E	; 30
+ 1bc:	48 e6       	ldi	r20, 0x68	; 104
+ 1be:	50 e0       	ldi	r21, 0x00	; 0
+ 1c0:	25 e5       	ldi	r18, 0x55	; 85
+ 1c2:	30 e0       	ldi	r19, 0x00	; 0
+ 1c4:	0e 94 ec 01 	call	0x3d8	; 0x3d8 <UIKAddTask>
+  UIKRun(id);
+ 1c8:	0e 94 ea 02 	call	0x5d4	; 0x5d4 <UIKRun>
+  
+  id = UIKAddTask(&b, 35, b_stack, MIN_STACK_SIZE); 
+ 1cc:	83 e7       	ldi	r24, 0x73	; 115
+ 1ce:	90 e0       	ldi	r25, 0x00	; 0
+ 1d0:	63 e2       	ldi	r22, 0x23	; 35
+ 1d2:	4d eb       	ldi	r20, 0xBD	; 189
+ 1d4:	50 e0       	ldi	r21, 0x00	; 0
+ 1d6:	25 e5       	ldi	r18, 0x55	; 85
+ 1d8:	30 e0       	ldi	r19, 0x00	; 0
+ 1da:	0e 94 ec 01 	call	0x3d8	; 0x3d8 <UIKAddTask>
+  UIKRun(id);
+ 1de:	0e 94 ea 02 	call	0x5d4	; 0x5d4 <UIKRun>
+  
+  id = UIKAddTask(&c, 20, c_stack, MIN_STACK_SIZE); 
+ 1e2:	81 e5       	ldi	r24, 0x51	; 81
+ 1e4:	90 e0       	ldi	r25, 0x00	; 0
+ 1e6:	64 e1       	ldi	r22, 0x14	; 20
+ 1e8:	42 e1       	ldi	r20, 0x12	; 18
+ 1ea:	51 e0       	ldi	r21, 0x01	; 1
+ 1ec:	25 e5       	ldi	r18, 0x55	; 85
+ 1ee:	30 e0       	ldi	r19, 0x00	; 0
+ 1f0:	0e 94 ec 01 	call	0x3d8	; 0x3d8 <UIKAddTask>
+  UIKRun(id);
+ 1f4:	0e 94 ea 02 	call	0x5d4	; 0x5d4 <UIKRun>
+  
+  id = UIKAddTask(&d, 25, d_stack, MIN_STACK_SIZE); 
+ 1f8:	89 e4       	ldi	r24, 0x49	; 73
+ 1fa:	90 e0       	ldi	r25, 0x00	; 0
+ 1fc:	69 e1       	ldi	r22, 0x19	; 25
+ 1fe:	47 e6       	ldi	r20, 0x67	; 103
+ 200:	51 e0       	ldi	r21, 0x01	; 1
+ 202:	25 e5       	ldi	r18, 0x55	; 85
+ 204:	30 e0       	ldi	r19, 0x00	; 0
+ 206:	0e 94 ec 01 	call	0x3d8	; 0x3d8 <UIKAddTask>
+  UIKRun(id);
+ 20a:	0e 94 ea 02 	call	0x5d4	; 0x5d4 <UIKRun>
+
+  /*this enables interupts, so doesn't need to be done in main */
+  UIKStart();
+ 20e:	0e 94 f9 02 	call	0x5f2	; 0x5f2 <UIKStart>
+  return 0;
+}
+ 212:	80 e0       	ldi	r24, 0x00	; 0
+ 214:	90 e0       	ldi	r25, 0x00	; 0
+ 216:	08 95       	ret
+
+00000218 <UIKIdle>:
+
+
+volatile uint8_t *assocEvents[MAX_EVENTS];
 
 
 void UIKIdle(){
-  ac:	ff cf       	rjmp	.-2      	; 0xac <UIKIdle>
+ 218:	ff cf       	rjmp	.-2      	; 0x218 <UIKIdle>
 
-000000ae <UIKTick>:
-  while(1);
-
+0000021a <UIKTick>:
 }
 
 
 void UIKTick(){
-  ae:	cf 93       	push	r28
-  b0:	df 93       	push	r29
   int i;
   UIKTickNum++;
-  b2:	80 91 16 01 	lds	r24, 0x0116
-  b6:	90 91 17 01 	lds	r25, 0x0117
-  ba:	a0 91 18 01 	lds	r26, 0x0118
-  be:	b0 91 19 01 	lds	r27, 0x0119
-  c2:	01 96       	adiw	r24, 0x01	; 1
-  c4:	a1 1d       	adc	r26, r1
-  c6:	b1 1d       	adc	r27, r1
-  c8:	80 93 16 01 	sts	0x0116, r24
-  cc:	90 93 17 01 	sts	0x0117, r25
-  d0:	a0 93 18 01 	sts	0x0118, r26
-  d4:	b0 93 19 01 	sts	0x0119, r27
+ 21a:	80 91 bc 01 	lds	r24, 0x01BC
+ 21e:	90 91 bd 01 	lds	r25, 0x01BD
+ 222:	a0 91 be 01 	lds	r26, 0x01BE
+ 226:	b0 91 bf 01 	lds	r27, 0x01BF
+ 22a:	01 96       	adiw	r24, 0x01	; 1
+ 22c:	a1 1d       	adc	r26, r1
+ 22e:	b1 1d       	adc	r27, r1
+ 230:	80 93 bc 01 	sts	0x01BC, r24
+ 234:	90 93 bd 01 	sts	0x01BD, r25
+ 238:	a0 93 be 01 	sts	0x01BE, r26
+ 23c:	b0 93 bf 01 	sts	0x01BF, r27
+ 240:	e0 91 1b 02 	lds	r30, 0x021B
+ 244:	f0 91 1c 02 	lds	r31, 0x021C
   for(i = 0; i < taskNum; i++) {
-    //decrement delays where necessary
-    if(tcb[i].delay > 0) {
-  d8:	90 91 1a 01 	lds	r25, 0x011A
-  dc:	80 91 1b 01 	lds	r24, 0x011B
-  e0:	e9 2f       	mov	r30, r25
-  e2:	f8 2f       	mov	r31, r24
-  e4:	c9 2f       	mov	r28, r25
-  e6:	d8 2f       	mov	r29, r24
-
-
-void UIKTick(){
-  int i;
-  UIKTickNum++;
-  for(i = 0; i < taskNum; i++) {
-  e8:	20 e0       	ldi	r18, 0x00	; 0
-  ea:	30 e0       	ldi	r19, 0x00	; 0
+ 248:	20 e0       	ldi	r18, 0x00	; 0
+ 24a:	30 e0       	ldi	r19, 0x00	; 0
     //decrement delays where necessary
     if(tcb[i].delay > 0) {
 	  tcb[i].delay--;
 	  if(tcb[i].delay == 0) {
 	    //the state should have been waiting
 	    tcb[i].state = eReady;
-  ec:	41 e0       	ldi	r20, 0x01	; 1
-  ee:	50 e0       	ldi	r21, 0x00	; 0
+ 24c:	41 e0       	ldi	r20, 0x01	; 1
+ 24e:	50 e0       	ldi	r21, 0x00	; 0
 
 
 void UIKTick(){
   int i;
   UIKTickNum++;
   for(i = 0; i < taskNum; i++) {
-  f0:	21 c0       	rjmp	.+66     	; 0x134 <UIKTick+0x86>
+ 250:	20 c0       	rjmp	.+64     	; 0x292 <UIKTick+0x78>
     //decrement delays where necessary
     if(tcb[i].delay > 0) {
-  f2:	85 81       	ldd	r24, Z+5	; 0x05
-  f4:	96 81       	ldd	r25, Z+6	; 0x06
-  f6:	a7 81       	ldd	r26, Z+7	; 0x07
-  f8:	b0 85       	ldd	r27, Z+8	; 0x08
-  fa:	00 97       	sbiw	r24, 0x00	; 0
-  fc:	a1 05       	cpc	r26, r1
-  fe:	b1 05       	cpc	r27, r1
- 100:	a9 f0       	breq	.+42     	; 0x12c <UIKTick+0x7e>
+ 252:	85 81       	ldd	r24, Z+5	; 0x05
+ 254:	96 81       	ldd	r25, Z+6	; 0x06
+ 256:	a7 81       	ldd	r26, Z+7	; 0x07
+ 258:	b0 85       	ldd	r27, Z+8	; 0x08
+ 25a:	00 97       	sbiw	r24, 0x00	; 0
+ 25c:	a1 05       	cpc	r26, r1
+ 25e:	b1 05       	cpc	r27, r1
+ 260:	a9 f0       	breq	.+42     	; 0x28c <UIKTick+0x72>
 	  tcb[i].delay--;
- 102:	85 81       	ldd	r24, Z+5	; 0x05
- 104:	96 81       	ldd	r25, Z+6	; 0x06
- 106:	a7 81       	ldd	r26, Z+7	; 0x07
- 108:	b0 85       	ldd	r27, Z+8	; 0x08
- 10a:	01 97       	sbiw	r24, 0x01	; 1
- 10c:	a1 09       	sbc	r26, r1
- 10e:	b1 09       	sbc	r27, r1
- 110:	85 83       	std	Z+5, r24	; 0x05
- 112:	96 83       	std	Z+6, r25	; 0x06
- 114:	a7 83       	std	Z+7, r26	; 0x07
- 116:	b0 87       	std	Z+8, r27	; 0x08
+ 262:	85 81       	ldd	r24, Z+5	; 0x05
+ 264:	96 81       	ldd	r25, Z+6	; 0x06
+ 266:	a7 81       	ldd	r26, Z+7	; 0x07
+ 268:	b0 85       	ldd	r27, Z+8	; 0x08
+ 26a:	01 97       	sbiw	r24, 0x01	; 1
+ 26c:	a1 09       	sbc	r26, r1
+ 26e:	b1 09       	sbc	r27, r1
+ 270:	85 83       	std	Z+5, r24	; 0x05
+ 272:	96 83       	std	Z+6, r25	; 0x06
+ 274:	a7 83       	std	Z+7, r26	; 0x07
+ 276:	b0 87       	std	Z+8, r27	; 0x08
 	  if(tcb[i].delay == 0) {
- 118:	85 81       	ldd	r24, Z+5	; 0x05
- 11a:	96 81       	ldd	r25, Z+6	; 0x06
- 11c:	a7 81       	ldd	r26, Z+7	; 0x07
- 11e:	b0 85       	ldd	r27, Z+8	; 0x08
- 120:	00 97       	sbiw	r24, 0x00	; 0
- 122:	a1 05       	cpc	r26, r1
- 124:	b1 05       	cpc	r27, r1
- 126:	11 f4       	brne	.+4      	; 0x12c <UIKTick+0x7e>
+ 278:	85 81       	ldd	r24, Z+5	; 0x05
+ 27a:	96 81       	ldd	r25, Z+6	; 0x06
+ 27c:	a7 81       	ldd	r26, Z+7	; 0x07
+ 27e:	b0 85       	ldd	r27, Z+8	; 0x08
+ 280:	00 97       	sbiw	r24, 0x00	; 0
+ 282:	a1 05       	cpc	r26, r1
+ 284:	b1 05       	cpc	r27, r1
+ 286:	11 f4       	brne	.+4      	; 0x28c <UIKTick+0x72>
 	    //the state should have been waiting
 	    tcb[i].state = eReady;
- 128:	59 83       	std	Y+1, r21	; 0x01
- 12a:	48 83       	st	Y, r20
+ 288:	51 83       	std	Z+1, r21	; 0x01
+ 28a:	40 83       	st	Z, r20
 
 
 void UIKTick(){
   int i;
   UIKTickNum++;
   for(i = 0; i < taskNum; i++) {
- 12c:	2f 5f       	subi	r18, 0xFF	; 255
- 12e:	3f 4f       	sbci	r19, 0xFF	; 255
- 130:	39 96       	adiw	r30, 0x09	; 9
- 132:	29 96       	adiw	r28, 0x09	; 9
- 134:	80 91 12 01 	lds	r24, 0x0112
- 138:	90 e0       	ldi	r25, 0x00	; 0
- 13a:	28 17       	cp	r18, r24
- 13c:	39 07       	cpc	r19, r25
- 13e:	cc f2       	brlt	.-78     	; 0xf2 <UIKTick+0x44>
+ 28c:	2f 5f       	subi	r18, 0xFF	; 255
+ 28e:	3f 4f       	sbci	r19, 0xFF	; 255
+ 290:	39 96       	adiw	r30, 0x09	; 9
+ 292:	80 91 c3 01 	lds	r24, 0x01C3
+ 296:	90 e0       	ldi	r25, 0x00	; 0
+ 298:	28 17       	cp	r18, r24
+ 29a:	39 07       	cpc	r19, r25
+ 29c:	d4 f2       	brlt	.-76     	; 0x252 <UIKTick+0x38>
 	    //the state should have been waiting
 	    tcb[i].state = eReady;
 	  }	
     }
   }
 }
- 140:	df 91       	pop	r29
- 142:	cf 91       	pop	r28
- 144:	08 95       	ret
+ 29e:	08 95       	ret
 
-00000146 <UIKDispatcher>:
+000002a0 <UIKDispatcher>:
   int high = IDLE_ID;
   int i;
 
   for(i = 0; i < taskNum; i++) {
 	//find highest priority ready task
     if(tcb[i].state == eReady && tcb[i].priority < tcb[high].priority) {
- 146:	60 91 1a 01 	lds	r22, 0x011A
- 14a:	70 91 1b 01 	lds	r23, 0x011B
- 14e:	db 01       	movw	r26, r22
+ 2a0:	40 91 1b 02 	lds	r20, 0x021B
+ 2a4:	50 91 1c 02 	lds	r21, 0x021C
+ 2a8:	da 01       	movw	r26, r20
 void UIKDispatcher() {
 
   int high = IDLE_ID;
   int i;
 
   for(i = 0; i < taskNum; i++) {
- 150:	40 e0       	ldi	r20, 0x00	; 0
- 152:	50 e0       	ldi	r21, 0x00	; 0
+ 2aa:	20 e0       	ldi	r18, 0x00	; 0
+ 2ac:	30 e0       	ldi	r19, 0x00	; 0
 }
 
 
 void UIKDispatcher() {
 
   int high = IDLE_ID;
- 154:	20 e0       	ldi	r18, 0x00	; 0
- 156:	30 e0       	ldi	r19, 0x00	; 0
+ 2ae:	80 e0       	ldi	r24, 0x00	; 0
+ 2b0:	90 e0       	ldi	r25, 0x00	; 0
   int i;
 
   for(i = 0; i < taskNum; i++) {
- 158:	1a c0       	rjmp	.+52     	; 0x18e <UIKDispatcher+0x48>
+ 2b2:	1a c0       	rjmp	.+52     	; 0x2e8 <UIKDispatcher+0x48>
 	//find highest priority ready task
     if(tcb[i].state == eReady && tcb[i].priority < tcb[high].priority) {
- 15a:	8d 91       	ld	r24, X+
- 15c:	9c 91       	ld	r25, X
- 15e:	11 97       	sbiw	r26, 0x01	; 1
- 160:	81 30       	cpi	r24, 0x01	; 1
- 162:	91 05       	cpc	r25, r1
- 164:	89 f4       	brne	.+34     	; 0x188 <UIKDispatcher+0x42>
- 166:	12 96       	adiw	r26, 0x02	; 2
- 168:	9c 91       	ld	r25, X
- 16a:	12 97       	sbiw	r26, 0x02	; 2
- 16c:	f9 01       	movw	r30, r18
- 16e:	83 e0       	ldi	r24, 0x03	; 3
- 170:	ee 0f       	add	r30, r30
- 172:	ff 1f       	adc	r31, r31
- 174:	8a 95       	dec	r24
- 176:	e1 f7       	brne	.-8      	; 0x170 <UIKDispatcher+0x2a>
- 178:	e2 0f       	add	r30, r18
- 17a:	f3 1f       	adc	r31, r19
- 17c:	e6 0f       	add	r30, r22
- 17e:	f7 1f       	adc	r31, r23
- 180:	82 81       	ldd	r24, Z+2	; 0x02
- 182:	98 17       	cp	r25, r24
- 184:	08 f4       	brcc	.+2      	; 0x188 <UIKDispatcher+0x42>
- 186:	9a 01       	movw	r18, r20
+ 2b4:	6d 91       	ld	r22, X+
+ 2b6:	7c 91       	ld	r23, X
+ 2b8:	11 97       	sbiw	r26, 0x01	; 1
+ 2ba:	61 30       	cpi	r22, 0x01	; 1
+ 2bc:	71 05       	cpc	r23, r1
+ 2be:	89 f4       	brne	.+34     	; 0x2e2 <UIKDispatcher+0x42>
+ 2c0:	12 96       	adiw	r26, 0x02	; 2
+ 2c2:	7c 91       	ld	r23, X
+ 2c4:	12 97       	sbiw	r26, 0x02	; 2
+ 2c6:	fc 01       	movw	r30, r24
+ 2c8:	63 e0       	ldi	r22, 0x03	; 3
+ 2ca:	ee 0f       	add	r30, r30
+ 2cc:	ff 1f       	adc	r31, r31
+ 2ce:	6a 95       	dec	r22
+ 2d0:	e1 f7       	brne	.-8      	; 0x2ca <UIKDispatcher+0x2a>
+ 2d2:	e8 0f       	add	r30, r24
+ 2d4:	f9 1f       	adc	r31, r25
+ 2d6:	e4 0f       	add	r30, r20
+ 2d8:	f5 1f       	adc	r31, r21
+ 2da:	62 81       	ldd	r22, Z+2	; 0x02
+ 2dc:	76 17       	cp	r23, r22
+ 2de:	08 f4       	brcc	.+2      	; 0x2e2 <UIKDispatcher+0x42>
+ 2e0:	c9 01       	movw	r24, r18
 void UIKDispatcher() {
 
   int high = IDLE_ID;
   int i;
 
   for(i = 0; i < taskNum; i++) {
- 188:	4f 5f       	subi	r20, 0xFF	; 255
- 18a:	5f 4f       	sbci	r21, 0xFF	; 255
- 18c:	19 96       	adiw	r26, 0x09	; 9
- 18e:	80 91 12 01 	lds	r24, 0x0112
- 192:	90 e0       	ldi	r25, 0x00	; 0
- 194:	48 17       	cp	r20, r24
- 196:	59 07       	cpc	r21, r25
- 198:	04 f3       	brlt	.-64     	; 0x15a <UIKDispatcher+0x14>
+ 2e2:	2f 5f       	subi	r18, 0xFF	; 255
+ 2e4:	3f 4f       	sbci	r19, 0xFF	; 255
+ 2e6:	19 96       	adiw	r26, 0x09	; 9
+ 2e8:	60 91 c3 01 	lds	r22, 0x01C3
+ 2ec:	70 e0       	ldi	r23, 0x00	; 0
+ 2ee:	26 17       	cp	r18, r22
+ 2f0:	37 07       	cpc	r19, r23
+ 2f2:	04 f3       	brlt	.-64     	; 0x2b4 <UIKDispatcher+0x14>
     if(tcb[i].state == eReady && tcb[i].priority < tcb[high].priority) {
 	  high = i;
 	}
   }
 
   currentTask = high;
- 19a:	20 93 2e 01 	sts	0x012E, r18
+ 2f4:	80 93 2f 02 	sts	0x022F, r24
   currentTCB = tcb[high].contextPtr;
- 19e:	c9 01       	movw	r24, r18
- 1a0:	43 e0       	ldi	r20, 0x03	; 3
- 1a2:	88 0f       	add	r24, r24
- 1a4:	99 1f       	adc	r25, r25
- 1a6:	4a 95       	dec	r20
- 1a8:	e1 f7       	brne	.-8      	; 0x1a2 <UIKDispatcher+0x5c>
- 1aa:	82 0f       	add	r24, r18
- 1ac:	93 1f       	adc	r25, r19
- 1ae:	e0 91 1a 01 	lds	r30, 0x011A
- 1b2:	f0 91 1b 01 	lds	r31, 0x011B
- 1b6:	e8 0f       	add	r30, r24
- 1b8:	f9 1f       	adc	r31, r25
- 1ba:	83 81       	ldd	r24, Z+3	; 0x03
- 1bc:	94 81       	ldd	r25, Z+4	; 0x04
- 1be:	90 93 2d 01 	sts	0x012D, r25
- 1c2:	80 93 2c 01 	sts	0x012C, r24
+ 2f8:	9c 01       	movw	r18, r24
+ 2fa:	43 e0       	ldi	r20, 0x03	; 3
+ 2fc:	22 0f       	add	r18, r18
+ 2fe:	33 1f       	adc	r19, r19
+ 300:	4a 95       	dec	r20
+ 302:	e1 f7       	brne	.-8      	; 0x2fc <UIKDispatcher+0x5c>
+ 304:	28 0f       	add	r18, r24
+ 306:	39 1f       	adc	r19, r25
+ 308:	e0 91 1b 02 	lds	r30, 0x021B
+ 30c:	f0 91 1c 02 	lds	r31, 0x021C
+ 310:	e2 0f       	add	r30, r18
+ 312:	f3 1f       	adc	r31, r19
+ 314:	83 81       	ldd	r24, Z+3	; 0x03
+ 316:	94 81       	ldd	r25, Z+4	; 0x04
+ 318:	90 93 2e 02 	sts	0x022E, r25
+ 31c:	80 93 2d 02 	sts	0x022D, r24
   
 }
- 1c6:	08 95       	ret
+ 320:	08 95       	ret
 
-000001c8 <__vector_7>:
+00000322 <__vector_7>:
  * UIKTickHandler
  */
 
 ISR(TIMER1_COMPA_vect, ISR_NAKED){
 
   saveContext();
- 1c8:	0f 92       	push	r0
- 1ca:	0f b6       	in	r0, 0x3f	; 63
- 1cc:	f8 94       	cli
- 1ce:	0f 92       	push	r0
- 1d0:	1f 92       	push	r1
- 1d2:	11 24       	eor	r1, r1
- 1d4:	2f 92       	push	r2
- 1d6:	3f 92       	push	r3
- 1d8:	4f 92       	push	r4
- 1da:	5f 92       	push	r5
- 1dc:	6f 92       	push	r6
- 1de:	7f 92       	push	r7
- 1e0:	8f 92       	push	r8
- 1e2:	9f 92       	push	r9
- 1e4:	af 92       	push	r10
- 1e6:	bf 92       	push	r11
- 1e8:	cf 92       	push	r12
- 1ea:	df 92       	push	r13
- 1ec:	ef 92       	push	r14
- 1ee:	ff 92       	push	r15
- 1f0:	0f 93       	push	r16
- 1f2:	1f 93       	push	r17
- 1f4:	2f 93       	push	r18
- 1f6:	3f 93       	push	r19
- 1f8:	4f 93       	push	r20
- 1fa:	5f 93       	push	r21
- 1fc:	6f 93       	push	r22
- 1fe:	7f 93       	push	r23
- 200:	8f 93       	push	r24
- 202:	9f 93       	push	r25
- 204:	af 93       	push	r26
- 206:	bf 93       	push	r27
- 208:	cf 93       	push	r28
- 20a:	df 93       	push	r29
- 20c:	ef 93       	push	r30
- 20e:	ff 93       	push	r31
- 210:	a0 91 2c 01 	lds	r26, 0x012C
- 214:	b0 91 2d 01 	lds	r27, 0x012D
- 218:	0d b6       	in	r0, 0x3d	; 61
- 21a:	0d 92       	st	X+, r0
- 21c:	0e b6       	in	r0, 0x3e	; 62
- 21e:	0d 92       	st	X+, r0
+ 322:	0f 92       	push	r0
+ 324:	0f b6       	in	r0, 0x3f	; 63
+ 326:	f8 94       	cli
+ 328:	0f 92       	push	r0
+ 32a:	1f 92       	push	r1
+ 32c:	11 24       	eor	r1, r1
+ 32e:	2f 92       	push	r2
+ 330:	3f 92       	push	r3
+ 332:	4f 92       	push	r4
+ 334:	5f 92       	push	r5
+ 336:	6f 92       	push	r6
+ 338:	7f 92       	push	r7
+ 33a:	8f 92       	push	r8
+ 33c:	9f 92       	push	r9
+ 33e:	af 92       	push	r10
+ 340:	bf 92       	push	r11
+ 342:	cf 92       	push	r12
+ 344:	df 92       	push	r13
+ 346:	ef 92       	push	r14
+ 348:	ff 92       	push	r15
+ 34a:	0f 93       	push	r16
+ 34c:	1f 93       	push	r17
+ 34e:	2f 93       	push	r18
+ 350:	3f 93       	push	r19
+ 352:	4f 93       	push	r20
+ 354:	5f 93       	push	r21
+ 356:	6f 93       	push	r22
+ 358:	7f 93       	push	r23
+ 35a:	8f 93       	push	r24
+ 35c:	9f 93       	push	r25
+ 35e:	af 93       	push	r26
+ 360:	bf 93       	push	r27
+ 362:	cf 93       	push	r28
+ 364:	df 93       	push	r29
+ 366:	ef 93       	push	r30
+ 368:	ff 93       	push	r31
+ 36a:	a0 91 2d 02 	lds	r26, 0x022D
+ 36e:	b0 91 2e 02 	lds	r27, 0x022E
+ 372:	0d b6       	in	r0, 0x3d	; 61
+ 374:	0d 92       	st	X+, r0
+ 376:	0e b6       	in	r0, 0x3e	; 62
+ 378:	0d 92       	st	X+, r0
   UIKTick();
- 220:	0e 94 57 00 	call	0xae	; 0xae <UIKTick>
+ 37a:	0e 94 0d 01 	call	0x21a	; 0x21a <UIKTick>
   UIKDispatcher();
- 224:	0e 94 a3 00 	call	0x146	; 0x146 <UIKDispatcher>
+ 37e:	0e 94 50 01 	call	0x2a0	; 0x2a0 <UIKDispatcher>
   restoreContext();
- 228:	a0 91 2c 01 	lds	r26, 0x012C
- 22c:	b0 91 2d 01 	lds	r27, 0x012D
- 230:	cd 91       	ld	r28, X+
- 232:	cd bf       	out	0x3d, r28	; 61
- 234:	dd 91       	ld	r29, X+
- 236:	de bf       	out	0x3e, r29	; 62
- 238:	ff 91       	pop	r31
- 23a:	ef 91       	pop	r30
- 23c:	df 91       	pop	r29
- 23e:	cf 91       	pop	r28
- 240:	bf 91       	pop	r27
- 242:	af 91       	pop	r26
- 244:	9f 91       	pop	r25
- 246:	8f 91       	pop	r24
- 248:	7f 91       	pop	r23
- 24a:	6f 91       	pop	r22
- 24c:	5f 91       	pop	r21
- 24e:	4f 91       	pop	r20
- 250:	3f 91       	pop	r19
- 252:	2f 91       	pop	r18
- 254:	1f 91       	pop	r17
- 256:	0f 91       	pop	r16
- 258:	ff 90       	pop	r15
- 25a:	ef 90       	pop	r14
- 25c:	df 90       	pop	r13
- 25e:	cf 90       	pop	r12
- 260:	bf 90       	pop	r11
- 262:	af 90       	pop	r10
- 264:	9f 90       	pop	r9
- 266:	8f 90       	pop	r8
- 268:	7f 90       	pop	r7
- 26a:	6f 90       	pop	r6
- 26c:	5f 90       	pop	r5
- 26e:	4f 90       	pop	r4
- 270:	3f 90       	pop	r3
- 272:	2f 90       	pop	r2
- 274:	1f 90       	pop	r1
- 276:	0f 90       	pop	r0
- 278:	0f be       	out	0x3f, r0	; 63
- 27a:	0f 90       	pop	r0
+ 382:	a0 91 2d 02 	lds	r26, 0x022D
+ 386:	b0 91 2e 02 	lds	r27, 0x022E
+ 38a:	cd 91       	ld	r28, X+
+ 38c:	cd bf       	out	0x3d, r28	; 61
+ 38e:	dd 91       	ld	r29, X+
+ 390:	de bf       	out	0x3e, r29	; 62
+ 392:	ff 91       	pop	r31
+ 394:	ef 91       	pop	r30
+ 396:	df 91       	pop	r29
+ 398:	cf 91       	pop	r28
+ 39a:	bf 91       	pop	r27
+ 39c:	af 91       	pop	r26
+ 39e:	9f 91       	pop	r25
+ 3a0:	8f 91       	pop	r24
+ 3a2:	7f 91       	pop	r23
+ 3a4:	6f 91       	pop	r22
+ 3a6:	5f 91       	pop	r21
+ 3a8:	4f 91       	pop	r20
+ 3aa:	3f 91       	pop	r19
+ 3ac:	2f 91       	pop	r18
+ 3ae:	1f 91       	pop	r17
+ 3b0:	0f 91       	pop	r16
+ 3b2:	ff 90       	pop	r15
+ 3b4:	ef 90       	pop	r14
+ 3b6:	df 90       	pop	r13
+ 3b8:	cf 90       	pop	r12
+ 3ba:	bf 90       	pop	r11
+ 3bc:	af 90       	pop	r10
+ 3be:	9f 90       	pop	r9
+ 3c0:	8f 90       	pop	r8
+ 3c2:	7f 90       	pop	r7
+ 3c4:	6f 90       	pop	r6
+ 3c6:	5f 90       	pop	r5
+ 3c8:	4f 90       	pop	r4
+ 3ca:	3f 90       	pop	r3
+ 3cc:	2f 90       	pop	r2
+ 3ce:	1f 90       	pop	r1
+ 3d0:	0f 90       	pop	r0
+ 3d2:	0f be       	out	0x3f, r0	; 63
+ 3d4:	0f 90       	pop	r0
   asm volatile ("reti");
- 27c:	18 95       	reti
+ 3d6:	18 95       	reti
 
-0000027e <UIKAddTask>:
+000003d8 <UIKAddTask>:
   
   return 1;
 
 }
 
 uint8_t UIKAddTask(void* task, uint8_t priority, uint8_t* stack, uint16_t stackSize){
- 27e:	1f 93       	push	r17
- 280:	cf 93       	push	r28
- 282:	df 93       	push	r29
- 284:	78 2f       	mov	r23, r24
- 286:	19 2f       	mov	r17, r25
- 288:	da 01       	movw	r26, r20
- 28a:	a9 01       	movw	r20, r18
+ 3d8:	0f 93       	push	r16
+ 3da:	1f 93       	push	r17
+ 3dc:	cf 93       	push	r28
+ 3de:	df 93       	push	r29
+ 3e0:	f9 01       	movw	r30, r18
 
     
   if (taskNum > maxTaskNumber) {
- 28c:	90 91 12 01 	lds	r25, 0x0112
- 290:	80 91 13 01 	lds	r24, 0x0113
- 294:	89 17       	cp	r24, r25
- 296:	18 f4       	brcc	.+6      	; 0x29e <UIKAddTask+0x20>
+ 3e2:	30 91 c3 01 	lds	r19, 0x01C3
+ 3e6:	20 91 c2 01 	lds	r18, 0x01C2
+ 3ea:	23 17       	cp	r18, r19
+ 3ec:	18 f4       	brcc	.+6      	; 0x3f4 <UIKAddTask+0x1c>
     return taskNum;
- 298:	80 91 12 01 	lds	r24, 0x0112
- 29c:	0f c1       	rjmp	.+542    	; 0x4bc <UIKAddTask+0x23e>
+ 3ee:	80 91 c3 01 	lds	r24, 0x01C3
+ 3f2:	9e c0       	rjmp	.+316    	; 0x530 <UIKAddTask+0x158>
   }
   
   
   tcb[taskNum].state = eSuspended;
- 29e:	20 91 1a 01 	lds	r18, 0x011A
- 2a2:	30 91 1b 01 	lds	r19, 0x011B
- 2a6:	80 91 12 01 	lds	r24, 0x0112
- 2aa:	90 e0       	ldi	r25, 0x00	; 0
- 2ac:	fc 01       	movw	r30, r24
- 2ae:	c3 e0       	ldi	r28, 0x03	; 3
- 2b0:	ee 0f       	add	r30, r30
- 2b2:	ff 1f       	adc	r31, r31
- 2b4:	ca 95       	dec	r28
- 2b6:	e1 f7       	brne	.-8      	; 0x2b0 <UIKAddTask+0x32>
- 2b8:	e8 0f       	add	r30, r24
- 2ba:	f9 1f       	adc	r31, r25
- 2bc:	e2 0f       	add	r30, r18
- 2be:	f3 1f       	adc	r31, r19
- 2c0:	85 e0       	ldi	r24, 0x05	; 5
- 2c2:	90 e0       	ldi	r25, 0x00	; 0
- 2c4:	91 83       	std	Z+1, r25	; 0x01
- 2c6:	80 83       	st	Z, r24
+ 3f4:	a0 91 1b 02 	lds	r26, 0x021B
+ 3f8:	b0 91 1c 02 	lds	r27, 0x021C
+ 3fc:	20 91 c3 01 	lds	r18, 0x01C3
+ 400:	39 e0       	ldi	r19, 0x09	; 9
+ 402:	23 9f       	mul	r18, r19
+ 404:	e0 01       	movw	r28, r0
+ 406:	11 24       	eor	r1, r1
+ 408:	ca 0f       	add	r28, r26
+ 40a:	db 1f       	adc	r29, r27
+ 40c:	05 e0       	ldi	r16, 0x05	; 5
+ 40e:	10 e0       	ldi	r17, 0x00	; 0
+ 410:	19 83       	std	Y+1, r17	; 0x01
+ 412:	08 83       	st	Y, r16
   tcb[taskNum].priority = priority;
- 2c8:	80 91 12 01 	lds	r24, 0x0112
- 2cc:	90 e0       	ldi	r25, 0x00	; 0
- 2ce:	fc 01       	movw	r30, r24
- 2d0:	d3 e0       	ldi	r29, 0x03	; 3
- 2d2:	ee 0f       	add	r30, r30
- 2d4:	ff 1f       	adc	r31, r31
- 2d6:	da 95       	dec	r29
- 2d8:	e1 f7       	brne	.-8      	; 0x2d2 <UIKAddTask+0x54>
- 2da:	e8 0f       	add	r30, r24
- 2dc:	f9 1f       	adc	r31, r25
- 2de:	e2 0f       	add	r30, r18
- 2e0:	f3 1f       	adc	r31, r19
- 2e2:	62 83       	std	Z+2, r22	; 0x02
+ 414:	20 91 c3 01 	lds	r18, 0x01C3
+ 418:	23 9f       	mul	r18, r19
+ 41a:	e0 01       	movw	r28, r0
+ 41c:	11 24       	eor	r1, r1
+ 41e:	ca 0f       	add	r28, r26
+ 420:	db 1f       	adc	r29, r27
+ 422:	6a 83       	std	Y+2, r22	; 0x02
   tcb[taskNum].delay = 0;
- 2e4:	80 91 12 01 	lds	r24, 0x0112
- 2e8:	90 e0       	ldi	r25, 0x00	; 0
- 2ea:	fc 01       	movw	r30, r24
- 2ec:	63 e0       	ldi	r22, 0x03	; 3
- 2ee:	ee 0f       	add	r30, r30
- 2f0:	ff 1f       	adc	r31, r31
- 2f2:	6a 95       	dec	r22
- 2f4:	e1 f7       	brne	.-8      	; 0x2ee <UIKAddTask+0x70>
- 2f6:	e8 0f       	add	r30, r24
- 2f8:	f9 1f       	adc	r31, r25
- 2fa:	e2 0f       	add	r30, r18
- 2fc:	f3 1f       	adc	r31, r19
- 2fe:	15 82       	std	Z+5, r1	; 0x05
- 300:	16 82       	std	Z+6, r1	; 0x06
- 302:	17 82       	std	Z+7, r1	; 0x07
- 304:	10 86       	std	Z+8, r1	; 0x08
+ 424:	20 91 c3 01 	lds	r18, 0x01C3
+ 428:	23 9f       	mul	r18, r19
+ 42a:	e0 01       	movw	r28, r0
+ 42c:	11 24       	eor	r1, r1
+ 42e:	ca 0f       	add	r28, r26
+ 430:	db 1f       	adc	r29, r27
+ 432:	1d 82       	std	Y+5, r1	; 0x05
+ 434:	1e 82       	std	Y+6, r1	; 0x06
+ 436:	1f 82       	std	Y+7, r1	; 0x07
+ 438:	18 86       	std	Y+8, r1	; 0x08
   
 
 
   // The stack grows down in memory 
   uint8_t* contextPtr = stack + stackSize - 1;
- 306:	fa 01       	movw	r30, r20
- 308:	31 97       	sbiw	r30, 0x01	; 1
- 30a:	ea 0f       	add	r30, r26
- 30c:	fb 1f       	adc	r31, r27
+ 43a:	31 97       	sbiw	r30, 0x01	; 1
+ 43c:	e4 0f       	add	r30, r20
+ 43e:	f5 1f       	adc	r31, r21
 
  
   //TODO: delete tcb[taskNum].stack_lptr = contextPtr;
   tcb[taskNum].contextPtr = contextPtr - 1;
- 30e:	80 91 12 01 	lds	r24, 0x0112
- 312:	90 e0       	ldi	r25, 0x00	; 0
- 314:	dc 01       	movw	r26, r24
- 316:	c3 e0       	ldi	r28, 0x03	; 3
- 318:	aa 0f       	add	r26, r26
- 31a:	bb 1f       	adc	r27, r27
- 31c:	ca 95       	dec	r28
- 31e:	e1 f7       	brne	.-8      	; 0x318 <UIKAddTask+0x9a>
- 320:	a8 0f       	add	r26, r24
- 322:	b9 1f       	adc	r27, r25
- 324:	a2 0f       	add	r26, r18
- 326:	b3 1f       	adc	r27, r19
- 328:	ef 01       	movw	r28, r30
- 32a:	21 97       	sbiw	r28, 0x01	; 1
- 32c:	14 96       	adiw	r26, 0x04	; 4
- 32e:	dc 93       	st	X, r29
- 330:	ce 93       	st	-X, r28
- 332:	13 97       	sbiw	r26, 0x03	; 3
+ 440:	20 91 c3 01 	lds	r18, 0x01C3
+ 444:	23 9f       	mul	r18, r19
+ 446:	e0 01       	movw	r28, r0
+ 448:	11 24       	eor	r1, r1
+ 44a:	ca 0f       	add	r28, r26
+ 44c:	db 1f       	adc	r29, r27
+ 44e:	df 01       	movw	r26, r30
+ 450:	11 97       	sbiw	r26, 0x01	; 1
+ 452:	bc 83       	std	Y+4, r27	; 0x04
+ 454:	ab 83       	std	Y+3, r26	; 0x03
 
   // place a few known bytes on the bottom - useful for debugging 
   *contextPtr = 0x11; 
- 334:	81 e1       	ldi	r24, 0x11	; 17
- 336:	80 83       	st	Z, r24
+ 456:	41 e1       	ldi	r20, 0x11	; 17
+ 458:	40 83       	st	Z, r20
   contextPtr--;
   *contextPtr = 0x22; 
- 338:	92 e2       	ldi	r25, 0x22	; 34
- 33a:	98 83       	st	Y, r25
+ 45a:	22 e2       	ldi	r18, 0x22	; 34
+ 45c:	2c 93       	st	X, r18
   contextPtr--;
+ 45e:	fd 01       	movw	r30, r26
   *contextPtr = 0x33;
- 33c:	df 01       	movw	r26, r30
- 33e:	12 97       	sbiw	r26, 0x02	; 2
- 340:	23 e3       	ldi	r18, 0x33	; 51
- 342:	2c 93       	st	X, r18
+ 460:	53 e3       	ldi	r21, 0x33	; 51
+ 462:	52 93       	st	-Z, r21
   contextPtr--;
   
   // Address of the task
   *contextPtr = ((unsigned int) task) & 0x00ff;
- 344:	df 01       	movw	r26, r30
- 346:	13 97       	sbiw	r26, 0x03	; 3
- 348:	7c 93       	st	X, r23
+ 464:	82 93       	st	-Z, r24
   contextPtr--;
   *contextPtr = (((unsigned int) task) >> 8) & 0x00ff;
- 34a:	df 01       	movw	r26, r30
- 34c:	14 97       	sbiw	r26, 0x04	; 4
- 34e:	1c 93       	st	X, r17
+ 466:	92 93       	st	-Z, r25
   contextPtr--;
   
   //simulate stack after a call to savecontext
   *contextPtr = 0x00;  //r0
- 350:	df 01       	movw	r26, r30
- 352:	15 97       	sbiw	r26, 0x05	; 5
- 354:	1c 92       	st	X, r1
+ 468:	12 92       	st	-Z, r1
   contextPtr--;
   *contextPtr = 0x00;  // necessary for retiTODO: tray 0x08
- 356:	df 01       	movw	r26, r30
- 358:	16 97       	sbiw	r26, 0x06	; 6
- 35a:	1c 92       	st	X, r1
+ 46a:	12 92       	st	-Z, r1
   contextPtr--;
   *contextPtr = 0x00;  //r1 wants to always be 0
- 35c:	df 01       	movw	r26, r30
- 35e:	17 97       	sbiw	r26, 0x07	; 7
- 360:	1c 92       	st	X, r1
+ 46c:	12 92       	st	-Z, r1
   contextPtr--;
   *contextPtr = 0x02;  //r2
- 362:	df 01       	movw	r26, r30
- 364:	18 97       	sbiw	r26, 0x08	; 8
- 366:	22 e0       	ldi	r18, 0x02	; 2
- 368:	2c 93       	st	X, r18
+ 46e:	82 e0       	ldi	r24, 0x02	; 2
+ 470:	82 93       	st	-Z, r24
   contextPtr--;
   *contextPtr = 0x03;  //r3
- 36a:	df 01       	movw	r26, r30
- 36c:	19 97       	sbiw	r26, 0x09	; 9
- 36e:	23 e0       	ldi	r18, 0x03	; 3
- 370:	2c 93       	st	X, r18
+ 472:	83 e0       	ldi	r24, 0x03	; 3
+ 474:	82 93       	st	-Z, r24
   contextPtr--;
   *contextPtr = 0x04;  //r4
- 372:	df 01       	movw	r26, r30
- 374:	1a 97       	sbiw	r26, 0x0a	; 10
- 376:	24 e0       	ldi	r18, 0x04	; 4
- 378:	2c 93       	st	X, r18
+ 476:	84 e0       	ldi	r24, 0x04	; 4
+ 478:	82 93       	st	-Z, r24
   contextPtr--;
   *contextPtr = 0x05;  //r5
- 37a:	df 01       	movw	r26, r30
- 37c:	1b 97       	sbiw	r26, 0x0b	; 11
- 37e:	25 e0       	ldi	r18, 0x05	; 5
- 380:	2c 93       	st	X, r18
+ 47a:	85 e0       	ldi	r24, 0x05	; 5
+ 47c:	82 93       	st	-Z, r24
   contextPtr--;
   *contextPtr = 0x06;  //r6
- 382:	df 01       	movw	r26, r30
- 384:	1c 97       	sbiw	r26, 0x0c	; 12
- 386:	26 e0       	ldi	r18, 0x06	; 6
- 388:	2c 93       	st	X, r18
+ 47e:	86 e0       	ldi	r24, 0x06	; 6
+ 480:	82 93       	st	-Z, r24
   contextPtr--;
   *contextPtr = 0x07;  //r7
- 38a:	df 01       	movw	r26, r30
- 38c:	1d 97       	sbiw	r26, 0x0d	; 13
- 38e:	27 e0       	ldi	r18, 0x07	; 7
- 390:	2c 93       	st	X, r18
+ 482:	87 e0       	ldi	r24, 0x07	; 7
+ 484:	82 93       	st	-Z, r24
   contextPtr--;
   *contextPtr = 0x08;  //r8
- 392:	df 01       	movw	r26, r30
- 394:	1e 97       	sbiw	r26, 0x0e	; 14
- 396:	28 e0       	ldi	r18, 0x08	; 8
- 398:	2c 93       	st	X, r18
+ 486:	88 e0       	ldi	r24, 0x08	; 8
+ 488:	82 93       	st	-Z, r24
   contextPtr--;
   *contextPtr = 0x09;  //r9
- 39a:	df 01       	movw	r26, r30
- 39c:	1f 97       	sbiw	r26, 0x0f	; 15
- 39e:	29 e0       	ldi	r18, 0x09	; 9
- 3a0:	2c 93       	st	X, r18
+ 48a:	32 93       	st	-Z, r19
   contextPtr--;
   *contextPtr = 0x10;  //r10
- 3a2:	df 01       	movw	r26, r30
- 3a4:	50 97       	sbiw	r26, 0x10	; 16
- 3a6:	20 e1       	ldi	r18, 0x10	; 16
- 3a8:	2c 93       	st	X, r18
+ 48c:	80 e1       	ldi	r24, 0x10	; 16
+ 48e:	82 93       	st	-Z, r24
   contextPtr--;
   *contextPtr = 0x11;  //r11
- 3aa:	df 01       	movw	r26, r30
- 3ac:	51 97       	sbiw	r26, 0x11	; 17
- 3ae:	8c 93       	st	X, r24
+ 490:	42 93       	st	-Z, r20
   contextPtr--;
   *contextPtr = 0x12;  //r12
- 3b0:	df 01       	movw	r26, r30
- 3b2:	52 97       	sbiw	r26, 0x12	; 18
- 3b4:	82 e1       	ldi	r24, 0x12	; 18
- 3b6:	8c 93       	st	X, r24
+ 492:	82 e1       	ldi	r24, 0x12	; 18
+ 494:	82 93       	st	-Z, r24
   contextPtr--;
   *contextPtr = 0x13;  //r13
- 3b8:	df 01       	movw	r26, r30
- 3ba:	53 97       	sbiw	r26, 0x13	; 19
- 3bc:	83 e1       	ldi	r24, 0x13	; 19
- 3be:	8c 93       	st	X, r24
+ 496:	83 e1       	ldi	r24, 0x13	; 19
+ 498:	82 93       	st	-Z, r24
   contextPtr--;
   *contextPtr = 0x14;  //r14
- 3c0:	df 01       	movw	r26, r30
- 3c2:	54 97       	sbiw	r26, 0x14	; 20
- 3c4:	84 e1       	ldi	r24, 0x14	; 20
- 3c6:	8c 93       	st	X, r24
+ 49a:	84 e1       	ldi	r24, 0x14	; 20
+ 49c:	82 93       	st	-Z, r24
   contextPtr--;
   *contextPtr = 0x15;  //r15
- 3c8:	df 01       	movw	r26, r30
- 3ca:	55 97       	sbiw	r26, 0x15	; 21
- 3cc:	85 e1       	ldi	r24, 0x15	; 21
- 3ce:	8c 93       	st	X, r24
+ 49e:	85 e1       	ldi	r24, 0x15	; 21
+ 4a0:	82 93       	st	-Z, r24
   contextPtr--;
   *contextPtr = 0x16;  //r16
- 3d0:	df 01       	movw	r26, r30
- 3d2:	56 97       	sbiw	r26, 0x16	; 22
- 3d4:	86 e1       	ldi	r24, 0x16	; 22
- 3d6:	8c 93       	st	X, r24
+ 4a2:	86 e1       	ldi	r24, 0x16	; 22
+ 4a4:	82 93       	st	-Z, r24
   contextPtr--;
   *contextPtr = 0x17;  //r17
- 3d8:	df 01       	movw	r26, r30
- 3da:	57 97       	sbiw	r26, 0x17	; 23
- 3dc:	87 e1       	ldi	r24, 0x17	; 23
- 3de:	8c 93       	st	X, r24
+ 4a6:	87 e1       	ldi	r24, 0x17	; 23
+ 4a8:	82 93       	st	-Z, r24
   contextPtr--;
   *contextPtr = 0x18;  //r18
- 3e0:	df 01       	movw	r26, r30
- 3e2:	58 97       	sbiw	r26, 0x18	; 24
- 3e4:	88 e1       	ldi	r24, 0x18	; 24
- 3e6:	8c 93       	st	X, r24
+ 4aa:	88 e1       	ldi	r24, 0x18	; 24
+ 4ac:	82 93       	st	-Z, r24
   contextPtr--;
   *contextPtr = 0x19;  //r19
- 3e8:	df 01       	movw	r26, r30
- 3ea:	59 97       	sbiw	r26, 0x19	; 25
- 3ec:	89 e1       	ldi	r24, 0x19	; 25
- 3ee:	8c 93       	st	X, r24
+ 4ae:	89 e1       	ldi	r24, 0x19	; 25
+ 4b0:	82 93       	st	-Z, r24
   contextPtr--;
   *contextPtr = 0x20;  //r20
- 3f0:	df 01       	movw	r26, r30
- 3f2:	5a 97       	sbiw	r26, 0x1a	; 26
- 3f4:	80 e2       	ldi	r24, 0x20	; 32
- 3f6:	8c 93       	st	X, r24
+ 4b2:	80 e2       	ldi	r24, 0x20	; 32
+ 4b4:	82 93       	st	-Z, r24
   contextPtr--;
   *contextPtr = 0x21;  //r21
- 3f8:	df 01       	movw	r26, r30
- 3fa:	5b 97       	sbiw	r26, 0x1b	; 27
- 3fc:	81 e2       	ldi	r24, 0x21	; 33
- 3fe:	8c 93       	st	X, r24
+ 4b6:	81 e2       	ldi	r24, 0x21	; 33
+ 4b8:	82 93       	st	-Z, r24
   contextPtr--;
   *contextPtr = 0x22;  //r22
- 400:	df 01       	movw	r26, r30
- 402:	5c 97       	sbiw	r26, 0x1c	; 28
- 404:	9c 93       	st	X, r25
+ 4ba:	22 93       	st	-Z, r18
   contextPtr--;
   *contextPtr = 0x23;  //r23
- 406:	df 01       	movw	r26, r30
- 408:	5d 97       	sbiw	r26, 0x1d	; 29
- 40a:	83 e2       	ldi	r24, 0x23	; 35
- 40c:	8c 93       	st	X, r24
+ 4bc:	83 e2       	ldi	r24, 0x23	; 35
+ 4be:	82 93       	st	-Z, r24
   contextPtr--;
   *contextPtr = 0x24;  //r24
- 40e:	df 01       	movw	r26, r30
- 410:	5e 97       	sbiw	r26, 0x1e	; 30
- 412:	84 e2       	ldi	r24, 0x24	; 36
- 414:	8c 93       	st	X, r24
+ 4c0:	84 e2       	ldi	r24, 0x24	; 36
+ 4c2:	82 93       	st	-Z, r24
   contextPtr--;
   *contextPtr = 0x25;  //r25
- 416:	df 01       	movw	r26, r30
- 418:	5f 97       	sbiw	r26, 0x1f	; 31
- 41a:	85 e2       	ldi	r24, 0x25	; 37
- 41c:	8c 93       	st	X, r24
+ 4c4:	85 e2       	ldi	r24, 0x25	; 37
+ 4c6:	82 93       	st	-Z, r24
   contextPtr--;
   *contextPtr = 0x26;  //r26
- 41e:	df 01       	movw	r26, r30
- 420:	90 97       	sbiw	r26, 0x20	; 32
- 422:	86 e2       	ldi	r24, 0x26	; 38
- 424:	8c 93       	st	X, r24
+ 4c8:	86 e2       	ldi	r24, 0x26	; 38
+ 4ca:	82 93       	st	-Z, r24
   contextPtr--;
   *contextPtr = 0x27;  //r27
- 426:	df 01       	movw	r26, r30
- 428:	91 97       	sbiw	r26, 0x21	; 33
- 42a:	87 e2       	ldi	r24, 0x27	; 39
- 42c:	8c 93       	st	X, r24
+ 4cc:	87 e2       	ldi	r24, 0x27	; 39
+ 4ce:	82 93       	st	-Z, r24
   contextPtr--;
   *contextPtr = 0x28;  //r28
- 42e:	df 01       	movw	r26, r30
- 430:	92 97       	sbiw	r26, 0x22	; 34
- 432:	88 e2       	ldi	r24, 0x28	; 40
- 434:	8c 93       	st	X, r24
+ 4d0:	88 e2       	ldi	r24, 0x28	; 40
+ 4d2:	82 93       	st	-Z, r24
   contextPtr--;
   *contextPtr = 0x29;  //r29
- 436:	df 01       	movw	r26, r30
- 438:	93 97       	sbiw	r26, 0x23	; 35
- 43a:	89 e2       	ldi	r24, 0x29	; 41
- 43c:	8c 93       	st	X, r24
+ 4d4:	89 e2       	ldi	r24, 0x29	; 41
+ 4d6:	82 93       	st	-Z, r24
   contextPtr--;
   *contextPtr = 0x30;  //r30
- 43e:	df 01       	movw	r26, r30
- 440:	94 97       	sbiw	r26, 0x24	; 36
- 442:	80 e3       	ldi	r24, 0x30	; 48
- 444:	8c 93       	st	X, r24
+ 4d8:	80 e3       	ldi	r24, 0x30	; 48
+ 4da:	82 93       	st	-Z, r24
   contextPtr--;
   *contextPtr = 0x31;  //r31
- 446:	df 01       	movw	r26, r30
- 448:	95 97       	sbiw	r26, 0x25	; 37
- 44a:	81 e3       	ldi	r24, 0x31	; 49
- 44c:	8c 93       	st	X, r24
+ 4dc:	81 e3       	ldi	r24, 0x31	; 49
+ 4de:	82 93       	st	-Z, r24
   contextPtr--;
- 44e:	b6 97       	sbiw	r30, 0x26	; 38
+ 4e0:	cf 01       	movw	r24, r30
+ 4e2:	01 97       	sbiw	r24, 0x01	; 1
   
    
   //store the address of the stack 
   *(tcb[taskNum].contextPtr) = (((unsigned int) contextPtr) & 0xff);
- 450:	20 91 12 01 	lds	r18, 0x0112
- 454:	30 e0       	ldi	r19, 0x00	; 0
- 456:	c9 01       	movw	r24, r18
- 458:	13 e0       	ldi	r17, 0x03	; 3
- 45a:	88 0f       	add	r24, r24
- 45c:	99 1f       	adc	r25, r25
- 45e:	1a 95       	dec	r17
- 460:	e1 f7       	brne	.-8      	; 0x45a <UIKAddTask+0x1dc>
- 462:	82 0f       	add	r24, r18
- 464:	93 1f       	adc	r25, r19
- 466:	a0 91 1a 01 	lds	r26, 0x011A
- 46a:	b0 91 1b 01 	lds	r27, 0x011B
- 46e:	a8 0f       	add	r26, r24
- 470:	b9 1f       	adc	r27, r25
- 472:	13 96       	adiw	r26, 0x03	; 3
- 474:	0d 90       	ld	r0, X+
- 476:	bc 91       	ld	r27, X
- 478:	a0 2d       	mov	r26, r0
- 47a:	ec 93       	st	X, r30
+ 4e4:	40 91 c3 01 	lds	r20, 0x01C3
+ 4e8:	43 9f       	mul	r20, r19
+ 4ea:	a0 01       	movw	r20, r0
+ 4ec:	11 24       	eor	r1, r1
+ 4ee:	e0 91 1b 02 	lds	r30, 0x021B
+ 4f2:	f0 91 1c 02 	lds	r31, 0x021C
+ 4f6:	e4 0f       	add	r30, r20
+ 4f8:	f5 1f       	adc	r31, r21
+ 4fa:	03 80       	ldd	r0, Z+3	; 0x03
+ 4fc:	f4 81       	ldd	r31, Z+4	; 0x04
+ 4fe:	e0 2d       	mov	r30, r0
+ 500:	80 83       	st	Z, r24
   *(tcb[taskNum].contextPtr + 1) = ((((unsigned int) contextPtr) >> 8) & 0xff);
- 47c:	20 91 12 01 	lds	r18, 0x0112
- 480:	30 e0       	ldi	r19, 0x00	; 0
- 482:	c9 01       	movw	r24, r18
- 484:	63 e0       	ldi	r22, 0x03	; 3
- 486:	88 0f       	add	r24, r24
- 488:	99 1f       	adc	r25, r25
- 48a:	6a 95       	dec	r22
- 48c:	e1 f7       	brne	.-8      	; 0x486 <UIKAddTask+0x208>
- 48e:	82 0f       	add	r24, r18
- 490:	93 1f       	adc	r25, r19
- 492:	a0 91 1a 01 	lds	r26, 0x011A
- 496:	b0 91 1b 01 	lds	r27, 0x011B
- 49a:	a8 0f       	add	r26, r24
- 49c:	b9 1f       	adc	r27, r25
- 49e:	13 96       	adiw	r26, 0x03	; 3
- 4a0:	0d 90       	ld	r0, X+
- 4a2:	bc 91       	ld	r27, X
- 4a4:	a0 2d       	mov	r26, r0
- 4a6:	11 96       	adiw	r26, 0x01	; 1
- 4a8:	fc 93       	st	X, r31
- 4aa:	11 97       	sbiw	r26, 0x01	; 1
+ 502:	20 91 c3 01 	lds	r18, 0x01C3
+ 506:	23 9f       	mul	r18, r19
+ 508:	90 01       	movw	r18, r0
+ 50a:	11 24       	eor	r1, r1
+ 50c:	e0 91 1b 02 	lds	r30, 0x021B
+ 510:	f0 91 1c 02 	lds	r31, 0x021C
+ 514:	e2 0f       	add	r30, r18
+ 516:	f3 1f       	adc	r31, r19
+ 518:	03 80       	ldd	r0, Z+3	; 0x03
+ 51a:	f4 81       	ldd	r31, Z+4	; 0x04
+ 51c:	e0 2d       	mov	r30, r0
+ 51e:	91 83       	std	Z+1, r25	; 0x01
 
   taskNum++; 
- 4ac:	80 91 12 01 	lds	r24, 0x0112
- 4b0:	8f 5f       	subi	r24, 0xFF	; 255
- 4b2:	80 93 12 01 	sts	0x0112, r24
+ 520:	80 91 c3 01 	lds	r24, 0x01C3
+ 524:	8f 5f       	subi	r24, 0xFF	; 255
+ 526:	80 93 c3 01 	sts	0x01C3, r24
   
   //return the task id 
   return(taskNum - 1);
- 4b6:	80 91 12 01 	lds	r24, 0x0112
- 4ba:	81 50       	subi	r24, 0x01	; 1
+ 52a:	80 91 c3 01 	lds	r24, 0x01C3
+ 52e:	81 50       	subi	r24, 0x01	; 1
 	
 }
- 4bc:	df 91       	pop	r29
- 4be:	cf 91       	pop	r28
- 4c0:	1f 91       	pop	r17
- 4c2:	08 95       	ret
+ 530:	df 91       	pop	r29
+ 532:	cf 91       	pop	r28
+ 534:	1f 91       	pop	r17
+ 536:	0f 91       	pop	r16
+ 538:	08 95       	ret
 
-000004c4 <UIKInitialize>:
+0000053a <UIKInitialize>:
   restoreContext();
   asm volatile ("reti");
 
 }
 
 uint8_t UIKInitialize(uint16_t ticklen, uint8_t maxTasks){
- 4c4:	1f 93       	push	r17
- 4c6:	cf 93       	push	r28
- 4c8:	df 93       	push	r29
- 4ca:	ec 01       	movw	r28, r24
- 4cc:	16 2f       	mov	r17, r22
+ 53a:	1f 93       	push	r17
+ 53c:	cf 93       	push	r28
+ 53e:	df 93       	push	r29
+ 540:	ec 01       	movw	r28, r24
+ 542:	16 2f       	mov	r17, r22
 
   int i;
   if(UIKTickLen != 0 || ticklen <= 0){
- 4ce:	20 91 14 01 	lds	r18, 0x0114
- 4d2:	30 91 15 01 	lds	r19, 0x0115
- 4d6:	21 15       	cp	r18, r1
- 4d8:	31 05       	cpc	r19, r1
- 4da:	d1 f5       	brne	.+116    	; 0x550 <UIKInitialize+0x8c>
- 4dc:	00 97       	sbiw	r24, 0x00	; 0
- 4de:	c1 f1       	breq	.+112    	; 0x550 <UIKInitialize+0x8c>
+ 544:	80 91 c0 01 	lds	r24, 0x01C0
+ 548:	90 91 c1 01 	lds	r25, 0x01C1
+ 54c:	00 97       	sbiw	r24, 0x00	; 0
+ 54e:	e9 f5       	brne	.+122    	; 0x5ca <UIKInitialize+0x90>
+ 550:	20 97       	sbiw	r28, 0x00	; 0
+ 552:	d9 f1       	breq	.+118    	; 0x5ca <UIKInitialize+0x90>
     return 0;
   }
   
   tcb = (TcbElement *) calloc(maxTasks, sizeof(TcbElement));
- 4e0:	86 2f       	mov	r24, r22
- 4e2:	90 e0       	ldi	r25, 0x00	; 0
- 4e4:	69 e0       	ldi	r22, 0x09	; 9
- 4e6:	70 e0       	ldi	r23, 0x00	; 0
- 4e8:	0e 94 14 06 	call	0xc28	; 0xc28 <calloc>
- 4ec:	90 93 1b 01 	sts	0x011B, r25
- 4f0:	80 93 1a 01 	sts	0x011A, r24
+ 554:	86 2f       	mov	r24, r22
+ 556:	90 e0       	ldi	r25, 0x00	; 0
+ 558:	69 e0       	ldi	r22, 0x09	; 9
+ 55a:	70 e0       	ldi	r23, 0x00	; 0
+ 55c:	0e 94 e6 05 	call	0xbcc	; 0xbcc <calloc>
+ 560:	90 93 1c 02 	sts	0x021C, r25
+ 564:	80 93 1b 02 	sts	0x021B, r24
   if(tcb == NULL){
- 4f4:	00 97       	sbiw	r24, 0x00	; 0
- 4f6:	61 f1       	breq	.+88     	; 0x550 <UIKInitialize+0x8c>
+ 568:	00 97       	sbiw	r24, 0x00	; 0
+ 56a:	79 f1       	breq	.+94     	; 0x5ca <UIKInitialize+0x90>
   	return 0;
   }
   
   maxTaskNumber = maxTasks;
- 4f8:	10 93 13 01 	sts	0x0113, r17
+ 56c:	10 93 c2 01 	sts	0x01C2, r17
   UIKTickLen = ticklen;
- 4fc:	d0 93 15 01 	sts	0x0115, r29
- 500:	c0 93 14 01 	sts	0x0114, r28
+ 570:	d0 93 c1 01 	sts	0x01C1, r29
+ 574:	c0 93 c0 01 	sts	0x01C0, r28
   
   // Enable interrupts
   TCCR1B |= (1 << WGM12);
- 504:	8e b5       	in	r24, 0x2e	; 46
- 506:	88 60       	ori	r24, 0x08	; 8
- 508:	8e bd       	out	0x2e, r24	; 46
+ 578:	8e b5       	in	r24, 0x2e	; 46
+ 57a:	88 60       	ori	r24, 0x08	; 8
+ 57c:	8e bd       	out	0x2e, r24	; 46
   TIMSK |= (1 << OCIE1A); 
- 50a:	89 b7       	in	r24, 0x39	; 57
- 50c:	80 61       	ori	r24, 0x10	; 16
- 50e:	89 bf       	out	0x39, r24	; 57
+ 57e:	89 b7       	in	r24, 0x39	; 57
+ 580:	80 61       	ori	r24, 0x10	; 16
+ 582:	89 bf       	out	0x39, r24	; 57
   OCR1A = ticklen;
- 510:	db bd       	out	0x2b, r29	; 43
- 512:	ca bd       	out	0x2a, r28	; 42
+ 584:	db bd       	out	0x2b, r29	; 43
+ 586:	ca bd       	out	0x2a, r28	; 42
   TCCR1B |= (1 << CS10);
- 514:	8e b5       	in	r24, 0x2e	; 46
- 516:	81 60       	ori	r24, 0x01	; 1
- 518:	8e bd       	out	0x2e, r24	; 46
+ 588:	8e b5       	in	r24, 0x2e	; 46
+ 58a:	81 60       	ori	r24, 0x01	; 1
+ 58c:	8e bd       	out	0x2e, r24	; 46
   
   if (UIKAddTask(&UIKIdle, MIN_PRIORITY, idleStack, MIN_STACK_SIZE) > maxTaskNumber)
- 51a:	86 e5       	ldi	r24, 0x56	; 86
- 51c:	90 e0       	ldi	r25, 0x00	; 0
- 51e:	6f ef       	ldi	r22, 0xFF	; 255
- 520:	4d eb       	ldi	r20, 0xBD	; 189
- 522:	50 e0       	ldi	r21, 0x00	; 0
- 524:	25 e5       	ldi	r18, 0x55	; 85
- 526:	30 e0       	ldi	r19, 0x00	; 0
- 528:	0e 94 3f 01 	call	0x27e	; 0x27e <UIKAddTask>
- 52c:	90 91 13 01 	lds	r25, 0x0113
- 530:	98 17       	cp	r25, r24
- 532:	70 f0       	brcs	.+28     	; 0x550 <UIKInitialize+0x8c>
- 534:	cc e1       	ldi	r28, 0x1C	; 28
- 536:	d1 e0       	ldi	r29, 0x01	; 1
+ 58e:	8c e0       	ldi	r24, 0x0C	; 12
+ 590:	91 e0       	ldi	r25, 0x01	; 1
+ 592:	6f ef       	ldi	r22, 0xFF	; 255
+ 594:	44 ec       	ldi	r20, 0xC4	; 196
+ 596:	51 e0       	ldi	r21, 0x01	; 1
+ 598:	25 e5       	ldi	r18, 0x55	; 85
+ 59a:	30 e0       	ldi	r19, 0x00	; 0
+ 59c:	0e 94 ec 01 	call	0x3d8	; 0x3d8 <UIKAddTask>
+ 5a0:	90 91 c2 01 	lds	r25, 0x01C2
+ 5a4:	98 17       	cp	r25, r24
+ 5a6:	88 f0       	brcs	.+34     	; 0x5ca <UIKInitialize+0x90>
+ 5a8:	cd e1       	ldi	r28, 0x1D	; 29
+ 5aa:	d2 e0       	ldi	r29, 0x02	; 2
   	return 0;
 
   for(i = 0; i < MAX_EVENTS; i++) {
-	assocEvents[i] = MakeEmpty(NULL);
- 538:	80 e0       	ldi	r24, 0x00	; 0
- 53a:	90 e0       	ldi	r25, 0x00	; 0
- 53c:	0e 94 1f 05 	call	0xa3e	; 0xa3e <MakeEmpty>
- 540:	89 93       	st	Y+, r24
- 542:	99 93       	st	Y+, r25
+	assocEvents[i] = (uint8_t *) calloc(maxTasks, sizeof(uint8_t *));
+ 5ac:	81 2f       	mov	r24, r17
+ 5ae:	90 e0       	ldi	r25, 0x00	; 0
+ 5b0:	62 e0       	ldi	r22, 0x02	; 2
+ 5b2:	70 e0       	ldi	r23, 0x00	; 0
+ 5b4:	0e 94 e6 05 	call	0xbcc	; 0xbcc <calloc>
+ 5b8:	88 83       	st	Y, r24
+ 5ba:	99 83       	std	Y+1, r25	; 0x01
+ 5bc:	22 96       	adiw	r28, 0x02	; 2
   TCCR1B |= (1 << CS10);
   
   if (UIKAddTask(&UIKIdle, MIN_PRIORITY, idleStack, MIN_STACK_SIZE) > maxTaskNumber)
   	return 0;
 
   for(i = 0; i < MAX_EVENTS; i++) {
- 544:	81 e0       	ldi	r24, 0x01	; 1
- 546:	cc 32       	cpi	r28, 0x2C	; 44
- 548:	d8 07       	cpc	r29, r24
- 54a:	b1 f7       	brne	.-20     	; 0x538 <UIKInitialize+0x74>
-	assocEvents[i] = MakeEmpty(NULL);
+ 5be:	82 e0       	ldi	r24, 0x02	; 2
+ 5c0:	cd 32       	cpi	r28, 0x2D	; 45
+ 5c2:	d8 07       	cpc	r29, r24
+ 5c4:	99 f7       	brne	.-26     	; 0x5ac <UIKInitialize+0x72>
+	assocEvents[i] = (uint8_t *) calloc(maxTasks, sizeof(uint8_t *));
   }
   
   return 1;
- 54c:	81 e0       	ldi	r24, 0x01	; 1
- 54e:	01 c0       	rjmp	.+2      	; 0x552 <UIKInitialize+0x8e>
+ 5c6:	81 e0       	ldi	r24, 0x01	; 1
+ 5c8:	01 c0       	rjmp	.+2      	; 0x5cc <UIKInitialize+0x92>
   TIMSK |= (1 << OCIE1A); 
   OCR1A = ticklen;
   TCCR1B |= (1 << CS10);
   
   if (UIKAddTask(&UIKIdle, MIN_PRIORITY, idleStack, MIN_STACK_SIZE) > maxTaskNumber)
   	return 0;
- 550:	80 e0       	ldi	r24, 0x00	; 0
-	assocEvents[i] = MakeEmpty(NULL);
+ 5ca:	80 e0       	ldi	r24, 0x00	; 0
+	assocEvents[i] = (uint8_t *) calloc(maxTasks, sizeof(uint8_t *));
   }
   
   return 1;
 
 }
- 552:	df 91       	pop	r29
- 554:	cf 91       	pop	r28
- 556:	1f 91       	pop	r17
- 558:	08 95       	ret
+ 5cc:	df 91       	pop	r29
+ 5ce:	cf 91       	pop	r28
+ 5d0:	1f 91       	pop	r17
+ 5d2:	08 95       	ret
 
-0000055a <UIKRun>:
+000005d4 <UIKRun>:
 }
 
 
 void UIKRun(uint8_t taskid) {
   //the scheduler will run the task if it has the maximum priority
   tcb[taskid].state = eReady;
- 55a:	90 e0       	ldi	r25, 0x00	; 0
- 55c:	9c 01       	movw	r18, r24
- 55e:	73 e0       	ldi	r23, 0x03	; 3
- 560:	22 0f       	add	r18, r18
- 562:	33 1f       	adc	r19, r19
- 564:	7a 95       	dec	r23
- 566:	e1 f7       	brne	.-8      	; 0x560 <UIKRun+0x6>
- 568:	28 0f       	add	r18, r24
- 56a:	39 1f       	adc	r19, r25
- 56c:	e0 91 1a 01 	lds	r30, 0x011A
- 570:	f0 91 1b 01 	lds	r31, 0x011B
- 574:	e2 0f       	add	r30, r18
- 576:	f3 1f       	adc	r31, r19
- 578:	81 e0       	ldi	r24, 0x01	; 1
- 57a:	90 e0       	ldi	r25, 0x00	; 0
- 57c:	91 83       	std	Z+1, r25	; 0x01
- 57e:	80 83       	st	Z, r24
+ 5d4:	99 e0       	ldi	r25, 0x09	; 9
+ 5d6:	89 9f       	mul	r24, r25
+ 5d8:	c0 01       	movw	r24, r0
+ 5da:	11 24       	eor	r1, r1
+ 5dc:	e0 91 1b 02 	lds	r30, 0x021B
+ 5e0:	f0 91 1c 02 	lds	r31, 0x021C
+ 5e4:	e8 0f       	add	r30, r24
+ 5e6:	f9 1f       	adc	r31, r25
+ 5e8:	81 e0       	ldi	r24, 0x01	; 1
+ 5ea:	90 e0       	ldi	r25, 0x00	; 0
+ 5ec:	91 83       	std	Z+1, r25	; 0x01
+ 5ee:	80 83       	st	Z, r24
 }
- 580:	08 95       	ret
+ 5f0:	08 95       	ret
 
-00000582 <UIKStart>:
+000005f2 <UIKStart>:
 
 void UIKStart() {
   //start with the idle process
   tcb[0].state = eReady;
- 582:	e0 91 1a 01 	lds	r30, 0x011A
- 586:	f0 91 1b 01 	lds	r31, 0x011B
- 58a:	81 e0       	ldi	r24, 0x01	; 1
- 58c:	90 e0       	ldi	r25, 0x00	; 0
- 58e:	91 83       	std	Z+1, r25	; 0x01
- 590:	80 83       	st	Z, r24
+ 5f2:	e0 91 1b 02 	lds	r30, 0x021B
+ 5f6:	f0 91 1c 02 	lds	r31, 0x021C
+ 5fa:	81 e0       	ldi	r24, 0x01	; 1
+ 5fc:	90 e0       	ldi	r25, 0x00	; 0
+ 5fe:	91 83       	std	Z+1, r25	; 0x01
+ 600:	80 83       	st	Z, r24
   currentTask = IDLE_ID;
- 592:	10 92 2e 01 	sts	0x012E, r1
+ 602:	10 92 2f 02 	sts	0x022F, r1
   currentTCB = tcb[IDLE_ID].contextPtr;
- 596:	83 81       	ldd	r24, Z+3	; 0x03
- 598:	94 81       	ldd	r25, Z+4	; 0x04
- 59a:	90 93 2d 01 	sts	0x012D, r25
- 59e:	80 93 2c 01 	sts	0x012C, r24
+ 606:	83 81       	ldd	r24, Z+3	; 0x03
+ 608:	94 81       	ldd	r25, Z+4	; 0x04
+ 60a:	90 93 2e 02 	sts	0x022E, r25
+ 60e:	80 93 2d 02 	sts	0x022D, r24
   restoreContext();
- 5a2:	a0 91 2c 01 	lds	r26, 0x012C
- 5a6:	b0 91 2d 01 	lds	r27, 0x012D
- 5aa:	cd 91       	ld	r28, X+
- 5ac:	cd bf       	out	0x3d, r28	; 61
- 5ae:	dd 91       	ld	r29, X+
- 5b0:	de bf       	out	0x3e, r29	; 62
- 5b2:	ff 91       	pop	r31
- 5b4:	ef 91       	pop	r30
- 5b6:	df 91       	pop	r29
- 5b8:	cf 91       	pop	r28
- 5ba:	bf 91       	pop	r27
- 5bc:	af 91       	pop	r26
- 5be:	9f 91       	pop	r25
- 5c0:	8f 91       	pop	r24
- 5c2:	7f 91       	pop	r23
- 5c4:	6f 91       	pop	r22
- 5c6:	5f 91       	pop	r21
- 5c8:	4f 91       	pop	r20
- 5ca:	3f 91       	pop	r19
- 5cc:	2f 91       	pop	r18
- 5ce:	1f 91       	pop	r17
- 5d0:	0f 91       	pop	r16
- 5d2:	ff 90       	pop	r15
- 5d4:	ef 90       	pop	r14
- 5d6:	df 90       	pop	r13
- 5d8:	cf 90       	pop	r12
- 5da:	bf 90       	pop	r11
- 5dc:	af 90       	pop	r10
- 5de:	9f 90       	pop	r9
- 5e0:	8f 90       	pop	r8
- 5e2:	7f 90       	pop	r7
- 5e4:	6f 90       	pop	r6
- 5e6:	5f 90       	pop	r5
- 5e8:	4f 90       	pop	r4
- 5ea:	3f 90       	pop	r3
- 5ec:	2f 90       	pop	r2
- 5ee:	1f 90       	pop	r1
- 5f0:	0f 90       	pop	r0
- 5f2:	0f be       	out	0x3f, r0	; 63
- 5f4:	0f 90       	pop	r0
+ 612:	a0 91 2d 02 	lds	r26, 0x022D
+ 616:	b0 91 2e 02 	lds	r27, 0x022E
+ 61a:	cd 91       	ld	r28, X+
+ 61c:	cd bf       	out	0x3d, r28	; 61
+ 61e:	dd 91       	ld	r29, X+
+ 620:	de bf       	out	0x3e, r29	; 62
+ 622:	ff 91       	pop	r31
+ 624:	ef 91       	pop	r30
+ 626:	df 91       	pop	r29
+ 628:	cf 91       	pop	r28
+ 62a:	bf 91       	pop	r27
+ 62c:	af 91       	pop	r26
+ 62e:	9f 91       	pop	r25
+ 630:	8f 91       	pop	r24
+ 632:	7f 91       	pop	r23
+ 634:	6f 91       	pop	r22
+ 636:	5f 91       	pop	r21
+ 638:	4f 91       	pop	r20
+ 63a:	3f 91       	pop	r19
+ 63c:	2f 91       	pop	r18
+ 63e:	1f 91       	pop	r17
+ 640:	0f 91       	pop	r16
+ 642:	ff 90       	pop	r15
+ 644:	ef 90       	pop	r14
+ 646:	df 90       	pop	r13
+ 648:	cf 90       	pop	r12
+ 64a:	bf 90       	pop	r11
+ 64c:	af 90       	pop	r10
+ 64e:	9f 90       	pop	r9
+ 650:	8f 90       	pop	r8
+ 652:	7f 90       	pop	r7
+ 654:	6f 90       	pop	r6
+ 656:	5f 90       	pop	r5
+ 658:	4f 90       	pop	r4
+ 65a:	3f 90       	pop	r3
+ 65c:	2f 90       	pop	r2
+ 65e:	1f 90       	pop	r1
+ 660:	0f 90       	pop	r0
+ 662:	0f be       	out	0x3f, r0	; 63
+ 664:	0f 90       	pop	r0
   asm volatile ("reti");
- 5f6:	18 95       	reti
+ 666:	18 95       	reti
 }
- 5f8:	08 95       	ret
+ 668:	08 95       	ret
 
-000005fa <UIKSchedule>:
+0000066a <UIKSchedule>:
 
 //TODO: delete ? void UIKSchedule() __attribute__ ( ( naked ) );
 void UIKSchedule() {
   saveContext();
- 5fa:	0f 92       	push	r0
- 5fc:	0f b6       	in	r0, 0x3f	; 63
- 5fe:	f8 94       	cli
- 600:	0f 92       	push	r0
- 602:	1f 92       	push	r1
- 604:	11 24       	eor	r1, r1
- 606:	2f 92       	push	r2
- 608:	3f 92       	push	r3
- 60a:	4f 92       	push	r4
- 60c:	5f 92       	push	r5
- 60e:	6f 92       	push	r6
- 610:	7f 92       	push	r7
- 612:	8f 92       	push	r8
- 614:	9f 92       	push	r9
- 616:	af 92       	push	r10
- 618:	bf 92       	push	r11
- 61a:	cf 92       	push	r12
- 61c:	df 92       	push	r13
- 61e:	ef 92       	push	r14
- 620:	ff 92       	push	r15
- 622:	0f 93       	push	r16
- 624:	1f 93       	push	r17
- 626:	2f 93       	push	r18
- 628:	3f 93       	push	r19
- 62a:	4f 93       	push	r20
- 62c:	5f 93       	push	r21
- 62e:	6f 93       	push	r22
- 630:	7f 93       	push	r23
- 632:	8f 93       	push	r24
- 634:	9f 93       	push	r25
- 636:	af 93       	push	r26
- 638:	bf 93       	push	r27
- 63a:	cf 93       	push	r28
- 63c:	df 93       	push	r29
- 63e:	ef 93       	push	r30
- 640:	ff 93       	push	r31
- 642:	a0 91 2c 01 	lds	r26, 0x012C
- 646:	b0 91 2d 01 	lds	r27, 0x012D
- 64a:	0d b6       	in	r0, 0x3d	; 61
- 64c:	0d 92       	st	X+, r0
- 64e:	0e b6       	in	r0, 0x3e	; 62
- 650:	0d 92       	st	X+, r0
+ 66a:	0f 92       	push	r0
+ 66c:	0f b6       	in	r0, 0x3f	; 63
+ 66e:	f8 94       	cli
+ 670:	0f 92       	push	r0
+ 672:	1f 92       	push	r1
+ 674:	11 24       	eor	r1, r1
+ 676:	2f 92       	push	r2
+ 678:	3f 92       	push	r3
+ 67a:	4f 92       	push	r4
+ 67c:	5f 92       	push	r5
+ 67e:	6f 92       	push	r6
+ 680:	7f 92       	push	r7
+ 682:	8f 92       	push	r8
+ 684:	9f 92       	push	r9
+ 686:	af 92       	push	r10
+ 688:	bf 92       	push	r11
+ 68a:	cf 92       	push	r12
+ 68c:	df 92       	push	r13
+ 68e:	ef 92       	push	r14
+ 690:	ff 92       	push	r15
+ 692:	0f 93       	push	r16
+ 694:	1f 93       	push	r17
+ 696:	2f 93       	push	r18
+ 698:	3f 93       	push	r19
+ 69a:	4f 93       	push	r20
+ 69c:	5f 93       	push	r21
+ 69e:	6f 93       	push	r22
+ 6a0:	7f 93       	push	r23
+ 6a2:	8f 93       	push	r24
+ 6a4:	9f 93       	push	r25
+ 6a6:	af 93       	push	r26
+ 6a8:	bf 93       	push	r27
+ 6aa:	cf 93       	push	r28
+ 6ac:	df 93       	push	r29
+ 6ae:	ef 93       	push	r30
+ 6b0:	ff 93       	push	r31
+ 6b2:	a0 91 2d 02 	lds	r26, 0x022D
+ 6b6:	b0 91 2e 02 	lds	r27, 0x022E
+ 6ba:	0d b6       	in	r0, 0x3d	; 61
+ 6bc:	0d 92       	st	X+, r0
+ 6be:	0e b6       	in	r0, 0x3e	; 62
+ 6c0:	0d 92       	st	X+, r0
   UIKDispatcher();
- 652:	0e 94 a3 00 	call	0x146	; 0x146 <UIKDispatcher>
+ 6c2:	0e 94 50 01 	call	0x2a0	; 0x2a0 <UIKDispatcher>
   restoreContext();
- 656:	a0 91 2c 01 	lds	r26, 0x012C
- 65a:	b0 91 2d 01 	lds	r27, 0x012D
- 65e:	cd 91       	ld	r28, X+
- 660:	cd bf       	out	0x3d, r28	; 61
- 662:	dd 91       	ld	r29, X+
- 664:	de bf       	out	0x3e, r29	; 62
- 666:	ff 91       	pop	r31
- 668:	ef 91       	pop	r30
- 66a:	df 91       	pop	r29
- 66c:	cf 91       	pop	r28
- 66e:	bf 91       	pop	r27
- 670:	af 91       	pop	r26
- 672:	9f 91       	pop	r25
- 674:	8f 91       	pop	r24
- 676:	7f 91       	pop	r23
- 678:	6f 91       	pop	r22
- 67a:	5f 91       	pop	r21
- 67c:	4f 91       	pop	r20
- 67e:	3f 91       	pop	r19
- 680:	2f 91       	pop	r18
- 682:	1f 91       	pop	r17
- 684:	0f 91       	pop	r16
- 686:	ff 90       	pop	r15
- 688:	ef 90       	pop	r14
- 68a:	df 90       	pop	r13
- 68c:	cf 90       	pop	r12
- 68e:	bf 90       	pop	r11
- 690:	af 90       	pop	r10
- 692:	9f 90       	pop	r9
- 694:	8f 90       	pop	r8
- 696:	7f 90       	pop	r7
- 698:	6f 90       	pop	r6
- 69a:	5f 90       	pop	r5
- 69c:	4f 90       	pop	r4
- 69e:	3f 90       	pop	r3
- 6a0:	2f 90       	pop	r2
- 6a2:	1f 90       	pop	r1
- 6a4:	0f 90       	pop	r0
- 6a6:	0f be       	out	0x3f, r0	; 63
- 6a8:	0f 90       	pop	r0
+ 6c6:	a0 91 2d 02 	lds	r26, 0x022D
+ 6ca:	b0 91 2e 02 	lds	r27, 0x022E
+ 6ce:	cd 91       	ld	r28, X+
+ 6d0:	cd bf       	out	0x3d, r28	; 61
+ 6d2:	dd 91       	ld	r29, X+
+ 6d4:	de bf       	out	0x3e, r29	; 62
+ 6d6:	ff 91       	pop	r31
+ 6d8:	ef 91       	pop	r30
+ 6da:	df 91       	pop	r29
+ 6dc:	cf 91       	pop	r28
+ 6de:	bf 91       	pop	r27
+ 6e0:	af 91       	pop	r26
+ 6e2:	9f 91       	pop	r25
+ 6e4:	8f 91       	pop	r24
+ 6e6:	7f 91       	pop	r23
+ 6e8:	6f 91       	pop	r22
+ 6ea:	5f 91       	pop	r21
+ 6ec:	4f 91       	pop	r20
+ 6ee:	3f 91       	pop	r19
+ 6f0:	2f 91       	pop	r18
+ 6f2:	1f 91       	pop	r17
+ 6f4:	0f 91       	pop	r16
+ 6f6:	ff 90       	pop	r15
+ 6f8:	ef 90       	pop	r14
+ 6fa:	df 90       	pop	r13
+ 6fc:	cf 90       	pop	r12
+ 6fe:	bf 90       	pop	r11
+ 700:	af 90       	pop	r10
+ 702:	9f 90       	pop	r9
+ 704:	8f 90       	pop	r8
+ 706:	7f 90       	pop	r7
+ 708:	6f 90       	pop	r6
+ 70a:	5f 90       	pop	r5
+ 70c:	4f 90       	pop	r4
+ 70e:	3f 90       	pop	r3
+ 710:	2f 90       	pop	r2
+ 712:	1f 90       	pop	r1
+ 714:	0f 90       	pop	r0
+ 716:	0f be       	out	0x3f, r0	; 63
+ 718:	0f 90       	pop	r0
   asm volatile ("reti");
- 6aa:	18 95       	reti
+ 71a:	18 95       	reti
 
-000006ac <UIKDelay>:
+0000071c <UIKDelay>:
 }
 
 void UIKDelay(uint16_t count) {
   tcb[currentTask].state = eDelayBlocked;
- 6ac:	40 91 2e 01 	lds	r20, 0x012E
- 6b0:	50 e0       	ldi	r21, 0x00	; 0
- 6b2:	9a 01       	movw	r18, r20
- 6b4:	e3 e0       	ldi	r30, 0x03	; 3
- 6b6:	22 0f       	add	r18, r18
- 6b8:	33 1f       	adc	r19, r19
- 6ba:	ea 95       	dec	r30
- 6bc:	e1 f7       	brne	.-8      	; 0x6b6 <UIKDelay+0xa>
- 6be:	24 0f       	add	r18, r20
- 6c0:	35 1f       	adc	r19, r21
- 6c2:	e0 91 1a 01 	lds	r30, 0x011A
- 6c6:	f0 91 1b 01 	lds	r31, 0x011B
- 6ca:	e2 0f       	add	r30, r18
- 6cc:	f3 1f       	adc	r31, r19
- 6ce:	23 e0       	ldi	r18, 0x03	; 3
- 6d0:	30 e0       	ldi	r19, 0x00	; 0
- 6d2:	31 83       	std	Z+1, r19	; 0x01
- 6d4:	20 83       	st	Z, r18
+ 71c:	e0 91 1b 02 	lds	r30, 0x021B
+ 720:	f0 91 1c 02 	lds	r31, 0x021C
+ 724:	30 91 2f 02 	lds	r19, 0x022F
+ 728:	29 e0       	ldi	r18, 0x09	; 9
+ 72a:	32 9f       	mul	r19, r18
+ 72c:	90 01       	movw	r18, r0
+ 72e:	11 24       	eor	r1, r1
+ 730:	e2 0f       	add	r30, r18
+ 732:	f3 1f       	adc	r31, r19
+ 734:	23 e0       	ldi	r18, 0x03	; 3
+ 736:	30 e0       	ldi	r19, 0x00	; 0
+ 738:	31 83       	std	Z+1, r19	; 0x01
+ 73a:	20 83       	st	Z, r18
   tcb[currentTask].delay = count;
- 6d6:	a0 e0       	ldi	r26, 0x00	; 0
- 6d8:	b0 e0       	ldi	r27, 0x00	; 0
- 6da:	85 83       	std	Z+5, r24	; 0x05
- 6dc:	96 83       	std	Z+6, r25	; 0x06
- 6de:	a7 83       	std	Z+7, r26	; 0x07
- 6e0:	b0 87       	std	Z+8, r27	; 0x08
+ 73c:	a0 e0       	ldi	r26, 0x00	; 0
+ 73e:	b0 e0       	ldi	r27, 0x00	; 0
+ 740:	85 83       	std	Z+5, r24	; 0x05
+ 742:	96 83       	std	Z+6, r25	; 0x06
+ 744:	a7 83       	std	Z+7, r26	; 0x07
+ 746:	b0 87       	std	Z+8, r27	; 0x08
   UIKSchedule(); 
- 6e2:	0e 94 fd 02 	call	0x5fa	; 0x5fa <UIKSchedule>
+ 748:	0e 94 35 03 	call	0x66a	; 0x66a <UIKSchedule>
 }
- 6e6:	08 95       	ret
+ 74c:	08 95       	ret
 
-000006e8 <UIKSemCreate>:
+0000074e <UIKSemCreate>:
 
 UIKSem* UIKSemCreate(uint8_t value){
- 6e8:	0f 93       	push	r16
- 6ea:	1f 93       	push	r17
- 6ec:	cf 93       	push	r28
- 6ee:	df 93       	push	r29
- 6f0:	08 2f       	mov	r16, r24
+ 74e:	ef 92       	push	r14
+ 750:	ff 92       	push	r15
+ 752:	0f 93       	push	r16
+ 754:	1f 93       	push	r17
+ 756:	cf 93       	push	r28
+ 758:	df 93       	push	r29
+ 75a:	08 2f       	mov	r16, r24
 	UIKSem* sem;
 	sem = (UIKSem *)malloc(sizeof(UIKSem));
- 6f2:	83 e0       	ldi	r24, 0x03	; 3
- 6f4:	90 e0       	ldi	r25, 0x00	; 0
- 6f6:	0e 94 32 06 	call	0xc64	; 0xc64 <malloc>
- 6fa:	19 2f       	mov	r17, r25
- 6fc:	c8 2f       	mov	r28, r24
- 6fe:	d9 2f       	mov	r29, r25
+ 75c:	83 e0       	ldi	r24, 0x03	; 3
+ 75e:	90 e0       	ldi	r25, 0x00	; 0
+ 760:	0e 94 0a 06 	call	0xc14	; 0xc14 <malloc>
+ 764:	19 2f       	mov	r17, r25
+ 766:	e8 2e       	mov	r14, r24
+ 768:	e7 01       	movw	r28, r14
+ 76a:	7e 01       	movw	r14, r28
+ 76c:	f9 2e       	mov	r15, r25
+ 76e:	e7 01       	movw	r28, r14
 	sem->value = value;
- 700:	08 83       	st	Y, r16
+ 770:	08 83       	st	Y, r16
 	sem->taskQueue = CreateQueue(maxTaskNumber);
- 702:	80 91 13 01 	lds	r24, 0x0113
- 706:	90 e0       	ldi	r25, 0x00	; 0
- 708:	0e 94 54 05 	call	0xaa8	; 0xaa8 <CreateQueue>
- 70c:	9a 83       	std	Y+2, r25	; 0x02
- 70e:	89 83       	std	Y+1, r24	; 0x01
+ 772:	80 91 c2 01 	lds	r24, 0x01C2
+ 776:	90 e0       	ldi	r25, 0x00	; 0
+ 778:	0e 94 37 05 	call	0xa6e	; 0xa6e <CreateQueue>
+ 77c:	9a 83       	std	Y+2, r25	; 0x02
+ 77e:	89 83       	std	Y+1, r24	; 0x01
 	return sem;
 }
- 710:	8c 2f       	mov	r24, r28
- 712:	91 2f       	mov	r25, r17
- 714:	df 91       	pop	r29
- 716:	cf 91       	pop	r28
- 718:	1f 91       	pop	r17
- 71a:	0f 91       	pop	r16
- 71c:	08 95       	ret
+ 780:	8e 2d       	mov	r24, r14
+ 782:	91 2f       	mov	r25, r17
+ 784:	df 91       	pop	r29
+ 786:	cf 91       	pop	r28
+ 788:	1f 91       	pop	r17
+ 78a:	0f 91       	pop	r16
+ 78c:	ff 90       	pop	r15
+ 78e:	ef 90       	pop	r14
+ 790:	08 95       	ret
 
-0000071e <UIKSemPend>:
+00000792 <UIKSemPend>:
 
 void UIKSemPend(UIKSem* sem) {
- 71e:	fc 01       	movw	r30, r24
+ 792:	fc 01       	movw	r30, r24
   cli();
- 720:	f8 94       	cli
+ 794:	f8 94       	cli
   if(sem->value > 0) {
- 722:	80 81       	ld	r24, Z
- 724:	88 23       	and	r24, r24
- 726:	21 f0       	breq	.+8      	; 0x730 <UIKSemPend+0x12>
+ 796:	80 81       	ld	r24, Z
+ 798:	88 23       	and	r24, r24
+ 79a:	21 f0       	breq	.+8      	; 0x7a4 <UIKSemPend+0x12>
   	sem->value--;
- 728:	81 50       	subi	r24, 0x01	; 1
- 72a:	80 83       	st	Z, r24
+ 79c:	81 50       	subi	r24, 0x01	; 1
+ 79e:	80 83       	st	Z, r24
     sei();
- 72c:	78 94       	sei
- 72e:	08 95       	ret
+ 7a0:	78 94       	sei
+ 7a2:	08 95       	ret
   }
   else{
     Enqueue(currentTask, sem->taskQueue);
- 730:	61 81       	ldd	r22, Z+1	; 0x01
- 732:	72 81       	ldd	r23, Z+2	; 0x02
- 734:	80 91 2e 01 	lds	r24, 0x012E
- 738:	0e 94 96 05 	call	0xb2c	; 0xb2c <Enqueue>
+ 7a4:	61 81       	ldd	r22, Z+1	; 0x01
+ 7a6:	72 81       	ldd	r23, Z+2	; 0x02
+ 7a8:	80 91 2f 02 	lds	r24, 0x022F
+ 7ac:	0e 94 81 05 	call	0xb02	; 0xb02 <Enqueue>
     tcb[currentTask].state = eSemBlocked;
- 73c:	20 91 2e 01 	lds	r18, 0x012E
- 740:	30 e0       	ldi	r19, 0x00	; 0
- 742:	c9 01       	movw	r24, r18
- 744:	a3 e0       	ldi	r26, 0x03	; 3
- 746:	88 0f       	add	r24, r24
- 748:	99 1f       	adc	r25, r25
- 74a:	aa 95       	dec	r26
- 74c:	e1 f7       	brne	.-8      	; 0x746 <UIKSemPend+0x28>
- 74e:	82 0f       	add	r24, r18
- 750:	93 1f       	adc	r25, r19
- 752:	e0 91 1a 01 	lds	r30, 0x011A
- 756:	f0 91 1b 01 	lds	r31, 0x011B
- 75a:	e8 0f       	add	r30, r24
- 75c:	f9 1f       	adc	r31, r25
- 75e:	82 e0       	ldi	r24, 0x02	; 2
- 760:	90 e0       	ldi	r25, 0x00	; 0
- 762:	91 83       	std	Z+1, r25	; 0x01
- 764:	80 83       	st	Z, r24
+ 7b0:	90 91 2f 02 	lds	r25, 0x022F
+ 7b4:	89 e0       	ldi	r24, 0x09	; 9
+ 7b6:	98 9f       	mul	r25, r24
+ 7b8:	c0 01       	movw	r24, r0
+ 7ba:	11 24       	eor	r1, r1
+ 7bc:	e0 91 1b 02 	lds	r30, 0x021B
+ 7c0:	f0 91 1c 02 	lds	r31, 0x021C
+ 7c4:	e8 0f       	add	r30, r24
+ 7c6:	f9 1f       	adc	r31, r25
+ 7c8:	82 e0       	ldi	r24, 0x02	; 2
+ 7ca:	90 e0       	ldi	r25, 0x00	; 0
+ 7cc:	91 83       	std	Z+1, r25	; 0x01
+ 7ce:	80 83       	st	Z, r24
     UIKSchedule();	  
- 766:	0e 94 fd 02 	call	0x5fa	; 0x5fa <UIKSchedule>
- 76a:	08 95       	ret
+ 7d0:	0e 94 35 03 	call	0x66a	; 0x66a <UIKSchedule>
+ 7d4:	08 95       	ret
 
-0000076c <UIKSemPost>:
+000007d6 <UIKSemPost>:
   }
 }
 
 void UIKSemPost(UIKSem* sem) {
- 76c:	0f 93       	push	r16
- 76e:	1f 93       	push	r17
- 770:	cf 93       	push	r28
- 772:	df 93       	push	r29
- 774:	8c 01       	movw	r16, r24
+ 7d6:	0f 93       	push	r16
+ 7d8:	1f 93       	push	r17
+ 7da:	cf 93       	push	r28
+ 7dc:	df 93       	push	r29
+ 7de:	ec 01       	movw	r28, r24
   cli();
- 776:	f8 94       	cli
+ 7e0:	f8 94       	cli
   if(!IsEmptyQueue(sem->taskQueue)){
- 778:	fc 01       	movw	r30, r24
- 77a:	81 81       	ldd	r24, Z+1	; 0x01
- 77c:	92 81       	ldd	r25, Z+2	; 0x02
- 77e:	0e 94 3b 05 	call	0xa76	; 0xa76 <IsEmptyQueue>
- 782:	00 97       	sbiw	r24, 0x00	; 0
- 784:	01 f5       	brne	.+64     	; 0x7c6 <UIKSemPost+0x5a>
+ 7e2:	89 81       	ldd	r24, Y+1	; 0x01
+ 7e4:	9a 81       	ldd	r25, Y+2	; 0x02
+ 7e6:	0e 94 1e 05 	call	0xa3c	; 0xa3c <IsEmptyQueue>
+ 7ea:	00 97       	sbiw	r24, 0x00	; 0
+ 7ec:	c9 f4       	brne	.+50     	; 0x820 <UIKSemPost+0x4a>
   	tcb[Front(sem->taskQueue)].state = eReady;
- 786:	c0 91 1a 01 	lds	r28, 0x011A
- 78a:	d0 91 1b 01 	lds	r29, 0x011B
- 78e:	f8 01       	movw	r30, r16
- 790:	81 81       	ldd	r24, Z+1	; 0x01
- 792:	92 81       	ldd	r25, Z+2	; 0x02
- 794:	0e 94 b4 05 	call	0xb68	; 0xb68 <Front>
- 798:	90 e0       	ldi	r25, 0x00	; 0
- 79a:	fc 01       	movw	r30, r24
- 79c:	b3 e0       	ldi	r27, 0x03	; 3
- 79e:	ee 0f       	add	r30, r30
- 7a0:	ff 1f       	adc	r31, r31
- 7a2:	ba 95       	dec	r27
- 7a4:	e1 f7       	brne	.-8      	; 0x79e <UIKSemPost+0x32>
- 7a6:	e8 0f       	add	r30, r24
- 7a8:	f9 1f       	adc	r31, r25
- 7aa:	ec 0f       	add	r30, r28
- 7ac:	fd 1f       	adc	r31, r29
- 7ae:	81 e0       	ldi	r24, 0x01	; 1
- 7b0:	90 e0       	ldi	r25, 0x00	; 0
- 7b2:	91 83       	std	Z+1, r25	; 0x01
- 7b4:	80 83       	st	Z, r24
+ 7ee:	00 91 1b 02 	lds	r16, 0x021B
+ 7f2:	10 91 1c 02 	lds	r17, 0x021C
+ 7f6:	89 81       	ldd	r24, Y+1	; 0x01
+ 7f8:	9a 81       	ldd	r25, Y+2	; 0x02
+ 7fa:	0e 94 9f 05 	call	0xb3e	; 0xb3e <Front>
+ 7fe:	e9 e0       	ldi	r30, 0x09	; 9
+ 800:	8e 9f       	mul	r24, r30
+ 802:	f0 01       	movw	r30, r0
+ 804:	11 24       	eor	r1, r1
+ 806:	e0 0f       	add	r30, r16
+ 808:	f1 1f       	adc	r31, r17
+ 80a:	81 e0       	ldi	r24, 0x01	; 1
+ 80c:	90 e0       	ldi	r25, 0x00	; 0
+ 80e:	91 83       	std	Z+1, r25	; 0x01
+ 810:	80 83       	st	Z, r24
   	Dequeue(sem->taskQueue);
- 7b6:	f8 01       	movw	r30, r16
- 7b8:	81 81       	ldd	r24, Z+1	; 0x01
- 7ba:	92 81       	ldd	r25, Z+2	; 0x02
- 7bc:	0e 94 c9 05 	call	0xb92	; 0xb92 <Dequeue>
+ 812:	89 81       	ldd	r24, Y+1	; 0x01
+ 814:	9a 81       	ldd	r25, Y+2	; 0x02
+ 816:	0e 94 b4 05 	call	0xb68	; 0xb68 <Dequeue>
   	UIKSchedule();
- 7c0:	0e 94 fd 02 	call	0x5fa	; 0x5fa <UIKSchedule>
- 7c4:	05 c0       	rjmp	.+10     	; 0x7d0 <UIKSemPost+0x64>
+ 81a:	0e 94 35 03 	call	0x66a	; 0x66a <UIKSchedule>
+ 81e:	04 c0       	rjmp	.+8      	; 0x828 <UIKSemPost+0x52>
   }
   else{
   	sem->value++;
- 7c6:	f8 01       	movw	r30, r16
- 7c8:	80 81       	ld	r24, Z
- 7ca:	8f 5f       	subi	r24, 0xFF	; 255
- 7cc:	80 83       	st	Z, r24
+ 820:	88 81       	ld	r24, Y
+ 822:	8f 5f       	subi	r24, 0xFF	; 255
+ 824:	88 83       	st	Y, r24
     sei(); 
- 7ce:	78 94       	sei
+ 826:	78 94       	sei
   }
 }
- 7d0:	df 91       	pop	r29
- 7d2:	cf 91       	pop	r28
- 7d4:	1f 91       	pop	r17
- 7d6:	0f 91       	pop	r16
- 7d8:	08 95       	ret
+ 828:	df 91       	pop	r29
+ 82a:	cf 91       	pop	r28
+ 82c:	1f 91       	pop	r17
+ 82e:	0f 91       	pop	r16
+ 830:	08 95       	ret
 
-000007da <UIKSemValue>:
+00000832 <UIKSemValue>:
 
 uint8_t UIKSemValue(UIKSem* sem) {
   return sem->value;
 }
- 7da:	fc 01       	movw	r30, r24
- 7dc:	80 81       	ld	r24, Z
- 7de:	08 95       	ret
+ 832:	fc 01       	movw	r30, r24
+ 834:	80 81       	ld	r24, Z
+ 836:	08 95       	ret
 
-000007e0 <UIKAssocEvent>:
+00000838 <UIKAssocEvent>:
 
 void UIKAssocEvent(uint8_t Event) {
- 7e0:	ef 92       	push	r14
- 7e2:	ff 92       	push	r15
- 7e4:	0f 93       	push	r16
- 7e6:	1f 93       	push	r17
- 7e8:	cf 93       	push	r28
- 7ea:	c8 2f       	mov	r28, r24
 
   if(Event == 0)
- 7ec:	88 23       	and	r24, r24
- 7ee:	69 f1       	breq	.+90     	; 0x84a <UIKAssocEvent+0x6a>
+ 838:	88 23       	and	r24, r24
+ 83a:	19 f1       	breq	.+70     	; 0x882 <__stack+0x23>
   	return;
 
   cli();
- 7f0:	f8 94       	cli
- 7f2:	0c e1       	ldi	r16, 0x1C	; 28
- 7f4:	11 e0       	ldi	r17, 0x01	; 1
+ 83c:	f8 94       	cli
+ 83e:	ed e1       	ldi	r30, 0x1D	; 29
+ 840:	f2 e0       	ldi	r31, 0x02	; 2
   int i = 0;
   while(Event != 0){
   	if((Event & 0x01) != 0){
- 7f6:	c0 ff       	sbrs	r28, 0
- 7f8:	0c c0       	rjmp	.+24     	; 0x812 <UIKAssocEvent+0x32>
-  		List L = assocEvents[i];
- 7fa:	f8 01       	movw	r30, r16
- 7fc:	e0 80       	ld	r14, Z
- 7fe:	f1 80       	ldd	r15, Z+1	; 0x01
-  		Position P = Header(L);
- 800:	c7 01       	movw	r24, r14
- 802:	0e 94 2f 05 	call	0xa5e	; 0xa5e <Header>
- 806:	ac 01       	movw	r20, r24
-  		Insert(currentTask, L, P);
- 808:	80 91 2e 01 	lds	r24, 0x012E
- 80c:	b7 01       	movw	r22, r14
- 80e:	0e 94 f2 04 	call	0x9e4	; 0x9e4 <Insert>
+  	        assocEvents[i][currentTask] = 1;
+ 842:	91 e0       	ldi	r25, 0x01	; 1
+  	return;
+
+  cli();
+  int i = 0;
+  while(Event != 0){
+  	if((Event & 0x01) != 0){
+ 844:	80 ff       	sbrs	r24, 0
+ 846:	07 c0       	rjmp	.+14     	; 0x856 <UIKAssocEvent+0x1e>
+  	        assocEvents[i][currentTask] = 1;
+ 848:	20 91 2f 02 	lds	r18, 0x022F
+ 84c:	a0 81       	ld	r26, Z
+ 84e:	b1 81       	ldd	r27, Z+1	; 0x01
+ 850:	a2 0f       	add	r26, r18
+ 852:	b1 1d       	adc	r27, r1
+ 854:	9c 93       	st	X, r25
+  		
   	}
   	Event = Event >> 1;
- 812:	c6 95       	lsr	r28
- 814:	0e 5f       	subi	r16, 0xFE	; 254
- 816:	1f 4f       	sbci	r17, 0xFF	; 255
+ 856:	86 95       	lsr	r24
+ 858:	32 96       	adiw	r30, 0x02	; 2
   if(Event == 0)
   	return;
 
   cli();
   int i = 0;
   while(Event != 0){
- 818:	cc 23       	and	r28, r28
- 81a:	69 f7       	brne	.-38     	; 0x7f6 <UIKAssocEvent+0x16>
+ 85a:	88 23       	and	r24, r24
+ 85c:	99 f7       	brne	.-26     	; 0x844 <UIKAssocEvent+0xc>
   	}
   	Event = Event >> 1;
   	i++;
   }
  
   tcb[currentTask].state = eEventBlocked;
- 81c:	20 91 2e 01 	lds	r18, 0x012E
- 820:	30 e0       	ldi	r19, 0x00	; 0
- 822:	c9 01       	movw	r24, r18
- 824:	c3 e0       	ldi	r28, 0x03	; 3
- 826:	88 0f       	add	r24, r24
- 828:	99 1f       	adc	r25, r25
- 82a:	ca 95       	dec	r28
- 82c:	e1 f7       	brne	.-8      	; 0x826 <UIKAssocEvent+0x46>
- 82e:	82 0f       	add	r24, r18
- 830:	93 1f       	adc	r25, r19
- 832:	e0 91 1a 01 	lds	r30, 0x011A
- 836:	f0 91 1b 01 	lds	r31, 0x011B
- 83a:	e8 0f       	add	r30, r24
- 83c:	f9 1f       	adc	r31, r25
- 83e:	84 e0       	ldi	r24, 0x04	; 4
- 840:	90 e0       	ldi	r25, 0x00	; 0
- 842:	91 83       	std	Z+1, r25	; 0x01
- 844:	80 83       	st	Z, r24
+ 85e:	90 91 2f 02 	lds	r25, 0x022F
+ 862:	89 e0       	ldi	r24, 0x09	; 9
+ 864:	98 9f       	mul	r25, r24
+ 866:	c0 01       	movw	r24, r0
+ 868:	11 24       	eor	r1, r1
+ 86a:	e0 91 1b 02 	lds	r30, 0x021B
+ 86e:	f0 91 1c 02 	lds	r31, 0x021C
+ 872:	e8 0f       	add	r30, r24
+ 874:	f9 1f       	adc	r31, r25
+ 876:	84 e0       	ldi	r24, 0x04	; 4
+ 878:	90 e0       	ldi	r25, 0x00	; 0
+ 87a:	91 83       	std	Z+1, r25	; 0x01
+ 87c:	80 83       	st	Z, r24
   UIKSchedule();
- 846:	0e 94 fd 02 	call	0x5fa	; 0x5fa <UIKSchedule>
-}
- 84a:	cf 91       	pop	r28
- 84c:	1f 91       	pop	r17
- 84e:	0f 91       	pop	r16
- 850:	ff 90       	pop	r15
- 852:	ef 90       	pop	r14
- 854:	08 95       	ret
+ 87e:	0e 94 35 03 	call	0x66a	; 0x66a <UIKSchedule>
+ 882:	08 95       	ret
 
-00000856 <UIKDisassocEvent>:
+00000884 <UIKDisassocEvent>:
+}
 
 
 void UIKDisassocEvent(uint8_t Event) {
- 856:	1f 93       	push	r17
- 858:	cf 93       	push	r28
- 85a:	df 93       	push	r29
- 85c:	18 2f       	mov	r17, r24
   cli();
- 85e:	f8 94       	cli
- 860:	cc e1       	ldi	r28, 0x1C	; 28
- 862:	d1 e0       	ldi	r29, 0x01	; 1
+ 884:	f8 94       	cli
+ 886:	ed e1       	ldi	r30, 0x1D	; 29
+ 888:	f2 e0       	ldi	r31, 0x02	; 2
   int i = 0;
   while(Event != 0){
- 864:	0a c0       	rjmp	.+20     	; 0x87a <__stack+0x1b>
+ 88a:	0b c0       	rjmp	.+22     	; 0x8a2 <UIKDisassocEvent+0x1e>
   	if((Event & 0x01) != 0){
- 866:	10 ff       	sbrs	r17, 0
- 868:	06 c0       	rjmp	.+12     	; 0x876 <__stack+0x17>
-  		Delete(currentTask, assocEvents[i]);
- 86a:	68 81       	ld	r22, Y
- 86c:	79 81       	ldd	r23, Y+1	; 0x01
- 86e:	80 91 2e 01 	lds	r24, 0x012E
- 872:	0e 94 df 04 	call	0x9be	; 0x9be <Delete>
+ 88c:	80 ff       	sbrs	r24, 0
+ 88e:	07 c0       	rjmp	.+14     	; 0x89e <UIKDisassocEvent+0x1a>
+  	        assocEvents[i][currentTask] = 0;
+ 890:	90 91 2f 02 	lds	r25, 0x022F
+ 894:	a0 81       	ld	r26, Z
+ 896:	b1 81       	ldd	r27, Z+1	; 0x01
+ 898:	a9 0f       	add	r26, r25
+ 89a:	b1 1d       	adc	r27, r1
+ 89c:	1c 92       	st	X, r1
   	}
   	Event = Event >> 1;
- 876:	16 95       	lsr	r17
- 878:	22 96       	adiw	r28, 0x02	; 2
+ 89e:	86 95       	lsr	r24
+ 8a0:	32 96       	adiw	r30, 0x02	; 2
 
 
 void UIKDisassocEvent(uint8_t Event) {
   cli();
   int i = 0;
   while(Event != 0){
- 87a:	11 23       	and	r17, r17
- 87c:	a1 f7       	brne	.-24     	; 0x866 <__stack+0x7>
-  		Delete(currentTask, assocEvents[i]);
+ 8a2:	88 23       	and	r24, r24
+ 8a4:	99 f7       	brne	.-26     	; 0x88c <UIKDisassocEvent+0x8>
+  	        assocEvents[i][currentTask] = 0;
   	}
   	Event = Event >> 1;
   	i++;
   }
   sei();
- 87e:	78 94       	sei
+ 8a6:	78 94       	sei
 }
- 880:	df 91       	pop	r29
- 882:	cf 91       	pop	r28
- 884:	1f 91       	pop	r17
- 886:	08 95       	ret
+ 8a8:	08 95       	ret
 
-00000888 <UIKRaiseEvent>:
+000008aa <UIKRaiseEvent>:
 
 void UIKRaiseEvent(uint8_t Event){
- 888:	8f 92       	push	r8
- 88a:	9f 92       	push	r9
- 88c:	af 92       	push	r10
- 88e:	bf 92       	push	r11
- 890:	cf 92       	push	r12
- 892:	df 92       	push	r13
- 894:	ef 92       	push	r14
- 896:	ff 92       	push	r15
- 898:	1f 93       	push	r17
- 89a:	cf 93       	push	r28
- 89c:	df 93       	push	r29
- 89e:	18 2f       	mov	r17, r24
+ 8aa:	0f 93       	push	r16
+ 8ac:	1f 93       	push	r17
+ 8ae:	cf 93       	push	r28
+ 8b0:	df 93       	push	r29
 	
   cli();
- 8a0:	f8 94       	cli
- 8a2:	4c e1       	ldi	r20, 0x1C	; 28
- 8a4:	c4 2e       	mov	r12, r20
- 8a6:	41 e0       	ldi	r20, 0x01	; 1
- 8a8:	d4 2e       	mov	r13, r20
-  		List L = assocEvents[i];
-  		Position P = Header(L);
-  		while(!IsLast(P,L)){
-  			P = Advance(P);
-  			if(tcb[Retrieve(P)].state == eEventBlocked)
-  			 tcb[Retrieve(P)].state= eReady;
- 8aa:	51 e0       	ldi	r21, 0x01	; 1
- 8ac:	85 2e       	mov	r8, r21
- 8ae:	91 2c       	mov	r9, r1
-
+ 8b2:	f8 94       	cli
+  int i = 0;
+  int j = 0;
+  while(Event != 0){
+  	if((Event & 0x01) != 0){
+  		for(j = 0; j < maxTaskNumber; j++){
+  			if(assocEvents[i][j] == 1 && tcb[j].state == eEventBlocked)
+ 8b4:	00 91 1b 02 	lds	r16, 0x021B
+ 8b8:	10 91 1c 02 	lds	r17, 0x021C
+ 8bc:	ad e1       	ldi	r26, 0x1D	; 29
+ 8be:	b2 e0       	ldi	r27, 0x02	; 2
+  			 tcb[j].state= eReady;
+ 8c0:	41 e0       	ldi	r20, 0x01	; 1
+ 8c2:	50 e0       	ldi	r21, 0x00	; 0
 void UIKRaiseEvent(uint8_t Event){
 	
   cli();
   int i = 0;
+  int j = 0;
   while(Event != 0){
- 8b0:	43 c0       	rjmp	.+134    	; 0x938 <UIKRaiseEvent+0xb0>
+ 8c4:	21 c0       	rjmp	.+66     	; 0x908 <UIKRaiseEvent+0x5e>
   	if((Event & 0x01) != 0){
- 8b2:	10 ff       	sbrs	r17, 0
- 8b4:	3c c0       	rjmp	.+120    	; 0x92e <UIKRaiseEvent+0xa6>
-  		List L = assocEvents[i];
- 8b6:	f6 01       	movw	r30, r12
- 8b8:	a0 80       	ld	r10, Z
- 8ba:	b1 80       	ldd	r11, Z+1	; 0x01
-  		Position P = Header(L);
- 8bc:	c5 01       	movw	r24, r10
- 8be:	0e 94 2f 05 	call	0xa5e	; 0xa5e <Header>
- 8c2:	7c 01       	movw	r14, r24
-  		while(!IsLast(P,L)){
- 8c4:	2e c0       	rjmp	.+92     	; 0x922 <UIKRaiseEvent+0x9a>
-  			P = Advance(P);
- 8c6:	c7 01       	movw	r24, r14
- 8c8:	0e 94 34 05 	call	0xa68	; 0xa68 <Advance>
- 8cc:	7c 01       	movw	r14, r24
-  			if(tcb[Retrieve(P)].state == eEventBlocked)
- 8ce:	c0 91 1a 01 	lds	r28, 0x011A
- 8d2:	d0 91 1b 01 	lds	r29, 0x011B
- 8d6:	0e 94 38 05 	call	0xa70	; 0xa70 <Retrieve>
- 8da:	90 e0       	ldi	r25, 0x00	; 0
- 8dc:	fc 01       	movw	r30, r24
- 8de:	33 e0       	ldi	r19, 0x03	; 3
- 8e0:	ee 0f       	add	r30, r30
- 8e2:	ff 1f       	adc	r31, r31
- 8e4:	3a 95       	dec	r19
- 8e6:	e1 f7       	brne	.-8      	; 0x8e0 <UIKRaiseEvent+0x58>
- 8e8:	e8 0f       	add	r30, r24
- 8ea:	f9 1f       	adc	r31, r25
- 8ec:	ec 0f       	add	r30, r28
- 8ee:	fd 1f       	adc	r31, r29
- 8f0:	80 81       	ld	r24, Z
- 8f2:	91 81       	ldd	r25, Z+1	; 0x01
- 8f4:	84 30       	cpi	r24, 0x04	; 4
- 8f6:	91 05       	cpc	r25, r1
- 8f8:	a1 f4       	brne	.+40     	; 0x922 <UIKRaiseEvent+0x9a>
-  			 tcb[Retrieve(P)].state= eReady;
- 8fa:	c0 91 1a 01 	lds	r28, 0x011A
- 8fe:	d0 91 1b 01 	lds	r29, 0x011B
- 902:	c7 01       	movw	r24, r14
- 904:	0e 94 38 05 	call	0xa70	; 0xa70 <Retrieve>
- 908:	90 e0       	ldi	r25, 0x00	; 0
- 90a:	fc 01       	movw	r30, r24
- 90c:	23 e0       	ldi	r18, 0x03	; 3
- 90e:	ee 0f       	add	r30, r30
- 910:	ff 1f       	adc	r31, r31
- 912:	2a 95       	dec	r18
- 914:	e1 f7       	brne	.-8      	; 0x90e <UIKRaiseEvent+0x86>
- 916:	e8 0f       	add	r30, r24
- 918:	f9 1f       	adc	r31, r25
- 91a:	ec 0f       	add	r30, r28
- 91c:	fd 1f       	adc	r31, r29
- 91e:	91 82       	std	Z+1, r9	; 0x01
- 920:	80 82       	st	Z, r8
+ 8c6:	80 ff       	sbrs	r24, 0
+ 8c8:	1d c0       	rjmp	.+58     	; 0x904 <UIKRaiseEvent+0x5a>
+ 8ca:	e0 2f       	mov	r30, r16
+ 8cc:	f1 2f       	mov	r31, r17
+ 8ce:	20 e0       	ldi	r18, 0x00	; 0
+ 8d0:	30 e0       	ldi	r19, 0x00	; 0
+ 8d2:	12 c0       	rjmp	.+36     	; 0x8f8 <UIKRaiseEvent+0x4e>
+  		for(j = 0; j < maxTaskNumber; j++){
+  			if(assocEvents[i][j] == 1 && tcb[j].state == eEventBlocked)
+ 8d4:	cd 91       	ld	r28, X+
+ 8d6:	dc 91       	ld	r29, X
+ 8d8:	11 97       	sbiw	r26, 0x01	; 1
+ 8da:	c2 0f       	add	r28, r18
+ 8dc:	d3 1f       	adc	r29, r19
+ 8de:	98 81       	ld	r25, Y
+ 8e0:	91 30       	cpi	r25, 0x01	; 1
+ 8e2:	39 f4       	brne	.+14     	; 0x8f2 <UIKRaiseEvent+0x48>
+ 8e4:	60 81       	ld	r22, Z
+ 8e6:	71 81       	ldd	r23, Z+1	; 0x01
+ 8e8:	64 30       	cpi	r22, 0x04	; 4
+ 8ea:	71 05       	cpc	r23, r1
+ 8ec:	11 f4       	brne	.+4      	; 0x8f2 <UIKRaiseEvent+0x48>
+  			 tcb[j].state= eReady;
+ 8ee:	51 83       	std	Z+1, r21	; 0x01
+ 8f0:	40 83       	st	Z, r20
+  cli();
   int i = 0;
+  int j = 0;
   while(Event != 0){
   	if((Event & 0x01) != 0){
-  		List L = assocEvents[i];
-  		Position P = Header(L);
-  		while(!IsLast(P,L)){
- 922:	c7 01       	movw	r24, r14
- 924:	b5 01       	movw	r22, r10
- 926:	0e 94 b8 04 	call	0x970	; 0x970 <IsLast>
- 92a:	00 97       	sbiw	r24, 0x00	; 0
- 92c:	61 f2       	breq	.-104    	; 0x8c6 <UIKRaiseEvent+0x3e>
-  			P = Advance(P);
-  			if(tcb[Retrieve(P)].state == eEventBlocked)
-  			 tcb[Retrieve(P)].state= eReady;
+  		for(j = 0; j < maxTaskNumber; j++){
+ 8f2:	2f 5f       	subi	r18, 0xFF	; 255
+ 8f4:	3f 4f       	sbci	r19, 0xFF	; 255
+ 8f6:	39 96       	adiw	r30, 0x09	; 9
+ 8f8:	60 91 c2 01 	lds	r22, 0x01C2
+ 8fc:	70 e0       	ldi	r23, 0x00	; 0
+ 8fe:	26 17       	cp	r18, r22
+ 900:	37 07       	cpc	r19, r23
+ 902:	44 f3       	brlt	.-48     	; 0x8d4 <UIKRaiseEvent+0x2a>
+  			if(assocEvents[i][j] == 1 && tcb[j].state == eEventBlocked)
+  			 tcb[j].state= eReady;
   		}
   	}
   	Event = Event >> 1;
- 92e:	16 95       	lsr	r17
- 930:	82 e0       	ldi	r24, 0x02	; 2
- 932:	90 e0       	ldi	r25, 0x00	; 0
- 934:	c8 0e       	add	r12, r24
- 936:	d9 1e       	adc	r13, r25
-
+ 904:	86 95       	lsr	r24
+ 906:	12 96       	adiw	r26, 0x02	; 2
 void UIKRaiseEvent(uint8_t Event){
 	
   cli();
   int i = 0;
+  int j = 0;
   while(Event != 0){
- 938:	11 23       	and	r17, r17
- 93a:	09 f0       	breq	.+2      	; 0x93e <UIKRaiseEvent+0xb6>
- 93c:	ba cf       	rjmp	.-140    	; 0x8b2 <UIKRaiseEvent+0x2a>
+ 908:	88 23       	and	r24, r24
+ 90a:	e9 f6       	brne	.-70     	; 0x8c6 <UIKRaiseEvent+0x1c>
   		}
   	}
   	Event = Event >> 1;
   	i++;
   }
   UIKSchedule();
- 93e:	0e 94 fd 02 	call	0x5fa	; 0x5fa <UIKSchedule>
- 942:	df 91       	pop	r29
- 944:	cf 91       	pop	r28
- 946:	1f 91       	pop	r17
- 948:	ff 90       	pop	r15
- 94a:	ef 90       	pop	r14
- 94c:	df 90       	pop	r13
- 94e:	cf 90       	pop	r12
- 950:	bf 90       	pop	r11
- 952:	af 90       	pop	r10
- 954:	9f 90       	pop	r9
- 956:	8f 90       	pop	r8
- 958:	08 95       	ret
+ 90c:	0e 94 35 03 	call	0x66a	; 0x66a <UIKSchedule>
+}
+ 910:	df 91       	pop	r29
+ 912:	cf 91       	pop	r28
+ 914:	1f 91       	pop	r17
+ 916:	0f 91       	pop	r16
+ 918:	08 95       	ret
 
-0000095a <IsEmpty>:
+0000091a <IsEmpty>:
 
 }
 
 /* Return "true" if L is empty */
 int IsEmpty(List L) {
   return L->Next == NULL;
- 95a:	21 e0       	ldi	r18, 0x01	; 1
- 95c:	30 e0       	ldi	r19, 0x00	; 0
- 95e:	fc 01       	movw	r30, r24
- 960:	81 81       	ldd	r24, Z+1	; 0x01
- 962:	92 81       	ldd	r25, Z+2	; 0x02
- 964:	00 97       	sbiw	r24, 0x00	; 0
- 966:	11 f0       	breq	.+4      	; 0x96c <IsEmpty+0x12>
- 968:	20 e0       	ldi	r18, 0x00	; 0
- 96a:	30 e0       	ldi	r19, 0x00	; 0
+ 91a:	21 e0       	ldi	r18, 0x01	; 1
+ 91c:	30 e0       	ldi	r19, 0x00	; 0
+ 91e:	fc 01       	movw	r30, r24
+ 920:	81 81       	ldd	r24, Z+1	; 0x01
+ 922:	92 81       	ldd	r25, Z+2	; 0x02
+ 924:	00 97       	sbiw	r24, 0x00	; 0
+ 926:	11 f0       	breq	.+4      	; 0x92c <IsEmpty+0x12>
+ 928:	20 e0       	ldi	r18, 0x00	; 0
+ 92a:	30 e0       	ldi	r19, 0x00	; 0
 }
- 96c:	c9 01       	movw	r24, r18
- 96e:	08 95       	ret
+ 92c:	c9 01       	movw	r24, r18
+ 92e:	08 95       	ret
 
-00000970 <IsLast>:
+00000930 <IsLast>:
 /*
  * Return "true" if P is the last position in list L.
  * (Parameter L is unused in this implementation)
  */
 int IsLast(Position P, List L) {
   return P->Next == NULL;
- 970:	21 e0       	ldi	r18, 0x01	; 1
- 972:	30 e0       	ldi	r19, 0x00	; 0
- 974:	fc 01       	movw	r30, r24
- 976:	81 81       	ldd	r24, Z+1	; 0x01
- 978:	92 81       	ldd	r25, Z+2	; 0x02
- 97a:	00 97       	sbiw	r24, 0x00	; 0
- 97c:	11 f0       	breq	.+4      	; 0x982 <IsLast+0x12>
- 97e:	20 e0       	ldi	r18, 0x00	; 0
- 980:	30 e0       	ldi	r19, 0x00	; 0
+ 930:	21 e0       	ldi	r18, 0x01	; 1
+ 932:	30 e0       	ldi	r19, 0x00	; 0
+ 934:	fc 01       	movw	r30, r24
+ 936:	81 81       	ldd	r24, Z+1	; 0x01
+ 938:	92 81       	ldd	r25, Z+2	; 0x02
+ 93a:	00 97       	sbiw	r24, 0x00	; 0
+ 93c:	11 f0       	breq	.+4      	; 0x942 <IsLast+0x12>
+ 93e:	20 e0       	ldi	r18, 0x00	; 0
+ 940:	30 e0       	ldi	r19, 0x00	; 0
 }
- 982:	c9 01       	movw	r24, r18
- 984:	08 95       	ret
+ 942:	c9 01       	movw	r24, r18
+ 944:	08 95       	ret
 
-00000986 <Find>:
+00000946 <Find>:
 /* Return Position of X in L; NULL if not found */
 Position Find(ElementType X, List L) {
 
   Position P;
 
   P = L->Next;
- 986:	db 01       	movw	r26, r22
- 988:	11 96       	adiw	r26, 0x01	; 1
- 98a:	ed 91       	ld	r30, X+
- 98c:	fc 91       	ld	r31, X
- 98e:	12 97       	sbiw	r26, 0x02	; 2
+ 946:	db 01       	movw	r26, r22
+ 948:	11 96       	adiw	r26, 0x01	; 1
+ 94a:	ed 91       	ld	r30, X+
+ 94c:	fc 91       	ld	r31, X
+ 94e:	12 97       	sbiw	r26, 0x02	; 2
   while(P != NULL && P->Element != X) {
- 990:	03 c0       	rjmp	.+6      	; 0x998 <Find+0x12>
+ 950:	03 c0       	rjmp	.+6      	; 0x958 <Find+0x12>
     P = P->Next;
- 992:	01 80       	ldd	r0, Z+1	; 0x01
- 994:	f2 81       	ldd	r31, Z+2	; 0x02
- 996:	e0 2d       	mov	r30, r0
+ 952:	01 80       	ldd	r0, Z+1	; 0x01
+ 954:	f2 81       	ldd	r31, Z+2	; 0x02
+ 956:	e0 2d       	mov	r30, r0
 Position Find(ElementType X, List L) {
 
   Position P;
 
   P = L->Next;
   while(P != NULL && P->Element != X) {
- 998:	30 97       	sbiw	r30, 0x00	; 0
- 99a:	19 f0       	breq	.+6      	; 0x9a2 <Find+0x1c>
- 99c:	90 81       	ld	r25, Z
- 99e:	98 17       	cp	r25, r24
- 9a0:	c1 f7       	brne	.-16     	; 0x992 <Find+0xc>
+ 958:	30 97       	sbiw	r30, 0x00	; 0
+ 95a:	19 f0       	breq	.+6      	; 0x962 <Find+0x1c>
+ 95c:	90 81       	ld	r25, Z
+ 95e:	98 17       	cp	r25, r24
+ 960:	c1 f7       	brne	.-16     	; 0x952 <Find+0xc>
     P = P->Next;
   }
   return P;
 }
- 9a2:	cf 01       	movw	r24, r30
- 9a4:	08 95       	ret
+ 962:	cf 01       	movw	r24, r30
+ 964:	08 95       	ret
 
-000009a6 <FindPrevious>:
+00000966 <FindPrevious>:
  */
 Position FindPrevious(ElementType X, List L) {
 
   Position P;
 
   P = L;
- 9a6:	fb 01       	movw	r30, r22
+ 966:	e6 2f       	mov	r30, r22
+ 968:	f7 2f       	mov	r31, r23
   while (P->Next != NULL && P->Next->Element != X) {
- 9a8:	01 c0       	rjmp	.+2      	; 0x9ac <FindPrevious+0x6>
- 9aa:	fd 01       	movw	r30, r26
- 9ac:	a1 81       	ldd	r26, Z+1	; 0x01
- 9ae:	b2 81       	ldd	r27, Z+2	; 0x02
- 9b0:	10 97       	sbiw	r26, 0x00	; 0
- 9b2:	19 f0       	breq	.+6      	; 0x9ba <FindPrevious+0x14>
- 9b4:	9c 91       	ld	r25, X
- 9b6:	98 17       	cp	r25, r24
- 9b8:	c1 f7       	brne	.-16     	; 0x9aa <FindPrevious+0x4>
+ 96a:	01 c0       	rjmp	.+2      	; 0x96e <FindPrevious+0x8>
+ 96c:	fd 01       	movw	r30, r26
+ 96e:	a1 81       	ldd	r26, Z+1	; 0x01
+ 970:	b2 81       	ldd	r27, Z+2	; 0x02
+ 972:	10 97       	sbiw	r26, 0x00	; 0
+ 974:	19 f0       	breq	.+6      	; 0x97c <FindPrevious+0x16>
+ 976:	9c 91       	ld	r25, X
+ 978:	98 17       	cp	r25, r24
+ 97a:	c1 f7       	brne	.-16     	; 0x96c <FindPrevious+0x6>
     P = P->Next;
   }
 
  return P;
 
 }
- 9ba:	cf 01       	movw	r24, r30
- 9bc:	08 95       	ret
+ 97c:	cf 01       	movw	r24, r30
+ 97e:	08 95       	ret
 
-000009be <Delete>:
+00000980 <Delete>:
  */
 void Delete(ElementType X, List L) {
 
   Position P, TmpCell;
 
   P = FindPrevious(X, L);
- 9be:	0e 94 d3 04 	call	0x9a6	; 0x9a6 <FindPrevious>
- 9c2:	dc 01       	movw	r26, r24
+ 980:	0e 94 b3 04 	call	0x966	; 0x966 <FindPrevious>
+ 984:	fc 01       	movw	r30, r24
 /*
  * Return "true" if P is the last position in list L.
  * (Parameter L is unused in this implementation)
  */
 int IsLast(Position P, List L) {
   return P->Next == NULL;
- 9c4:	11 96       	adiw	r26, 0x01	; 1
- 9c6:	ed 91       	ld	r30, X+
- 9c8:	fc 91       	ld	r31, X
- 9ca:	12 97       	sbiw	r26, 0x02	; 2
+ 986:	81 81       	ldd	r24, Z+1	; 0x01
+ 988:	92 81       	ldd	r25, Z+2	; 0x02
   Position P, TmpCell;
 
   P = FindPrevious(X, L);
 
   /* Assumption use of a header node */
   if (!IsLast(P, L)) {
- 9cc:	30 97       	sbiw	r30, 0x00	; 0
- 9ce:	49 f0       	breq	.+18     	; 0x9e2 <Delete+0x24>
+ 98a:	00 97       	sbiw	r24, 0x00	; 0
+ 98c:	49 f0       	breq	.+18     	; 0x9a0 <Delete+0x20>
 
     /* Position (X) is found; delete it */
     TmpCell = P->Next;
 
     /* Bypass deleted cell */
     P->Next = TmpCell->Next;
- 9d0:	81 81       	ldd	r24, Z+1	; 0x01
- 9d2:	92 81       	ldd	r25, Z+2	; 0x02
- 9d4:	12 96       	adiw	r26, 0x02	; 2
- 9d6:	9c 93       	st	X, r25
- 9d8:	8e 93       	st	-X, r24
- 9da:	11 97       	sbiw	r26, 0x01	; 1
+ 98e:	dc 01       	movw	r26, r24
+ 990:	11 96       	adiw	r26, 0x01	; 1
+ 992:	2d 91       	ld	r18, X+
+ 994:	3c 91       	ld	r19, X
+ 996:	12 97       	sbiw	r26, 0x02	; 2
+ 998:	32 83       	std	Z+2, r19	; 0x02
+ 99a:	21 83       	std	Z+1, r18	; 0x01
     free(TmpCell);
- 9dc:	cf 01       	movw	r24, r30
- 9de:	0e 94 c8 06 	call	0xd90	; 0xd90 <free>
- 9e2:	08 95       	ret
+ 99c:	0e 94 a6 06 	call	0xd4c	; 0xd4c <free>
+ 9a0:	08 95       	ret
 
-000009e4 <Insert>:
+000009a2 <Insert>:
 /*
  * Insert (after legal position P)
  * This implementation assumes the use of
  * a header node.
  */
 void Insert( ElementType X, List L, Position P ) {
- 9e4:	1f 93       	push	r17
- 9e6:	cf 93       	push	r28
- 9e8:	df 93       	push	r29
- 9ea:	18 2f       	mov	r17, r24
- 9ec:	ea 01       	movw	r28, r20
+ 9a2:	1f 93       	push	r17
+ 9a4:	cf 93       	push	r28
+ 9a6:	df 93       	push	r29
+ 9a8:	18 2f       	mov	r17, r24
+ 9aa:	ea 01       	movw	r28, r20
 
   Position TmpCell;
 
   TmpCell = malloc( sizeof( struct Node ) );
- 9ee:	83 e0       	ldi	r24, 0x03	; 3
- 9f0:	90 e0       	ldi	r25, 0x00	; 0
- 9f2:	0e 94 32 06 	call	0xc64	; 0xc64 <malloc>
- 9f6:	fc 01       	movw	r30, r24
+ 9ac:	83 e0       	ldi	r24, 0x03	; 3
+ 9ae:	90 e0       	ldi	r25, 0x00	; 0
+ 9b0:	0e 94 0a 06 	call	0xc14	; 0xc14 <malloc>
+ 9b4:	fc 01       	movw	r30, r24
+  if(TmpCell == NULL) PORTB= 0x01;
+ 9b6:	00 97       	sbiw	r24, 0x00	; 0
+ 9b8:	11 f4       	brne	.+4      	; 0x9be <Insert+0x1c>
+ 9ba:	81 e0       	ldi	r24, 0x01	; 1
+ 9bc:	88 bb       	out	0x18, r24	; 24
 
   TmpCell->Element = X;
- 9f8:	10 83       	st	Z, r17
+ 9be:	10 83       	st	Z, r17
   TmpCell->Next = P->Next;
- 9fa:	89 81       	ldd	r24, Y+1	; 0x01
- 9fc:	9a 81       	ldd	r25, Y+2	; 0x02
- 9fe:	92 83       	std	Z+2, r25	; 0x02
- a00:	81 83       	std	Z+1, r24	; 0x01
+ 9c0:	89 81       	ldd	r24, Y+1	; 0x01
+ 9c2:	9a 81       	ldd	r25, Y+2	; 0x02
+ 9c4:	92 83       	std	Z+2, r25	; 0x02
+ 9c6:	81 83       	std	Z+1, r24	; 0x01
   P->Next = TmpCell;
- a02:	fa 83       	std	Y+2, r31	; 0x02
- a04:	e9 83       	std	Y+1, r30	; 0x01
+ 9c8:	fa 83       	std	Y+2, r31	; 0x02
+ 9ca:	e9 83       	std	Y+1, r30	; 0x01
+  
 
 }
- a06:	df 91       	pop	r29
- a08:	cf 91       	pop	r28
- a0a:	1f 91       	pop	r17
- a0c:	08 95       	ret
+ 9cc:	df 91       	pop	r29
+ 9ce:	cf 91       	pop	r28
+ 9d0:	1f 91       	pop	r17
+ 9d2:	08 95       	ret
 
-00000a0e <DeleteList>:
+000009d4 <DeleteList>:
 
 
 /* Correct DeleteList algorithm */
 void DeleteList(List L) {
- a0e:	cf 93       	push	r28
- a10:	df 93       	push	r29
- a12:	dc 01       	movw	r26, r24
+ 9d4:	0f 93       	push	r16
+ 9d6:	1f 93       	push	r17
+ 9d8:	dc 01       	movw	r26, r24
 
   Position P, Tmp;
 
   /* Header assumed */
   P = L->Next;
- a14:	11 96       	adiw	r26, 0x01	; 1
- a16:	ed 91       	ld	r30, X+
- a18:	fc 91       	ld	r31, X
- a1a:	12 97       	sbiw	r26, 0x02	; 2
+ 9da:	11 96       	adiw	r26, 0x01	; 1
+ 9dc:	ed 91       	ld	r30, X+
+ 9de:	fc 91       	ld	r31, X
+ 9e0:	12 97       	sbiw	r26, 0x02	; 2
   L->Next = NULL;
- a1c:	12 96       	adiw	r26, 0x02	; 2
- a1e:	1c 92       	st	X, r1
- a20:	1e 92       	st	-X, r1
- a22:	11 97       	sbiw	r26, 0x01	; 1
+ 9e2:	12 96       	adiw	r26, 0x02	; 2
+ 9e4:	1c 92       	st	X, r1
+ 9e6:	1e 92       	st	-X, r1
+ 9e8:	11 97       	sbiw	r26, 0x01	; 1
   while(P != NULL) {
- a24:	07 c0       	rjmp	.+14     	; 0xa34 <DeleteList+0x26>
+ 9ea:	07 c0       	rjmp	.+14     	; 0x9fa <DeleteList+0x26>
     Tmp = P->Next;
- a26:	d1 81       	ldd	r29, Z+1	; 0x01
- a28:	c2 81       	ldd	r28, Z+2	; 0x02
+ 9ec:	01 81       	ldd	r16, Z+1	; 0x01
+ 9ee:	12 81       	ldd	r17, Z+2	; 0x02
     free(P);
- a2a:	cf 01       	movw	r24, r30
- a2c:	0e 94 c8 06 	call	0xd90	; 0xd90 <free>
+ 9f0:	cf 01       	movw	r24, r30
+ 9f2:	0e 94 a6 06 	call	0xd4c	; 0xd4c <free>
     P = Tmp;
- a30:	ed 2f       	mov	r30, r29
- a32:	fc 2f       	mov	r31, r28
+ 9f6:	e0 2f       	mov	r30, r16
+ 9f8:	f1 2f       	mov	r31, r17
   Position P, Tmp;
 
   /* Header assumed */
   P = L->Next;
   L->Next = NULL;
   while(P != NULL) {
- a34:	30 97       	sbiw	r30, 0x00	; 0
- a36:	b9 f7       	brne	.-18     	; 0xa26 <DeleteList+0x18>
+ 9fa:	30 97       	sbiw	r30, 0x00	; 0
+ 9fc:	b9 f7       	brne	.-18     	; 0x9ec <DeleteList+0x18>
     Tmp = P->Next;
     free(P);
     P = Tmp;
   }
 
 }
- a38:	df 91       	pop	r29
- a3a:	cf 91       	pop	r28
- a3c:	08 95       	ret
+ 9fe:	1f 91       	pop	r17
+ a00:	0f 91       	pop	r16
+ a02:	08 95       	ret
 
-00000a3e <MakeEmpty>:
+00000a04 <MakeEmpty>:
   Position    Next;
 };
 
 List MakeEmpty(List L) {
 
   if (L != NULL) {
- a3e:	00 97       	sbiw	r24, 0x00	; 0
- a40:	11 f0       	breq	.+4      	; 0xa46 <MakeEmpty+0x8>
+ a04:	00 97       	sbiw	r24, 0x00	; 0
+ a06:	11 f0       	breq	.+4      	; 0xa0c <MakeEmpty+0x8>
     DeleteList(L);
- a42:	0e 94 07 05 	call	0xa0e	; 0xa0e <DeleteList>
+ a08:	0e 94 ea 04 	call	0x9d4	; 0x9d4 <DeleteList>
   }
 
   L = malloc( sizeof(struct Node) );
- a46:	83 e0       	ldi	r24, 0x03	; 3
- a48:	90 e0       	ldi	r25, 0x00	; 0
- a4a:	0e 94 32 06 	call	0xc64	; 0xc64 <malloc>
- a4e:	fc 01       	movw	r30, r24
+ a0c:	83 e0       	ldi	r24, 0x03	; 3
+ a0e:	90 e0       	ldi	r25, 0x00	; 0
+ a10:	0e 94 0a 06 	call	0xc14	; 0xc14 <malloc>
+ a14:	fc 01       	movw	r30, r24
 
   if (L == NULL) {
- a50:	00 97       	sbiw	r24, 0x00	; 0
- a52:	19 f0       	breq	.+6      	; 0xa5a <MakeEmpty+0x1c>
+ a16:	00 97       	sbiw	r24, 0x00	; 0
+ a18:	19 f0       	breq	.+6      	; 0xa20 <MakeEmpty+0x1c>
     return NULL;
   }
 
   L->Next = NULL;
- a54:	12 82       	std	Z+2, r1	; 0x02
- a56:	11 82       	std	Z+1, r1	; 0x01
+ a1a:	12 82       	std	Z+2, r1	; 0x02
+ a1c:	11 82       	std	Z+1, r1	; 0x01
   L->Element = 0;
- a58:	10 82       	st	Z, r1
+ a1e:	10 82       	st	Z, r1
   return L;
 
 }
- a5a:	cf 01       	movw	r24, r30
- a5c:	08 95       	ret
+ a20:	cf 01       	movw	r24, r30
+ a22:	08 95       	ret
 
-00000a5e <Header>:
+00000a24 <Header>:
 
 }
 
 Position Header(List L) {
   return L;
 }
- a5e:	08 95       	ret
+ a24:	08 95       	ret
 
-00000a60 <First>:
+00000a26 <First>:
 
 Position First(List L) {
- a60:	fc 01       	movw	r30, r24
+ a26:	fc 01       	movw	r30, r24
   return L->Next;
 }
- a62:	81 81       	ldd	r24, Z+1	; 0x01
- a64:	92 81       	ldd	r25, Z+2	; 0x02
- a66:	08 95       	ret
+ a28:	81 81       	ldd	r24, Z+1	; 0x01
+ a2a:	92 81       	ldd	r25, Z+2	; 0x02
+ a2c:	08 95       	ret
 
-00000a68 <Advance>:
+00000a2e <Advance>:
 
 Position Advance(Position P) {
- a68:	fc 01       	movw	r30, r24
+ a2e:	fc 01       	movw	r30, r24
   return P->Next;
 }
- a6a:	81 81       	ldd	r24, Z+1	; 0x01
- a6c:	92 81       	ldd	r25, Z+2	; 0x02
- a6e:	08 95       	ret
+ a30:	81 81       	ldd	r24, Z+1	; 0x01
+ a32:	92 81       	ldd	r25, Z+2	; 0x02
+ a34:	08 95       	ret
 
-00000a70 <Retrieve>:
+00000a36 <Retrieve>:
 
 ElementType Retrieve(Position P) {
   return P->Element;
 }
- a70:	fc 01       	movw	r30, r24
- a72:	80 81       	ld	r24, Z
- a74:	08 95       	ret
+ a36:	fc 01       	movw	r30, r24
+ a38:	80 81       	ld	r24, Z
+ a3a:	08 95       	ret
 
-00000a76 <IsEmptyQueue>:
+00000a3c <IsEmptyQueue>:
   int Size;
-  ElementType *Array;
+  ElementQueueType *Array;
 };
 
 int IsEmptyQueue(Queue Q) {
   return Q->Size == 0;
- a76:	21 e0       	ldi	r18, 0x01	; 1
- a78:	30 e0       	ldi	r19, 0x00	; 0
- a7a:	fc 01       	movw	r30, r24
- a7c:	86 81       	ldd	r24, Z+6	; 0x06
- a7e:	97 81       	ldd	r25, Z+7	; 0x07
- a80:	00 97       	sbiw	r24, 0x00	; 0
- a82:	11 f0       	breq	.+4      	; 0xa88 <IsEmptyQueue+0x12>
- a84:	20 e0       	ldi	r18, 0x00	; 0
- a86:	30 e0       	ldi	r19, 0x00	; 0
+ a3c:	21 e0       	ldi	r18, 0x01	; 1
+ a3e:	30 e0       	ldi	r19, 0x00	; 0
+ a40:	fc 01       	movw	r30, r24
+ a42:	86 81       	ldd	r24, Z+6	; 0x06
+ a44:	97 81       	ldd	r25, Z+7	; 0x07
+ a46:	00 97       	sbiw	r24, 0x00	; 0
+ a48:	11 f0       	breq	.+4      	; 0xa4e <IsEmptyQueue+0x12>
+ a4a:	20 e0       	ldi	r18, 0x00	; 0
+ a4c:	30 e0       	ldi	r19, 0x00	; 0
 }
- a88:	c9 01       	movw	r24, r18
- a8a:	08 95       	ret
+ a4e:	c9 01       	movw	r24, r18
+ a50:	08 95       	ret
 
-00000a8c <IsFull>:
+00000a52 <IsFull>:
 
 int IsFull(Queue Q) {
- a8c:	fc 01       	movw	r30, r24
+ a52:	fc 01       	movw	r30, r24
   return Q->Size == Q->Capacity;
- a8e:	21 e0       	ldi	r18, 0x01	; 1
- a90:	30 e0       	ldi	r19, 0x00	; 0
- a92:	46 81       	ldd	r20, Z+6	; 0x06
- a94:	57 81       	ldd	r21, Z+7	; 0x07
- a96:	80 81       	ld	r24, Z
- a98:	91 81       	ldd	r25, Z+1	; 0x01
- a9a:	48 17       	cp	r20, r24
- a9c:	59 07       	cpc	r21, r25
- a9e:	11 f0       	breq	.+4      	; 0xaa4 <IsFull+0x18>
- aa0:	20 e0       	ldi	r18, 0x00	; 0
- aa2:	30 e0       	ldi	r19, 0x00	; 0
+ a54:	21 e0       	ldi	r18, 0x01	; 1
+ a56:	30 e0       	ldi	r19, 0x00	; 0
+ a58:	46 81       	ldd	r20, Z+6	; 0x06
+ a5a:	57 81       	ldd	r21, Z+7	; 0x07
+ a5c:	80 81       	ld	r24, Z
+ a5e:	91 81       	ldd	r25, Z+1	; 0x01
+ a60:	48 17       	cp	r20, r24
+ a62:	59 07       	cpc	r21, r25
+ a64:	11 f0       	breq	.+4      	; 0xa6a <IsFull+0x18>
+ a66:	20 e0       	ldi	r18, 0x00	; 0
+ a68:	30 e0       	ldi	r19, 0x00	; 0
 }
- aa4:	c9 01       	movw	r24, r18
- aa6:	08 95       	ret
+ a6a:	c9 01       	movw	r24, r18
+ a6c:	08 95       	ret
 
-00000aa8 <CreateQueue>:
+00000a6e <CreateQueue>:
 
 Queue CreateQueue(int MaxElements) {
- aa8:	0f 93       	push	r16
- aaa:	1f 93       	push	r17
- aac:	cf 93       	push	r28
- aae:	df 93       	push	r29
- ab0:	8c 01       	movw	r16, r24
+ a6e:	ef 92       	push	r14
+ a70:	ff 92       	push	r15
+ a72:	0f 93       	push	r16
+ a74:	1f 93       	push	r17
+ a76:	cf 93       	push	r28
+ a78:	df 93       	push	r29
+ a7a:	8c 01       	movw	r16, r24
   Queue Q;
 
 
   Q = malloc (sizeof(struct QueueRecord));
- ab2:	8a e0       	ldi	r24, 0x0A	; 10
- ab4:	90 e0       	ldi	r25, 0x00	; 0
- ab6:	0e 94 32 06 	call	0xc64	; 0xc64 <malloc>
- aba:	ec 01       	movw	r28, r24
+ a7c:	8a e0       	ldi	r24, 0x0A	; 10
+ a7e:	90 e0       	ldi	r25, 0x00	; 0
+ a80:	0e 94 0a 06 	call	0xc14	; 0xc14 <malloc>
+ a84:	e8 2e       	mov	r14, r24
+ a86:	e7 01       	movw	r28, r14
+ a88:	7e 01       	movw	r14, r28
+ a8a:	f9 2e       	mov	r15, r25
+ a8c:	e7 01       	movw	r28, r14
   if (Q == NULL) {
- abc:	00 97       	sbiw	r24, 0x00	; 0
- abe:	b9 f0       	breq	.+46     	; 0xaee <CreateQueue+0x46>
+ a8e:	20 97       	sbiw	r28, 0x00	; 0
+ a90:	b9 f0       	breq	.+46     	; 0xac0 <CreateQueue+0x52>
     return NULL;
   }
 
-  Q->Array = malloc( sizeof(ElementType) * MaxElements );
- ac0:	c8 01       	movw	r24, r16
- ac2:	0e 94 32 06 	call	0xc64	; 0xc64 <malloc>
- ac6:	99 87       	std	Y+9, r25	; 0x09
- ac8:	88 87       	std	Y+8, r24	; 0x08
+  Q->Array = malloc( sizeof(ElementQueueType) * MaxElements );
+ a92:	c8 01       	movw	r24, r16
+ a94:	0e 94 0a 06 	call	0xc14	; 0xc14 <malloc>
+ a98:	99 87       	std	Y+9, r25	; 0x09
+ a9a:	88 87       	std	Y+8, r24	; 0x08
   if (Q->Array == NULL) {
- aca:	00 97       	sbiw	r24, 0x00	; 0
- acc:	31 f4       	brne	.+12     	; 0xada <CreateQueue+0x32>
+ a9c:	00 97       	sbiw	r24, 0x00	; 0
+ a9e:	31 f4       	brne	.+12     	; 0xaac <CreateQueue+0x3e>
     free(Q);
- ace:	ce 01       	movw	r24, r28
- ad0:	0e 94 c8 06 	call	0xd90	; 0xd90 <free>
+ aa0:	c7 01       	movw	r24, r14
+ aa2:	0e 94 a6 06 	call	0xd4c	; 0xd4c <free>
     return NULL;
- ad4:	c0 e0       	ldi	r28, 0x00	; 0
- ad6:	d0 e0       	ldi	r29, 0x00	; 0
- ad8:	0a c0       	rjmp	.+20     	; 0xaee <CreateQueue+0x46>
+ aa6:	c0 e0       	ldi	r28, 0x00	; 0
+ aa8:	d0 e0       	ldi	r29, 0x00	; 0
+ aaa:	0a c0       	rjmp	.+20     	; 0xac0 <CreateQueue+0x52>
   }
 
   Q->Capacity = MaxElements;
- ada:	19 83       	std	Y+1, r17	; 0x01
- adc:	08 83       	st	Y, r16
+ aac:	19 83       	std	Y+1, r17	; 0x01
+ aae:	08 83       	st	Y, r16
   return Q;
 }
 
 void MakeEmptyQueue(Queue Q) {
 
   Q->Size = 0;
- ade:	1f 82       	std	Y+7, r1	; 0x07
- ae0:	1e 82       	std	Y+6, r1	; 0x06
+ ab0:	1f 82       	std	Y+7, r1	; 0x07
+ ab2:	1e 82       	std	Y+6, r1	; 0x06
   Q->Front = 1;
- ae2:	81 e0       	ldi	r24, 0x01	; 1
- ae4:	90 e0       	ldi	r25, 0x00	; 0
- ae6:	9b 83       	std	Y+3, r25	; 0x03
- ae8:	8a 83       	std	Y+2, r24	; 0x02
+ ab4:	81 e0       	ldi	r24, 0x01	; 1
+ ab6:	90 e0       	ldi	r25, 0x00	; 0
+ ab8:	9b 83       	std	Y+3, r25	; 0x03
+ aba:	8a 83       	std	Y+2, r24	; 0x02
   Q->Rear = 0;
- aea:	1d 82       	std	Y+5, r1	; 0x05
- aec:	1c 82       	std	Y+4, r1	; 0x04
+ abc:	1d 82       	std	Y+5, r1	; 0x05
+ abe:	1c 82       	std	Y+4, r1	; 0x04
 
   Q->Capacity = MaxElements;
   MakeEmptyQueue(Q);
 
   return Q;
 }
- aee:	ce 01       	movw	r24, r28
- af0:	df 91       	pop	r29
- af2:	cf 91       	pop	r28
- af4:	1f 91       	pop	r17
- af6:	0f 91       	pop	r16
- af8:	08 95       	ret
+ ac0:	ce 01       	movw	r24, r28
+ ac2:	df 91       	pop	r29
+ ac4:	cf 91       	pop	r28
+ ac6:	1f 91       	pop	r17
+ ac8:	0f 91       	pop	r16
+ aca:	ff 90       	pop	r15
+ acc:	ef 90       	pop	r14
+ ace:	08 95       	ret
 
-00000afa <MakeEmptyQueue>:
+00000ad0 <MakeEmptyQueue>:
 
 void MakeEmptyQueue(Queue Q) {
- afa:	fc 01       	movw	r30, r24
+ ad0:	fc 01       	movw	r30, r24
 
   Q->Size = 0;
- afc:	17 82       	std	Z+7, r1	; 0x07
- afe:	16 82       	std	Z+6, r1	; 0x06
+ ad2:	17 82       	std	Z+7, r1	; 0x07
+ ad4:	16 82       	std	Z+6, r1	; 0x06
   Q->Front = 1;
- b00:	81 e0       	ldi	r24, 0x01	; 1
- b02:	90 e0       	ldi	r25, 0x00	; 0
- b04:	93 83       	std	Z+3, r25	; 0x03
- b06:	82 83       	std	Z+2, r24	; 0x02
+ ad6:	81 e0       	ldi	r24, 0x01	; 1
+ ad8:	90 e0       	ldi	r25, 0x00	; 0
+ ada:	93 83       	std	Z+3, r25	; 0x03
+ adc:	82 83       	std	Z+2, r24	; 0x02
   Q->Rear = 0;
- b08:	15 82       	std	Z+5, r1	; 0x05
- b0a:	14 82       	std	Z+4, r1	; 0x04
+ ade:	15 82       	std	Z+5, r1	; 0x05
+ ae0:	14 82       	std	Z+4, r1	; 0x04
 
 }
- b0c:	08 95       	ret
+ ae2:	08 95       	ret
 
-00000b0e <DisposeQueue>:
+00000ae4 <DisposeQueue>:
 
 void DisposeQueue(Queue Q) {
- b0e:	cf 93       	push	r28
- b10:	df 93       	push	r29
- b12:	ec 01       	movw	r28, r24
+ ae4:	cf 93       	push	r28
+ ae6:	df 93       	push	r29
+ ae8:	ec 01       	movw	r28, r24
   if (Q != NULL) {
- b14:	00 97       	sbiw	r24, 0x00	; 0
- b16:	39 f0       	breq	.+14     	; 0xb26 <DisposeQueue+0x18>
+ aea:	00 97       	sbiw	r24, 0x00	; 0
+ aec:	39 f0       	breq	.+14     	; 0xafc <DisposeQueue+0x18>
     free(Q->Array);
- b18:	88 85       	ldd	r24, Y+8	; 0x08
- b1a:	99 85       	ldd	r25, Y+9	; 0x09
- b1c:	0e 94 c8 06 	call	0xd90	; 0xd90 <free>
+ aee:	88 85       	ldd	r24, Y+8	; 0x08
+ af0:	99 85       	ldd	r25, Y+9	; 0x09
+ af2:	0e 94 a6 06 	call	0xd4c	; 0xd4c <free>
     free(Q);
- b20:	ce 01       	movw	r24, r28
- b22:	0e 94 c8 06 	call	0xd90	; 0xd90 <free>
+ af6:	ce 01       	movw	r24, r28
+ af8:	0e 94 a6 06 	call	0xd4c	; 0xd4c <free>
   }
 }
- b26:	df 91       	pop	r29
- b28:	cf 91       	pop	r28
- b2a:	08 95       	ret
+ afc:	df 91       	pop	r29
+ afe:	cf 91       	pop	r28
+ b00:	08 95       	ret
 
-00000b2c <Enqueue>:
+00000b02 <Enqueue>:
     Value = 0;
   }
   return Value;
 }
 
-void Enqueue(ElementType X, Queue Q) {
- b2c:	fb 01       	movw	r30, r22
+void Enqueue(ElementQueueType X, Queue Q) {
+ b02:	fb 01       	movw	r30, r22
 int IsEmptyQueue(Queue Q) {
   return Q->Size == 0;
 }
 
 int IsFull(Queue Q) {
   return Q->Size == Q->Capacity;
- b2e:	26 81       	ldd	r18, Z+6	; 0x06
- b30:	37 81       	ldd	r19, Z+7	; 0x07
- b32:	40 81       	ld	r20, Z
- b34:	51 81       	ldd	r21, Z+1	; 0x01
+ b04:	26 81       	ldd	r18, Z+6	; 0x06
+ b06:	37 81       	ldd	r19, Z+7	; 0x07
+ b08:	40 81       	ld	r20, Z
+ b0a:	51 81       	ldd	r21, Z+1	; 0x01
   return Value;
 }
 
-void Enqueue(ElementType X, Queue Q) {
+void Enqueue(ElementQueueType X, Queue Q) {
 
   if (IsFull(Q)) {
- b36:	24 17       	cp	r18, r20
- b38:	35 07       	cpc	r19, r21
- b3a:	a9 f0       	breq	.+42     	; 0xb66 <Enqueue+0x3a>
+ b0c:	24 17       	cp	r18, r20
+ b0e:	35 07       	cpc	r19, r21
+ b10:	a9 f0       	breq	.+42     	; 0xb3c <Enqueue+0x3a>
     return;
   } else {
     Q->Size++;
- b3c:	2f 5f       	subi	r18, 0xFF	; 255
- b3e:	3f 4f       	sbci	r19, 0xFF	; 255
- b40:	37 83       	std	Z+7, r19	; 0x07
- b42:	26 83       	std	Z+6, r18	; 0x06
+ b12:	2f 5f       	subi	r18, 0xFF	; 255
+ b14:	3f 4f       	sbci	r19, 0xFF	; 255
+ b16:	37 83       	std	Z+7, r19	; 0x07
+ b18:	26 83       	std	Z+6, r18	; 0x06
     free(Q);
   }
 }
 
 static int Succ(int Value, Queue Q) {
   if (++Value == Q->Capacity) {
- b44:	24 81       	ldd	r18, Z+4	; 0x04
- b46:	35 81       	ldd	r19, Z+5	; 0x05
- b48:	2f 5f       	subi	r18, 0xFF	; 255
- b4a:	3f 4f       	sbci	r19, 0xFF	; 255
- b4c:	24 17       	cp	r18, r20
- b4e:	35 07       	cpc	r19, r21
- b50:	11 f4       	brne	.+4      	; 0xb56 <Enqueue+0x2a>
+ b1a:	24 81       	ldd	r18, Z+4	; 0x04
+ b1c:	35 81       	ldd	r19, Z+5	; 0x05
+ b1e:	2f 5f       	subi	r18, 0xFF	; 255
+ b20:	3f 4f       	sbci	r19, 0xFF	; 255
+ b22:	24 17       	cp	r18, r20
+ b24:	35 07       	cpc	r19, r21
+ b26:	11 f4       	brne	.+4      	; 0xb2c <Enqueue+0x2a>
     Value = 0;
- b52:	20 e0       	ldi	r18, 0x00	; 0
- b54:	30 e0       	ldi	r19, 0x00	; 0
+ b28:	20 e0       	ldi	r18, 0x00	; 0
+ b2a:	30 e0       	ldi	r19, 0x00	; 0
 
   if (IsFull(Q)) {
     return;
   } else {
     Q->Size++;
     Q->Rear = Succ(Q->Rear, Q);
- b56:	35 83       	std	Z+5, r19	; 0x05
- b58:	24 83       	std	Z+4, r18	; 0x04
+ b2c:	35 83       	std	Z+5, r19	; 0x05
+ b2e:	24 83       	std	Z+4, r18	; 0x04
     Q->Array[Q->Rear] = X;
- b5a:	00 84       	ldd	r0, Z+8	; 0x08
- b5c:	f1 85       	ldd	r31, Z+9	; 0x09
- b5e:	e0 2d       	mov	r30, r0
- b60:	e2 0f       	add	r30, r18
- b62:	f3 1f       	adc	r31, r19
- b64:	80 83       	st	Z, r24
- b66:	08 95       	ret
+ b30:	00 84       	ldd	r0, Z+8	; 0x08
+ b32:	f1 85       	ldd	r31, Z+9	; 0x09
+ b34:	e0 2d       	mov	r30, r0
+ b36:	e2 0f       	add	r30, r18
+ b38:	f3 1f       	adc	r31, r19
+ b3a:	80 83       	st	Z, r24
+ b3c:	08 95       	ret
 
-00000b68 <Front>:
+00000b3e <Front>:
   }
 
 }
 
-ElementType Front(Queue Q) {
- b68:	dc 01       	movw	r26, r24
+ElementQueueType Front(Queue Q) {
+ b3e:	dc 01       	movw	r26, r24
 
   if (!IsEmptyQueue(Q)) {
- b6a:	16 96       	adiw	r26, 0x06	; 6
- b6c:	8d 91       	ld	r24, X+
- b6e:	9c 91       	ld	r25, X
- b70:	17 97       	sbiw	r26, 0x07	; 7
- b72:	00 97       	sbiw	r24, 0x00	; 0
- b74:	61 f0       	breq	.+24     	; 0xb8e <Front+0x26>
+ b40:	16 96       	adiw	r26, 0x06	; 6
+ b42:	8d 91       	ld	r24, X+
+ b44:	9c 91       	ld	r25, X
+ b46:	17 97       	sbiw	r26, 0x07	; 7
+ b48:	00 97       	sbiw	r24, 0x00	; 0
+ b4a:	61 f0       	breq	.+24     	; 0xb64 <Front+0x26>
     return Q->Array[Q->Front];
- b76:	18 96       	adiw	r26, 0x08	; 8
- b78:	ed 91       	ld	r30, X+
- b7a:	fc 91       	ld	r31, X
- b7c:	19 97       	sbiw	r26, 0x09	; 9
- b7e:	12 96       	adiw	r26, 0x02	; 2
- b80:	8d 91       	ld	r24, X+
- b82:	9c 91       	ld	r25, X
- b84:	13 97       	sbiw	r26, 0x03	; 3
- b86:	e8 0f       	add	r30, r24
- b88:	f9 1f       	adc	r31, r25
- b8a:	80 81       	ld	r24, Z
- b8c:	08 95       	ret
+ b4c:	18 96       	adiw	r26, 0x08	; 8
+ b4e:	ed 91       	ld	r30, X+
+ b50:	fc 91       	ld	r31, X
+ b52:	19 97       	sbiw	r26, 0x09	; 9
+ b54:	12 96       	adiw	r26, 0x02	; 2
+ b56:	8d 91       	ld	r24, X+
+ b58:	9c 91       	ld	r25, X
+ b5a:	13 97       	sbiw	r26, 0x03	; 3
+ b5c:	e8 0f       	add	r30, r24
+ b5e:	f9 1f       	adc	r31, r25
+ b60:	80 81       	ld	r24, Z
+ b62:	08 95       	ret
   }
 
   /* Return value to avoid warnings from the compiler */
   return 0;
- b8e:	80 e0       	ldi	r24, 0x00	; 0
+ b64:	80 e0       	ldi	r24, 0x00	; 0
 
 }
- b90:	08 95       	ret
+ b66:	08 95       	ret
 
-00000b92 <Dequeue>:
+00000b68 <Dequeue>:
 
 void Dequeue(Queue Q) {
+ b68:	fc 01       	movw	r30, r24
+  int Size;
+  ElementQueueType *Array;
+};
+
+int IsEmptyQueue(Queue Q) {
+  return Q->Size == 0;
+ b6a:	86 81       	ldd	r24, Z+6	; 0x06
+ b6c:	97 81       	ldd	r25, Z+7	; 0x07
+
+}
+
+void Dequeue(Queue Q) {
+
+  if (IsEmptyQueue(Q)) {
+ b6e:	00 97       	sbiw	r24, 0x00	; 0
+ b70:	79 f0       	breq	.+30     	; 0xb90 <Dequeue+0x28>
+    return;
+  } else {
+    Q->Size--;
+ b72:	01 97       	sbiw	r24, 0x01	; 1
+ b74:	97 83       	std	Z+7, r25	; 0x07
+ b76:	86 83       	std	Z+6, r24	; 0x06
+    free(Q);
+  }
+}
+
+static int Succ(int Value, Queue Q) {
+  if (++Value == Q->Capacity) {
+ b78:	82 81       	ldd	r24, Z+2	; 0x02
+ b7a:	93 81       	ldd	r25, Z+3	; 0x03
+ b7c:	01 96       	adiw	r24, 0x01	; 1
+ b7e:	20 81       	ld	r18, Z
+ b80:	31 81       	ldd	r19, Z+1	; 0x01
+ b82:	82 17       	cp	r24, r18
+ b84:	93 07       	cpc	r25, r19
+ b86:	11 f4       	brne	.+4      	; 0xb8c <Dequeue+0x24>
+    Value = 0;
+ b88:	80 e0       	ldi	r24, 0x00	; 0
+ b8a:	90 e0       	ldi	r25, 0x00	; 0
+
+  if (IsEmptyQueue(Q)) {
+    return;
+  } else {
+    Q->Size--;
+    Q->Front = Succ(Q->Front, Q);
+ b8c:	93 83       	std	Z+3, r25	; 0x03
+ b8e:	82 83       	std	Z+2, r24	; 0x02
+ b90:	08 95       	ret
+
+00000b92 <FrontAndDequeue>:
+  }
+
+}
+
+ElementQueueType FrontAndDequeue(Queue Q) {
  b92:	fc 01       	movw	r30, r24
   int Size;
-  ElementType *Array;
+  ElementQueueType *Array;
 };
 
 int IsEmptyQueue(Queue Q) {
@@ -2183,485 +2300,423 @@ int IsEmptyQueue(Queue Q) {
  b94:	86 81       	ldd	r24, Z+6	; 0x06
  b96:	97 81       	ldd	r25, Z+7	; 0x07
 
-}
+ElementQueueType FrontAndDequeue(Queue Q) {
 
-void Dequeue(Queue Q) {
+  ElementQueueType X = 0;
 
   if (IsEmptyQueue(Q)) {
  b98:	00 97       	sbiw	r24, 0x00	; 0
- b9a:	79 f0       	breq	.+30     	; 0xbba <Dequeue+0x28>
-    return;
+ b9a:	b1 f0       	breq	.+44     	; 0xbc8 <FrontAndDequeue+0x36>
+    return X;
   } else {
     Q->Size--;
  b9c:	01 97       	sbiw	r24, 0x01	; 1
  b9e:	97 83       	std	Z+7, r25	; 0x07
  ba0:	86 83       	std	Z+6, r24	; 0x06
+    X = Q->Array[Q->Front];
+ ba2:	22 81       	ldd	r18, Z+2	; 0x02
+ ba4:	33 81       	ldd	r19, Z+3	; 0x03
+ ba6:	a0 85       	ldd	r26, Z+8	; 0x08
+ ba8:	b1 85       	ldd	r27, Z+9	; 0x09
+ baa:	a2 0f       	add	r26, r18
+ bac:	b3 1f       	adc	r27, r19
+ bae:	8c 91       	ld	r24, X
     free(Q);
   }
 }
 
 static int Succ(int Value, Queue Q) {
   if (++Value == Q->Capacity) {
- ba2:	82 81       	ldd	r24, Z+2	; 0x02
- ba4:	93 81       	ldd	r25, Z+3	; 0x03
- ba6:	01 96       	adiw	r24, 0x01	; 1
- ba8:	20 81       	ld	r18, Z
- baa:	31 81       	ldd	r19, Z+1	; 0x01
- bac:	82 17       	cp	r24, r18
- bae:	93 07       	cpc	r25, r19
- bb0:	11 f4       	brne	.+4      	; 0xbb6 <Dequeue+0x24>
+ bb0:	2f 5f       	subi	r18, 0xFF	; 255
+ bb2:	3f 4f       	sbci	r19, 0xFF	; 255
+ bb4:	40 81       	ld	r20, Z
+ bb6:	51 81       	ldd	r21, Z+1	; 0x01
+ bb8:	24 17       	cp	r18, r20
+ bba:	35 07       	cpc	r19, r21
+ bbc:	11 f4       	brne	.+4      	; 0xbc2 <FrontAndDequeue+0x30>
     Value = 0;
- bb2:	80 e0       	ldi	r24, 0x00	; 0
- bb4:	90 e0       	ldi	r25, 0x00	; 0
-
-  if (IsEmptyQueue(Q)) {
-    return;
-  } else {
-    Q->Size--;
-    Q->Front = Succ(Q->Front, Q);
- bb6:	93 83       	std	Z+3, r25	; 0x03
- bb8:	82 83       	std	Z+2, r24	; 0x02
- bba:	08 95       	ret
-
-00000bbc <FrontAndDequeue>:
-  }
-
-}
-
-ElementType FrontAndDequeue(Queue Q) {
- bbc:	fc 01       	movw	r30, r24
-  int Size;
-  ElementType *Array;
-};
-
-int IsEmptyQueue(Queue Q) {
-  return Q->Size == 0;
- bbe:	86 81       	ldd	r24, Z+6	; 0x06
- bc0:	97 81       	ldd	r25, Z+7	; 0x07
-
-ElementType FrontAndDequeue(Queue Q) {
-
-  ElementType X = 0;
-
-  if (IsEmptyQueue(Q)) {
- bc2:	00 97       	sbiw	r24, 0x00	; 0
- bc4:	b1 f0       	breq	.+44     	; 0xbf2 <FrontAndDequeue+0x36>
-    return X;
-  } else {
-    Q->Size--;
- bc6:	01 97       	sbiw	r24, 0x01	; 1
- bc8:	97 83       	std	Z+7, r25	; 0x07
- bca:	86 83       	std	Z+6, r24	; 0x06
-    X = Q->Array[Q->Front];
- bcc:	22 81       	ldd	r18, Z+2	; 0x02
- bce:	33 81       	ldd	r19, Z+3	; 0x03
- bd0:	a0 85       	ldd	r26, Z+8	; 0x08
- bd2:	b1 85       	ldd	r27, Z+9	; 0x09
- bd4:	a2 0f       	add	r26, r18
- bd6:	b3 1f       	adc	r27, r19
- bd8:	8c 91       	ld	r24, X
-    free(Q);
-  }
-}
-
-static int Succ(int Value, Queue Q) {
-  if (++Value == Q->Capacity) {
- bda:	2f 5f       	subi	r18, 0xFF	; 255
- bdc:	3f 4f       	sbci	r19, 0xFF	; 255
- bde:	40 81       	ld	r20, Z
- be0:	51 81       	ldd	r21, Z+1	; 0x01
- be2:	24 17       	cp	r18, r20
- be4:	35 07       	cpc	r19, r21
- be6:	11 f4       	brne	.+4      	; 0xbec <FrontAndDequeue+0x30>
-    Value = 0;
- be8:	20 e0       	ldi	r18, 0x00	; 0
- bea:	30 e0       	ldi	r19, 0x00	; 0
+ bbe:	20 e0       	ldi	r18, 0x00	; 0
+ bc0:	30 e0       	ldi	r19, 0x00	; 0
   if (IsEmptyQueue(Q)) {
     return X;
   } else {
     Q->Size--;
     X = Q->Array[Q->Front];
     Q->Front = Succ(Q->Front, Q);
- bec:	33 83       	std	Z+3, r19	; 0x03
- bee:	22 83       	std	Z+2, r18	; 0x02
+ bc2:	33 83       	std	Z+3, r19	; 0x03
+ bc4:	22 83       	std	Z+2, r18	; 0x02
   }
   return X;
- bf0:	08 95       	ret
-ElementType FrontAndDequeue(Queue Q) {
+ bc6:	08 95       	ret
+ElementQueueType FrontAndDequeue(Queue Q) {
 
-  ElementType X = 0;
+  ElementQueueType X = 0;
 
   if (IsEmptyQueue(Q)) {
     return X;
- bf2:	80 e0       	ldi	r24, 0x00	; 0
+ bc8:	80 e0       	ldi	r24, 0x00	; 0
     X = Q->Array[Q->Front];
     Q->Front = Succ(Q->Front, Q);
   }
   return X;
 
 }
- bf4:	08 95       	ret
+ bca:	08 95       	ret
 
-00000bf6 <main>:
+00000bcc <calloc>:
+ bcc:	ef 92       	push	r14
+ bce:	ff 92       	push	r15
+ bd0:	0f 93       	push	r16
+ bd2:	1f 93       	push	r17
+ bd4:	cf 93       	push	r28
+ bd6:	df 93       	push	r29
+ bd8:	68 9f       	mul	r22, r24
+ bda:	80 01       	movw	r16, r0
+ bdc:	69 9f       	mul	r22, r25
+ bde:	10 0d       	add	r17, r0
+ be0:	78 9f       	mul	r23, r24
+ be2:	10 0d       	add	r17, r0
+ be4:	11 24       	eor	r1, r1
+ be6:	c8 01       	movw	r24, r16
+ be8:	0e 94 0a 06 	call	0xc14	; 0xc14 <malloc>
+ bec:	e8 2e       	mov	r14, r24
+ bee:	e7 01       	movw	r28, r14
+ bf0:	7e 01       	movw	r14, r28
+ bf2:	f9 2e       	mov	r15, r25
+ bf4:	e7 01       	movw	r28, r14
+ bf6:	20 97       	sbiw	r28, 0x00	; 0
+ bf8:	31 f0       	breq	.+12     	; 0xc06 <calloc+0x3a>
+ bfa:	8e 2d       	mov	r24, r14
+ bfc:	60 e0       	ldi	r22, 0x00	; 0
+ bfe:	70 e0       	ldi	r23, 0x00	; 0
+ c00:	a8 01       	movw	r20, r16
+ c02:	0e 94 3f 07 	call	0xe7e	; 0xe7e <memset>
+ c06:	7e 01       	movw	r14, r28
+ c08:	ce 01       	movw	r24, r28
+ c0a:	cd b7       	in	r28, 0x3d	; 61
+ c0c:	de b7       	in	r29, 0x3e	; 62
+ c0e:	e6 e0       	ldi	r30, 0x06	; 6
+ c10:	0c 94 52 07 	jmp	0xea4	; 0xea4 <__epilogue_restores__+0x18>
 
-int main(void) {
-  int id;
+00000c14 <malloc>:
+ c14:	cf 93       	push	r28
+ c16:	df 93       	push	r29
+ c18:	82 30       	cpi	r24, 0x02	; 2
+ c1a:	91 05       	cpc	r25, r1
+ c1c:	10 f4       	brcc	.+4      	; 0xc22 <malloc+0xe>
+ c1e:	82 e0       	ldi	r24, 0x02	; 2
+ c20:	90 e0       	ldi	r25, 0x00	; 0
+ c22:	e0 91 32 02 	lds	r30, 0x0232
+ c26:	f0 91 33 02 	lds	r31, 0x0233
+ c2a:	20 e0       	ldi	r18, 0x00	; 0
+ c2c:	30 e0       	ldi	r19, 0x00	; 0
+ c2e:	40 e0       	ldi	r20, 0x00	; 0
+ c30:	50 e0       	ldi	r21, 0x00	; 0
+ c32:	28 c0       	rjmp	.+80     	; 0xc84 <malloc+0x70>
+ c34:	60 81       	ld	r22, Z
+ c36:	71 81       	ldd	r23, Z+1	; 0x01
+ c38:	68 17       	cp	r22, r24
+ c3a:	79 07       	cpc	r23, r25
+ c3c:	c8 f0       	brcs	.+50     	; 0xc70 <malloc+0x5c>
+ c3e:	68 17       	cp	r22, r24
+ c40:	79 07       	cpc	r23, r25
+ c42:	81 f4       	brne	.+32     	; 0xc64 <malloc+0x50>
+ c44:	82 81       	ldd	r24, Z+2	; 0x02
+ c46:	93 81       	ldd	r25, Z+3	; 0x03
+ c48:	41 15       	cp	r20, r1
+ c4a:	51 05       	cpc	r21, r1
+ c4c:	31 f0       	breq	.+12     	; 0xc5a <malloc+0x46>
+ c4e:	da 01       	movw	r26, r20
+ c50:	13 96       	adiw	r26, 0x03	; 3
+ c52:	9c 93       	st	X, r25
+ c54:	8e 93       	st	-X, r24
+ c56:	12 97       	sbiw	r26, 0x02	; 2
+ c58:	2d c0       	rjmp	.+90     	; 0xcb4 <malloc+0xa0>
+ c5a:	90 93 33 02 	sts	0x0233, r25
+ c5e:	80 93 32 02 	sts	0x0232, r24
+ c62:	28 c0       	rjmp	.+80     	; 0xcb4 <malloc+0xa0>
+ c64:	21 15       	cp	r18, r1
+ c66:	31 05       	cpc	r19, r1
+ c68:	29 f0       	breq	.+10     	; 0xc74 <malloc+0x60>
+ c6a:	62 17       	cp	r22, r18
+ c6c:	73 07       	cpc	r23, r19
+ c6e:	10 f0       	brcs	.+4      	; 0xc74 <malloc+0x60>
+ c70:	b9 01       	movw	r22, r18
+ c72:	02 c0       	rjmp	.+4      	; 0xc78 <malloc+0x64>
+ c74:	ea 01       	movw	r28, r20
+ c76:	df 01       	movw	r26, r30
+ c78:	af 01       	movw	r20, r30
+ c7a:	9b 01       	movw	r18, r22
+ c7c:	72 81       	ldd	r23, Z+2	; 0x02
+ c7e:	63 81       	ldd	r22, Z+3	; 0x03
+ c80:	e7 2f       	mov	r30, r23
+ c82:	f6 2f       	mov	r31, r22
+ c84:	30 97       	sbiw	r30, 0x00	; 0
+ c86:	b1 f6       	brne	.-84     	; 0xc34 <malloc+0x20>
+ c88:	21 15       	cp	r18, r1
+ c8a:	31 05       	cpc	r19, r1
+ c8c:	01 f1       	breq	.+64     	; 0xcce <malloc+0xba>
+ c8e:	28 1b       	sub	r18, r24
+ c90:	39 0b       	sbc	r19, r25
+ c92:	24 30       	cpi	r18, 0x04	; 4
+ c94:	31 05       	cpc	r19, r1
+ c96:	80 f4       	brcc	.+32     	; 0xcb8 <malloc+0xa4>
+ c98:	12 96       	adiw	r26, 0x02	; 2
+ c9a:	8d 91       	ld	r24, X+
+ c9c:	9c 91       	ld	r25, X
+ c9e:	13 97       	sbiw	r26, 0x03	; 3
+ ca0:	20 97       	sbiw	r28, 0x00	; 0
+ ca2:	19 f0       	breq	.+6      	; 0xcaa <malloc+0x96>
+ ca4:	9b 83       	std	Y+3, r25	; 0x03
+ ca6:	8a 83       	std	Y+2, r24	; 0x02
+ ca8:	04 c0       	rjmp	.+8      	; 0xcb2 <malloc+0x9e>
+ caa:	90 93 33 02 	sts	0x0233, r25
+ cae:	80 93 32 02 	sts	0x0232, r24
+ cb2:	fd 01       	movw	r30, r26
+ cb4:	32 96       	adiw	r30, 0x02	; 2
+ cb6:	46 c0       	rjmp	.+140    	; 0xd44 <malloc+0x130>
+ cb8:	fd 01       	movw	r30, r26
+ cba:	e2 0f       	add	r30, r18
+ cbc:	f3 1f       	adc	r31, r19
+ cbe:	81 93       	st	Z+, r24
+ cc0:	91 93       	st	Z+, r25
+ cc2:	22 50       	subi	r18, 0x02	; 2
+ cc4:	30 40       	sbci	r19, 0x00	; 0
+ cc6:	11 96       	adiw	r26, 0x01	; 1
+ cc8:	3c 93       	st	X, r19
+ cca:	2e 93       	st	-X, r18
+ ccc:	3b c0       	rjmp	.+118    	; 0xd44 <malloc+0x130>
+ cce:	20 91 30 02 	lds	r18, 0x0230
+ cd2:	30 91 31 02 	lds	r19, 0x0231
+ cd6:	21 15       	cp	r18, r1
+ cd8:	31 05       	cpc	r19, r1
+ cda:	41 f4       	brne	.+16     	; 0xcec <malloc+0xd8>
+ cdc:	20 91 64 00 	lds	r18, 0x0064
+ ce0:	30 91 65 00 	lds	r19, 0x0065
+ ce4:	30 93 31 02 	sts	0x0231, r19
+ ce8:	20 93 30 02 	sts	0x0230, r18
+ cec:	20 91 66 00 	lds	r18, 0x0066
+ cf0:	30 91 67 00 	lds	r19, 0x0067
+ cf4:	21 15       	cp	r18, r1
+ cf6:	31 05       	cpc	r19, r1
+ cf8:	41 f4       	brne	.+16     	; 0xd0a <malloc+0xf6>
+ cfa:	2d b7       	in	r18, 0x3d	; 61
+ cfc:	3e b7       	in	r19, 0x3e	; 62
+ cfe:	40 91 62 00 	lds	r20, 0x0062
+ d02:	50 91 63 00 	lds	r21, 0x0063
+ d06:	24 1b       	sub	r18, r20
+ d08:	35 0b       	sbc	r19, r21
+ d0a:	e0 91 30 02 	lds	r30, 0x0230
+ d0e:	f0 91 31 02 	lds	r31, 0x0231
+ d12:	e2 17       	cp	r30, r18
+ d14:	f3 07       	cpc	r31, r19
+ d16:	a0 f4       	brcc	.+40     	; 0xd40 <malloc+0x12c>
+ d18:	2e 1b       	sub	r18, r30
+ d1a:	3f 0b       	sbc	r19, r31
+ d1c:	28 17       	cp	r18, r24
+ d1e:	39 07       	cpc	r19, r25
+ d20:	78 f0       	brcs	.+30     	; 0xd40 <malloc+0x12c>
+ d22:	ac 01       	movw	r20, r24
+ d24:	4e 5f       	subi	r20, 0xFE	; 254
+ d26:	5f 4f       	sbci	r21, 0xFF	; 255
+ d28:	24 17       	cp	r18, r20
+ d2a:	35 07       	cpc	r19, r21
+ d2c:	48 f0       	brcs	.+18     	; 0xd40 <malloc+0x12c>
+ d2e:	4e 0f       	add	r20, r30
+ d30:	5f 1f       	adc	r21, r31
+ d32:	50 93 31 02 	sts	0x0231, r21
+ d36:	40 93 30 02 	sts	0x0230, r20
+ d3a:	81 93       	st	Z+, r24
+ d3c:	91 93       	st	Z+, r25
+ d3e:	02 c0       	rjmp	.+4      	; 0xd44 <malloc+0x130>
+ d40:	e0 e0       	ldi	r30, 0x00	; 0
+ d42:	f0 e0       	ldi	r31, 0x00	; 0
+ d44:	cf 01       	movw	r24, r30
+ d46:	df 91       	pop	r29
+ d48:	cf 91       	pop	r28
+ d4a:	08 95       	ret
 
-  /*Initialize the ports */
-  DDRB = 0xff; 
- bf6:	8f ef       	ldi	r24, 0xFF	; 255
- bf8:	87 bb       	out	0x17, r24	; 23
-  DDRD = 0x00; 
- bfa:	11 ba       	out	0x11, r1	; 17
+00000d4c <free>:
+ d4c:	cf 93       	push	r28
+ d4e:	df 93       	push	r29
+ d50:	00 97       	sbiw	r24, 0x00	; 0
+ d52:	09 f4       	brne	.+2      	; 0xd56 <free+0xa>
+ d54:	91 c0       	rjmp	.+290    	; 0xe78 <free+0x12c>
+ d56:	fc 01       	movw	r30, r24
+ d58:	32 97       	sbiw	r30, 0x02	; 2
+ d5a:	13 82       	std	Z+3, r1	; 0x03
+ d5c:	12 82       	std	Z+2, r1	; 0x02
+ d5e:	60 91 32 02 	lds	r22, 0x0232
+ d62:	70 91 33 02 	lds	r23, 0x0233
+ d66:	61 15       	cp	r22, r1
+ d68:	71 05       	cpc	r23, r1
+ d6a:	81 f4       	brne	.+32     	; 0xd8c <free+0x40>
+ d6c:	20 81       	ld	r18, Z
+ d6e:	31 81       	ldd	r19, Z+1	; 0x01
+ d70:	28 0f       	add	r18, r24
+ d72:	39 1f       	adc	r19, r25
+ d74:	80 91 30 02 	lds	r24, 0x0230
+ d78:	90 91 31 02 	lds	r25, 0x0231
+ d7c:	82 17       	cp	r24, r18
+ d7e:	93 07       	cpc	r25, r19
+ d80:	99 f5       	brne	.+102    	; 0xde8 <free+0x9c>
+ d82:	f0 93 31 02 	sts	0x0231, r31
+ d86:	e0 93 30 02 	sts	0x0230, r30
+ d8a:	76 c0       	rjmp	.+236    	; 0xe78 <free+0x12c>
+ d8c:	db 01       	movw	r26, r22
+ d8e:	80 e0       	ldi	r24, 0x00	; 0
+ d90:	90 e0       	ldi	r25, 0x00	; 0
+ d92:	02 c0       	rjmp	.+4      	; 0xd98 <free+0x4c>
+ d94:	cd 01       	movw	r24, r26
+ d96:	d9 01       	movw	r26, r18
+ d98:	ae 17       	cp	r26, r30
+ d9a:	bf 07       	cpc	r27, r31
+ d9c:	48 f4       	brcc	.+18     	; 0xdb0 <free+0x64>
+ d9e:	12 96       	adiw	r26, 0x02	; 2
+ da0:	2d 91       	ld	r18, X+
+ da2:	3c 91       	ld	r19, X
+ da4:	13 97       	sbiw	r26, 0x03	; 3
+ da6:	21 15       	cp	r18, r1
+ da8:	31 05       	cpc	r19, r1
+ daa:	a1 f7       	brne	.-24     	; 0xd94 <free+0x48>
+ dac:	cd 01       	movw	r24, r26
+ dae:	21 c0       	rjmp	.+66     	; 0xdf2 <free+0xa6>
+ db0:	b3 83       	std	Z+3, r27	; 0x03
+ db2:	a2 83       	std	Z+2, r26	; 0x02
+ db4:	ef 01       	movw	r28, r30
+ db6:	49 91       	ld	r20, Y+
+ db8:	59 91       	ld	r21, Y+
+ dba:	9e 01       	movw	r18, r28
+ dbc:	24 0f       	add	r18, r20
+ dbe:	35 1f       	adc	r19, r21
+ dc0:	a2 17       	cp	r26, r18
+ dc2:	b3 07       	cpc	r27, r19
+ dc4:	79 f4       	brne	.+30     	; 0xde4 <free+0x98>
+ dc6:	2d 91       	ld	r18, X+
+ dc8:	3c 91       	ld	r19, X
+ dca:	11 97       	sbiw	r26, 0x01	; 1
+ dcc:	24 0f       	add	r18, r20
+ dce:	35 1f       	adc	r19, r21
+ dd0:	2e 5f       	subi	r18, 0xFE	; 254
+ dd2:	3f 4f       	sbci	r19, 0xFF	; 255
+ dd4:	31 83       	std	Z+1, r19	; 0x01
+ dd6:	20 83       	st	Z, r18
+ dd8:	12 96       	adiw	r26, 0x02	; 2
+ dda:	2d 91       	ld	r18, X+
+ ddc:	3c 91       	ld	r19, X
+ dde:	13 97       	sbiw	r26, 0x03	; 3
+ de0:	33 83       	std	Z+3, r19	; 0x03
+ de2:	22 83       	std	Z+2, r18	; 0x02
+ de4:	00 97       	sbiw	r24, 0x00	; 0
+ de6:	29 f4       	brne	.+10     	; 0xdf2 <free+0xa6>
+ de8:	f0 93 33 02 	sts	0x0233, r31
+ dec:	e0 93 32 02 	sts	0x0232, r30
+ df0:	43 c0       	rjmp	.+134    	; 0xe78 <free+0x12c>
+ df2:	dc 01       	movw	r26, r24
+ df4:	13 96       	adiw	r26, 0x03	; 3
+ df6:	fc 93       	st	X, r31
+ df8:	ee 93       	st	-X, r30
+ dfa:	12 97       	sbiw	r26, 0x02	; 2
+ dfc:	4d 91       	ld	r20, X+
+ dfe:	5d 91       	ld	r21, X+
+ e00:	a4 0f       	add	r26, r20
+ e02:	b5 1f       	adc	r27, r21
+ e04:	ea 17       	cp	r30, r26
+ e06:	fb 07       	cpc	r31, r27
+ e08:	69 f4       	brne	.+26     	; 0xe24 <free+0xd8>
+ e0a:	20 81       	ld	r18, Z
+ e0c:	31 81       	ldd	r19, Z+1	; 0x01
+ e0e:	24 0f       	add	r18, r20
+ e10:	35 1f       	adc	r19, r21
+ e12:	2e 5f       	subi	r18, 0xFE	; 254
+ e14:	3f 4f       	sbci	r19, 0xFF	; 255
+ e16:	ec 01       	movw	r28, r24
+ e18:	39 83       	std	Y+1, r19	; 0x01
+ e1a:	28 83       	st	Y, r18
+ e1c:	22 81       	ldd	r18, Z+2	; 0x02
+ e1e:	33 81       	ldd	r19, Z+3	; 0x03
+ e20:	3b 83       	std	Y+3, r19	; 0x03
+ e22:	2a 83       	std	Y+2, r18	; 0x02
+ e24:	e0 e0       	ldi	r30, 0x00	; 0
+ e26:	f0 e0       	ldi	r31, 0x00	; 0
+ e28:	02 c0       	rjmp	.+4      	; 0xe2e <free+0xe2>
+ e2a:	fb 01       	movw	r30, r22
+ e2c:	bc 01       	movw	r22, r24
+ e2e:	db 01       	movw	r26, r22
+ e30:	12 96       	adiw	r26, 0x02	; 2
+ e32:	8d 91       	ld	r24, X+
+ e34:	9c 91       	ld	r25, X
+ e36:	13 97       	sbiw	r26, 0x03	; 3
+ e38:	00 97       	sbiw	r24, 0x00	; 0
+ e3a:	b9 f7       	brne	.-18     	; 0xe2a <free+0xde>
+ e3c:	9b 01       	movw	r18, r22
+ e3e:	2e 5f       	subi	r18, 0xFE	; 254
+ e40:	3f 4f       	sbci	r19, 0xFF	; 255
+ e42:	8d 91       	ld	r24, X+
+ e44:	9c 91       	ld	r25, X
+ e46:	11 97       	sbiw	r26, 0x01	; 1
+ e48:	82 0f       	add	r24, r18
+ e4a:	93 1f       	adc	r25, r19
+ e4c:	40 91 30 02 	lds	r20, 0x0230
+ e50:	50 91 31 02 	lds	r21, 0x0231
+ e54:	48 17       	cp	r20, r24
+ e56:	59 07       	cpc	r21, r25
+ e58:	79 f4       	brne	.+30     	; 0xe78 <free+0x12c>
+ e5a:	30 97       	sbiw	r30, 0x00	; 0
+ e5c:	29 f4       	brne	.+10     	; 0xe68 <free+0x11c>
+ e5e:	10 92 33 02 	sts	0x0233, r1
+ e62:	10 92 32 02 	sts	0x0232, r1
+ e66:	02 c0       	rjmp	.+4      	; 0xe6c <free+0x120>
+ e68:	13 82       	std	Z+3, r1	; 0x03
+ e6a:	12 82       	std	Z+2, r1	; 0x02
+ e6c:	22 50       	subi	r18, 0x02	; 2
+ e6e:	30 40       	sbci	r19, 0x00	; 0
+ e70:	30 93 31 02 	sts	0x0231, r19
+ e74:	20 93 30 02 	sts	0x0230, r18
+ e78:	df 91       	pop	r29
+ e7a:	cf 91       	pop	r28
+ e7c:	08 95       	ret
 
-  /*semaphore to protect portb */
- // portbsem = UIKSemCreate();
-  PORTB = 0xff;
- bfc:	88 bb       	out	0x18, r24	; 24
- 
-  /*Initialize the RTOS - this sets up the timer */
-  UIKInitialize(TICKLEN, 5); 
- bfe:	80 e1       	ldi	r24, 0x10	; 16
- c00:	97 e2       	ldi	r25, 0x27	; 39
- c02:	65 e0       	ldi	r22, 0x05	; 5
- c04:	0e 94 62 02 	call	0x4c4	; 0x4c4 <UIKInitialize>
+00000e7e <memset>:
+ e7e:	dc 01       	movw	r26, r24
+ e80:	01 c0       	rjmp	.+2      	; 0xe84 <memset+0x6>
+ e82:	6d 93       	st	X+, r22
+ e84:	41 50       	subi	r20, 0x01	; 1
+ e86:	50 40       	sbci	r21, 0x00	; 0
+ e88:	e0 f7       	brcc	.-8      	; 0xe82 <memset+0x4>
+ e8a:	08 95       	ret
 
-  /*Tell the RTOS about our tasks */
-  id = UIKAddTask(&taskcount, 30, taskcount_stack, MIN_STACK_SIZE); 
- c08:	89 e4       	ldi	r24, 0x49	; 73
- c0a:	90 e0       	ldi	r25, 0x00	; 0
- c0c:	6e e1       	ldi	r22, 0x1E	; 30
- c0e:	48 e6       	ldi	r20, 0x68	; 104
- c10:	50 e0       	ldi	r21, 0x00	; 0
- c12:	25 e5       	ldi	r18, 0x55	; 85
- c14:	30 e0       	ldi	r19, 0x00	; 0
- c16:	0e 94 3f 01 	call	0x27e	; 0x27e <UIKAddTask>
-  UIKRun(id);
- c1a:	0e 94 ad 02 	call	0x55a	; 0x55a <UIKRun>
-
-  /*this enables interupts, so doesn't need to be done in main */
-  UIKStart();
- c1e:	0e 94 c1 02 	call	0x582	; 0x582 <UIKStart>
-  return 0;
-}
- c22:	80 e0       	ldi	r24, 0x00	; 0
- c24:	90 e0       	ldi	r25, 0x00	; 0
- c26:	08 95       	ret
-
-00000c28 <calloc>:
- c28:	0f 93       	push	r16
- c2a:	1f 93       	push	r17
- c2c:	cf 93       	push	r28
- c2e:	df 93       	push	r29
- c30:	68 9f       	mul	r22, r24
- c32:	80 01       	movw	r16, r0
- c34:	69 9f       	mul	r22, r25
- c36:	10 0d       	add	r17, r0
- c38:	78 9f       	mul	r23, r24
- c3a:	10 0d       	add	r17, r0
- c3c:	11 24       	eor	r1, r1
- c3e:	c8 01       	movw	r24, r16
- c40:	0e 94 32 06 	call	0xc64	; 0xc64 <malloc>
- c44:	c8 2f       	mov	r28, r24
- c46:	d9 2f       	mov	r29, r25
- c48:	20 97       	sbiw	r28, 0x00	; 0
- c4a:	31 f0       	breq	.+12     	; 0xc58 <calloc+0x30>
- c4c:	8c 2f       	mov	r24, r28
- c4e:	60 e0       	ldi	r22, 0x00	; 0
- c50:	70 e0       	ldi	r23, 0x00	; 0
- c52:	a8 01       	movw	r20, r16
- c54:	0e 94 61 07 	call	0xec2	; 0xec2 <memset>
- c58:	ce 01       	movw	r24, r28
- c5a:	df 91       	pop	r29
- c5c:	cf 91       	pop	r28
- c5e:	1f 91       	pop	r17
- c60:	0f 91       	pop	r16
- c62:	08 95       	ret
-
-00000c64 <malloc>:
- c64:	cf 93       	push	r28
- c66:	df 93       	push	r29
- c68:	ac 01       	movw	r20, r24
- c6a:	82 30       	cpi	r24, 0x02	; 2
- c6c:	91 05       	cpc	r25, r1
- c6e:	10 f4       	brcc	.+4      	; 0xc74 <malloc+0x10>
- c70:	42 e0       	ldi	r20, 0x02	; 2
- c72:	50 e0       	ldi	r21, 0x00	; 0
- c74:	e0 91 31 01 	lds	r30, 0x0131
- c78:	f0 91 32 01 	lds	r31, 0x0132
- c7c:	20 e0       	ldi	r18, 0x00	; 0
- c7e:	30 e0       	ldi	r19, 0x00	; 0
- c80:	a0 e0       	ldi	r26, 0x00	; 0
- c82:	b0 e0       	ldi	r27, 0x00	; 0
- c84:	24 c0       	rjmp	.+72     	; 0xcce <malloc+0x6a>
- c86:	80 81       	ld	r24, Z
- c88:	91 81       	ldd	r25, Z+1	; 0x01
- c8a:	84 17       	cp	r24, r20
- c8c:	95 07       	cpc	r25, r21
- c8e:	d0 f0       	brcs	.+52     	; 0xcc4 <malloc+0x60>
- c90:	84 17       	cp	r24, r20
- c92:	95 07       	cpc	r25, r21
- c94:	71 f4       	brne	.+28     	; 0xcb2 <malloc+0x4e>
- c96:	82 81       	ldd	r24, Z+2	; 0x02
- c98:	93 81       	ldd	r25, Z+3	; 0x03
- c9a:	10 97       	sbiw	r26, 0x00	; 0
- c9c:	29 f0       	breq	.+10     	; 0xca8 <malloc+0x44>
- c9e:	13 96       	adiw	r26, 0x03	; 3
- ca0:	9c 93       	st	X, r25
- ca2:	8e 93       	st	-X, r24
- ca4:	12 97       	sbiw	r26, 0x02	; 2
- ca6:	2c c0       	rjmp	.+88     	; 0xd00 <malloc+0x9c>
- ca8:	90 93 32 01 	sts	0x0132, r25
- cac:	80 93 31 01 	sts	0x0131, r24
- cb0:	27 c0       	rjmp	.+78     	; 0xd00 <malloc+0x9c>
- cb2:	21 15       	cp	r18, r1
- cb4:	31 05       	cpc	r19, r1
- cb6:	19 f0       	breq	.+6      	; 0xcbe <malloc+0x5a>
- cb8:	82 17       	cp	r24, r18
- cba:	93 07       	cpc	r25, r19
- cbc:	18 f4       	brcc	.+6      	; 0xcc4 <malloc+0x60>
- cbe:	9c 01       	movw	r18, r24
- cc0:	bd 01       	movw	r22, r26
- cc2:	ef 01       	movw	r28, r30
- cc4:	92 81       	ldd	r25, Z+2	; 0x02
- cc6:	83 81       	ldd	r24, Z+3	; 0x03
- cc8:	df 01       	movw	r26, r30
- cca:	e9 2f       	mov	r30, r25
- ccc:	f8 2f       	mov	r31, r24
- cce:	30 97       	sbiw	r30, 0x00	; 0
- cd0:	d1 f6       	brne	.-76     	; 0xc86 <malloc+0x22>
- cd2:	21 15       	cp	r18, r1
- cd4:	31 05       	cpc	r19, r1
- cd6:	f9 f0       	breq	.+62     	; 0xd16 <malloc+0xb2>
- cd8:	c9 01       	movw	r24, r18
- cda:	84 1b       	sub	r24, r20
- cdc:	95 0b       	sbc	r25, r21
- cde:	84 30       	cpi	r24, 0x04	; 4
- ce0:	91 05       	cpc	r25, r1
- ce2:	80 f4       	brcc	.+32     	; 0xd04 <malloc+0xa0>
- ce4:	8a 81       	ldd	r24, Y+2	; 0x02
- ce6:	9b 81       	ldd	r25, Y+3	; 0x03
- ce8:	61 15       	cp	r22, r1
- cea:	71 05       	cpc	r23, r1
- cec:	21 f0       	breq	.+8      	; 0xcf6 <malloc+0x92>
- cee:	fb 01       	movw	r30, r22
- cf0:	93 83       	std	Z+3, r25	; 0x03
- cf2:	82 83       	std	Z+2, r24	; 0x02
- cf4:	04 c0       	rjmp	.+8      	; 0xcfe <malloc+0x9a>
- cf6:	90 93 32 01 	sts	0x0132, r25
- cfa:	80 93 31 01 	sts	0x0131, r24
- cfe:	fe 01       	movw	r30, r28
- d00:	32 96       	adiw	r30, 0x02	; 2
- d02:	42 c0       	rjmp	.+132    	; 0xd88 <malloc+0x124>
- d04:	fe 01       	movw	r30, r28
- d06:	e8 0f       	add	r30, r24
- d08:	f9 1f       	adc	r31, r25
- d0a:	41 93       	st	Z+, r20
- d0c:	51 93       	st	Z+, r21
- d0e:	02 97       	sbiw	r24, 0x02	; 2
- d10:	99 83       	std	Y+1, r25	; 0x01
- d12:	88 83       	st	Y, r24
- d14:	39 c0       	rjmp	.+114    	; 0xd88 <malloc+0x124>
- d16:	80 91 2f 01 	lds	r24, 0x012F
- d1a:	90 91 30 01 	lds	r25, 0x0130
- d1e:	00 97       	sbiw	r24, 0x00	; 0
- d20:	41 f4       	brne	.+16     	; 0xd32 <malloc+0xce>
- d22:	80 91 64 00 	lds	r24, 0x0064
- d26:	90 91 65 00 	lds	r25, 0x0065
- d2a:	90 93 30 01 	sts	0x0130, r25
- d2e:	80 93 2f 01 	sts	0x012F, r24
- d32:	20 91 62 00 	lds	r18, 0x0062
- d36:	30 91 63 00 	lds	r19, 0x0063
- d3a:	21 15       	cp	r18, r1
- d3c:	31 05       	cpc	r19, r1
- d3e:	41 f4       	brne	.+16     	; 0xd50 <malloc+0xec>
- d40:	2d b7       	in	r18, 0x3d	; 61
- d42:	3e b7       	in	r19, 0x3e	; 62
- d44:	80 91 66 00 	lds	r24, 0x0066
- d48:	90 91 67 00 	lds	r25, 0x0067
- d4c:	28 1b       	sub	r18, r24
- d4e:	39 0b       	sbc	r19, r25
- d50:	e0 91 2f 01 	lds	r30, 0x012F
- d54:	f0 91 30 01 	lds	r31, 0x0130
- d58:	e2 17       	cp	r30, r18
- d5a:	f3 07       	cpc	r31, r19
- d5c:	98 f4       	brcc	.+38     	; 0xd84 <malloc+0x120>
- d5e:	2e 1b       	sub	r18, r30
- d60:	3f 0b       	sbc	r19, r31
- d62:	24 17       	cp	r18, r20
- d64:	35 07       	cpc	r19, r21
- d66:	70 f0       	brcs	.+28     	; 0xd84 <malloc+0x120>
- d68:	ca 01       	movw	r24, r20
- d6a:	02 96       	adiw	r24, 0x02	; 2
- d6c:	28 17       	cp	r18, r24
- d6e:	39 07       	cpc	r19, r25
- d70:	48 f0       	brcs	.+18     	; 0xd84 <malloc+0x120>
- d72:	8e 0f       	add	r24, r30
- d74:	9f 1f       	adc	r25, r31
- d76:	90 93 30 01 	sts	0x0130, r25
- d7a:	80 93 2f 01 	sts	0x012F, r24
- d7e:	41 93       	st	Z+, r20
- d80:	51 93       	st	Z+, r21
- d82:	02 c0       	rjmp	.+4      	; 0xd88 <malloc+0x124>
- d84:	e0 e0       	ldi	r30, 0x00	; 0
- d86:	f0 e0       	ldi	r31, 0x00	; 0
- d88:	cf 01       	movw	r24, r30
- d8a:	df 91       	pop	r29
- d8c:	cf 91       	pop	r28
- d8e:	08 95       	ret
-
-00000d90 <free>:
- d90:	0f 93       	push	r16
- d92:	1f 93       	push	r17
- d94:	cf 93       	push	r28
- d96:	df 93       	push	r29
- d98:	9c 01       	movw	r18, r24
- d9a:	00 97       	sbiw	r24, 0x00	; 0
- d9c:	09 f4       	brne	.+2      	; 0xda0 <free+0x10>
- d9e:	8c c0       	rjmp	.+280    	; 0xeb8 <free+0x128>
- da0:	dc 01       	movw	r26, r24
- da2:	12 97       	sbiw	r26, 0x02	; 2
- da4:	13 96       	adiw	r26, 0x03	; 3
- da6:	1c 92       	st	X, r1
- da8:	1e 92       	st	-X, r1
- daa:	12 97       	sbiw	r26, 0x02	; 2
- dac:	60 91 31 01 	lds	r22, 0x0131
- db0:	70 91 32 01 	lds	r23, 0x0132
- db4:	61 15       	cp	r22, r1
- db6:	71 05       	cpc	r23, r1
- db8:	89 f4       	brne	.+34     	; 0xddc <free+0x4c>
- dba:	8d 91       	ld	r24, X+
- dbc:	9c 91       	ld	r25, X
- dbe:	11 97       	sbiw	r26, 0x01	; 1
- dc0:	82 0f       	add	r24, r18
- dc2:	93 1f       	adc	r25, r19
- dc4:	20 91 2f 01 	lds	r18, 0x012F
- dc8:	30 91 30 01 	lds	r19, 0x0130
- dcc:	28 17       	cp	r18, r24
- dce:	39 07       	cpc	r19, r25
- dd0:	69 f5       	brne	.+90     	; 0xe2c <free+0x9c>
- dd2:	b0 93 30 01 	sts	0x0130, r27
- dd6:	a0 93 2f 01 	sts	0x012F, r26
- dda:	6e c0       	rjmp	.+220    	; 0xeb8 <free+0x128>
- ddc:	fb 01       	movw	r30, r22
- dde:	40 e0       	ldi	r20, 0x00	; 0
- de0:	50 e0       	ldi	r21, 0x00	; 0
- de2:	01 c0       	rjmp	.+2      	; 0xde6 <free+0x56>
- de4:	fc 01       	movw	r30, r24
- de6:	ea 17       	cp	r30, r26
- de8:	fb 07       	cpc	r31, r27
- dea:	30 f4       	brcc	.+12     	; 0xdf8 <free+0x68>
- dec:	82 81       	ldd	r24, Z+2	; 0x02
- dee:	93 81       	ldd	r25, Z+3	; 0x03
- df0:	af 01       	movw	r20, r30
- df2:	00 97       	sbiw	r24, 0x00	; 0
- df4:	b9 f7       	brne	.-18     	; 0xde4 <free+0x54>
- df6:	1f c0       	rjmp	.+62     	; 0xe36 <free+0xa6>
- df8:	e9 01       	movw	r28, r18
- dfa:	22 97       	sbiw	r28, 0x02	; 2
- dfc:	fb 83       	std	Y+3, r31	; 0x03
- dfe:	ea 83       	std	Y+2, r30	; 0x02
- e00:	08 81       	ld	r16, Y
- e02:	19 81       	ldd	r17, Y+1	; 0x01
- e04:	c9 01       	movw	r24, r18
- e06:	80 0f       	add	r24, r16
- e08:	91 1f       	adc	r25, r17
- e0a:	8e 17       	cp	r24, r30
- e0c:	9f 07       	cpc	r25, r31
- e0e:	59 f4       	brne	.+22     	; 0xe26 <free+0x96>
- e10:	80 81       	ld	r24, Z
- e12:	91 81       	ldd	r25, Z+1	; 0x01
- e14:	80 0f       	add	r24, r16
- e16:	91 1f       	adc	r25, r17
- e18:	02 96       	adiw	r24, 0x02	; 2
- e1a:	99 83       	std	Y+1, r25	; 0x01
- e1c:	88 83       	st	Y, r24
- e1e:	82 81       	ldd	r24, Z+2	; 0x02
- e20:	93 81       	ldd	r25, Z+3	; 0x03
- e22:	9b 83       	std	Y+3, r25	; 0x03
- e24:	8a 83       	std	Y+2, r24	; 0x02
- e26:	41 15       	cp	r20, r1
- e28:	51 05       	cpc	r21, r1
- e2a:	29 f4       	brne	.+10     	; 0xe36 <free+0xa6>
- e2c:	b0 93 32 01 	sts	0x0132, r27
- e30:	a0 93 31 01 	sts	0x0131, r26
- e34:	41 c0       	rjmp	.+130    	; 0xeb8 <free+0x128>
- e36:	fa 01       	movw	r30, r20
- e38:	b3 83       	std	Z+3, r27	; 0x03
- e3a:	a2 83       	std	Z+2, r26	; 0x02
- e3c:	c1 91       	ld	r28, Z+
- e3e:	d1 91       	ld	r29, Z+
- e40:	ec 0f       	add	r30, r28
- e42:	fd 1f       	adc	r31, r29
- e44:	ae 17       	cp	r26, r30
- e46:	bf 07       	cpc	r27, r31
- e48:	81 f4       	brne	.+32     	; 0xe6a <free+0xda>
- e4a:	f9 01       	movw	r30, r18
- e4c:	92 91       	ld	r25, -Z
- e4e:	82 91       	ld	r24, -Z
- e50:	8c 0f       	add	r24, r28
- e52:	9d 1f       	adc	r25, r29
- e54:	02 96       	adiw	r24, 0x02	; 2
- e56:	da 01       	movw	r26, r20
- e58:	11 96       	adiw	r26, 0x01	; 1
- e5a:	9c 93       	st	X, r25
- e5c:	8e 93       	st	-X, r24
- e5e:	82 81       	ldd	r24, Z+2	; 0x02
- e60:	93 81       	ldd	r25, Z+3	; 0x03
- e62:	13 96       	adiw	r26, 0x03	; 3
- e64:	9c 93       	st	X, r25
- e66:	8e 93       	st	-X, r24
- e68:	12 97       	sbiw	r26, 0x02	; 2
- e6a:	e0 e0       	ldi	r30, 0x00	; 0
- e6c:	f0 e0       	ldi	r31, 0x00	; 0
- e6e:	02 c0       	rjmp	.+4      	; 0xe74 <free+0xe4>
- e70:	fb 01       	movw	r30, r22
- e72:	bc 01       	movw	r22, r24
- e74:	db 01       	movw	r26, r22
- e76:	12 96       	adiw	r26, 0x02	; 2
- e78:	8d 91       	ld	r24, X+
- e7a:	9c 91       	ld	r25, X
- e7c:	13 97       	sbiw	r26, 0x03	; 3
- e7e:	00 97       	sbiw	r24, 0x00	; 0
- e80:	b9 f7       	brne	.-18     	; 0xe70 <free+0xe0>
- e82:	cb 01       	movw	r24, r22
- e84:	02 96       	adiw	r24, 0x02	; 2
- e86:	2d 91       	ld	r18, X+
- e88:	3c 91       	ld	r19, X
- e8a:	11 97       	sbiw	r26, 0x01	; 1
- e8c:	82 0f       	add	r24, r18
- e8e:	93 1f       	adc	r25, r19
- e90:	20 91 2f 01 	lds	r18, 0x012F
- e94:	30 91 30 01 	lds	r19, 0x0130
- e98:	28 17       	cp	r18, r24
- e9a:	39 07       	cpc	r19, r25
- e9c:	69 f4       	brne	.+26     	; 0xeb8 <free+0x128>
- e9e:	30 97       	sbiw	r30, 0x00	; 0
- ea0:	29 f4       	brne	.+10     	; 0xeac <free+0x11c>
- ea2:	10 92 32 01 	sts	0x0132, r1
- ea6:	10 92 31 01 	sts	0x0131, r1
- eaa:	02 c0       	rjmp	.+4      	; 0xeb0 <free+0x120>
- eac:	13 82       	std	Z+3, r1	; 0x03
- eae:	12 82       	std	Z+2, r1	; 0x02
- eb0:	70 93 30 01 	sts	0x0130, r23
- eb4:	60 93 2f 01 	sts	0x012F, r22
- eb8:	df 91       	pop	r29
- eba:	cf 91       	pop	r28
- ebc:	1f 91       	pop	r17
- ebe:	0f 91       	pop	r16
+00000e8c <__epilogue_restores__>:
+ e8c:	2a 88       	ldd	r2, Y+18	; 0x12
+ e8e:	39 88       	ldd	r3, Y+17	; 0x11
+ e90:	48 88       	ldd	r4, Y+16	; 0x10
+ e92:	5f 84       	ldd	r5, Y+15	; 0x0f
+ e94:	6e 84       	ldd	r6, Y+14	; 0x0e
+ e96:	7d 84       	ldd	r7, Y+13	; 0x0d
+ e98:	8c 84       	ldd	r8, Y+12	; 0x0c
+ e9a:	9b 84       	ldd	r9, Y+11	; 0x0b
+ e9c:	aa 84       	ldd	r10, Y+10	; 0x0a
+ e9e:	b9 84       	ldd	r11, Y+9	; 0x09
+ ea0:	c8 84       	ldd	r12, Y+8	; 0x08
+ ea2:	df 80       	ldd	r13, Y+7	; 0x07
+ ea4:	ee 80       	ldd	r14, Y+6	; 0x06
+ ea6:	fd 80       	ldd	r15, Y+5	; 0x05
+ ea8:	0c 81       	ldd	r16, Y+4	; 0x04
+ eaa:	1b 81       	ldd	r17, Y+3	; 0x03
+ eac:	aa 81       	ldd	r26, Y+2	; 0x02
+ eae:	b9 81       	ldd	r27, Y+1	; 0x01
+ eb0:	ce 0f       	add	r28, r30
+ eb2:	d1 1d       	adc	r29, r1
+ eb4:	0f b6       	in	r0, 0x3f	; 63
+ eb6:	f8 94       	cli
+ eb8:	de bf       	out	0x3e, r29	; 62
+ eba:	0f be       	out	0x3f, r0	; 63
+ ebc:	cd bf       	out	0x3d, r28	; 61
+ ebe:	ed 01       	movw	r28, r26
  ec0:	08 95       	ret
 
-00000ec2 <memset>:
- ec2:	dc 01       	movw	r26, r24
- ec4:	01 c0       	rjmp	.+2      	; 0xec8 <memset+0x6>
- ec6:	6d 93       	st	X+, r22
- ec8:	41 50       	subi	r20, 0x01	; 1
- eca:	50 40       	sbci	r21, 0x00	; 0
- ecc:	e0 f7       	brcc	.-8      	; 0xec6 <memset+0x4>
- ece:	08 95       	ret
+00000ec2 <_exit>:
+ ec2:	f8 94       	cli
 
-00000ed0 <_exit>:
- ed0:	f8 94       	cli
-
-00000ed2 <__stop_program>:
- ed2:	ff cf       	rjmp	.-2      	; 0xed2 <__stop_program>
+00000ec4 <__stop_program>:
+ ec4:	ff cf       	rjmp	.-2      	; 0xec4 <__stop_program>
